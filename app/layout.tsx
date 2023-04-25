@@ -1,7 +1,10 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
 import Navbar from "./components/Navbar";
-import "./globals.css";
+import "antd/dist/reset.css";
+import { Layout } from "antd";
+import styles from "./layout.module.css";
+// import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -12,8 +15,17 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SessionProvider>
-          <Navbar />
-          <main>{children}</main>
+          <Layout>
+            <Layout.Header className={styles.header}>
+              <Navbar />
+            </Layout.Header>
+            <Layout.Content className={styles.content}>
+              {children}
+            </Layout.Content>
+            <Layout.Footer className={styles.footer}>
+              Ant Design ©2023 Created by Ant UED
+            </Layout.Footer>
+          </Layout>
         </SessionProvider>
       </body>
     </html>

@@ -1,0 +1,13 @@
+.header {
+    padding: 0;
+}
+
+.content {
+    min-height: calc(100vh - 130px);
+    padding: 24px;
+}
+
+.footer {
+    background-color: white;
+    text-align: center;
+}
