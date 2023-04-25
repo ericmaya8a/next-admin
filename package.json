@@ -1,22 +1,43 @@
 {
-  "name": "next-authentication",
+  "name": "next-admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "db:push": "npx dotenv -e .env.local -- prisma db push",
+    "migrate:reset": "npx dotenv -e .env.local -- prisma migrate reset",
+    "db:seed": "npx dotenv -e .env.local -- prisma db seed",
+    "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
+    "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
+    "production:build": "npx prisma generate && npx prisma migrate deploy && next build",
+    "dev:open": "docker-compose up -d && yarn migrate:dev && yarn db:seed && yarn dev",
+    "dev:close": "docker-compose down"
+  },
+  "prisma": {
+    "seed": "npx dotenv -e .env.local -- ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^4.13.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
+    "bcryptjs": "2.4.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
-    "next": "13.3.0",
+    "next": "^13.3.1",
+    "next-auth": "^4.22.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.2",
+    "dotenv-cli": "^7.2.1",
+    "prisma": "^4.13.0",
+    "ts-node": "^10.9.1"
   }
 }

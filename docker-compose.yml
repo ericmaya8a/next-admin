@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    container_name: some-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: shhitsasecret
+    ports:
+      - 5433:5432
+      
