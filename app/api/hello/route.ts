@@ -1,7 +1,16 @@
 import { prisma } from "@/server/db/client";
 import { NextResponse } from "next/server";
+import { getSessionFromServer } from "@/app/server/utils";
 
 export async function GET(request: Request) {
+  const session = await getSessionFromServer();
+
+  if (!session) {
+    return new NextResponse(JSON.stringify({ error: "unauthorized" }), {
+      status: 401,
+    });
+  }
+
   const posts = await prisma.post.findMany({
     select: { id: true, title: true, content: true },
   });

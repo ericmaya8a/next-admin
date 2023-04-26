@@ -1,12 +1,11 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { getSessionFromServer } from "./server/utils";
 
 export const metadata = {
   title: "Create Next App",
 };
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  const session = await getSessionFromServer();
 
   return (
     <>
