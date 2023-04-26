@@ -6,10 +6,12 @@ import { Button, Card, Form, Input } from "antd";
 import { FaGithub } from "react-icons/fa";
 import styles from "./Login.module.css";
 
+const URL = "/admin";
+
 function handleSignInWithGithub() {
   signIn("github", {
     redirect: true,
-    callbackUrl: "/admin",
+    callbackUrl: URL,
   });
 }
 
@@ -21,7 +23,7 @@ export default function LoginPage() {
     try {
       await signIn("credentials", {
         redirect: true,
-        callbackUrl: "/admin",
+        callbackUrl: URL,
         email,
         password,
       });
