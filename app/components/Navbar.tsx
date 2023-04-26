@@ -27,10 +27,10 @@ const userItems: MenuProps["items"] = [
 export default function Navbar() {
   return (
     <Row>
-      <Col span={22}>
+      <Col xs={18} sm={20} md={21} lg={22}>
         <Menu mode="horizontal" items={menuItems} />
       </Col>
-      <Col span={2}>
+      <Col xs={6} sm={4} md={3} lg={2}>
         <Menu mode="horizontal" items={userItems} />
       </Col>
     </Row>

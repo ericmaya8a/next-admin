@@ -1,8 +1,10 @@
-import { Avatar, Button, Popover } from "antd";
+import { Avatar, Popover } from "antd";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { AiOutlineUser } from "react-icons/ai";
+import { FaSignOutAlt } from "react-icons/fa";
+import { Button } from "./commons/Button/Button";
 
 function handleSignOut() {
   signOut({
@@ -21,11 +23,9 @@ export function UserInfo({ session }: UserInfoProps) {
       <p>
         <strong>{session.user?.email}</strong>
       </p>
-      <p>
-        <Button type="primary" onClick={handleSignOut}>
-          Sign out
-        </Button>
-      </p>
+      <Button type="primary" icon={<FaSignOutAlt />} onClick={handleSignOut}>
+        Sign out
+      </Button>
     </div>
   );
 

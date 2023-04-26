@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { Button, Card, Form, Input } from "antd";
+import { FaGithub } from "react-icons/fa";
+import styles from "./Login.module.css";
 
 function handleSignInWithGithub() {
   signIn("github", {
@@ -14,8 +17,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       await signIn("credentials", {
         redirect: true,
@@ -29,35 +31,41 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={({ target: { value } }) => setEmail(value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={({ target: { value } }) => setPassword(value)}
-          />
-        </div>
-        <button type="submit">Sign in</button>
-      </form>
-      <p>Or sign up with</p>
-      <button type="button" onClick={handleSignInWithGithub}>
-        Github
-      </button>
+    <div className={styles.login}>
+      <Card className={styles.card}>
+        <Form noValidate layout="vertical" onFinish={handleSubmit}>
+          <Form.Item label="Email" name="email">
+            <Input
+              name="email"
+              type="email"
+              value={email}
+              onChange={({ target: { value } }) => setEmail(value)}
+            />
+          </Form.Item>
+
+          <Form.Item label="Password" name="password">
+            <Input
+              name="password"
+              type="password"
+              value={password}
+              onChange={({ target: { value } }) => setPassword(value)}
+            />
+          </Form.Item>
+
+          <Button type="primary" htmlType="submit">
+            Sign in
+          </Button>
+        </Form>
+
+        <p>Or sign up with</p>
+        <Button
+          type="primary"
+          ghost
+          htmlType="button"
+          onClick={handleSignInWithGithub}
+          icon={<FaGithub />}
+        />
+      </Card>
     </div>
   );
 }

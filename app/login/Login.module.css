@@ -1,0 +1,27 @@
+.login {
+    display: grid;
+    min-height: calc(100vh - 178px);
+}
+
+.login p {
+    margin-top: 1em;
+}
+
+.card {
+    height: auto;
+    place-self: center;
+    text-align: center;
+    width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+    .card {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .card {
+        width: 30%;
+    }
+}
