@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <>
       <h1>Hello Next.js!</h1>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
+      {session ? <pre>{JSON.stringify(session, null, 2)}</pre> : null}
     </>
   );
 }
