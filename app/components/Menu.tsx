@@ -23,7 +23,7 @@ const items: MenuItem[] = [
     template: (
       <Link href="/about">
         <Button
-          icon={PrimeIcons.QUESTION}
+          icon={PrimeIcons.INFO_CIRCLE}
           label="About"
           iconPos="right"
           severity="secondary"

@@ -1,13 +1,3 @@
-.header {
-    padding: 0;
-}
-
-.content {
-    min-height: calc(100vh - 128px);
-    padding: 24px;
-}
-
-.footer {
-    background-color: white;
-    text-align: center;
+.AppContainer {
+    padding: 0 1rem;
 }

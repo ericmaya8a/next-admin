@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { Button, Card, Form, Input } from "antd";
+import { Button } from "primereact/button";
 import { FaGithub } from "react-icons/fa";
 import styles from "./Login.module.css";
 
@@ -19,7 +19,9 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     try {
       await signIn("credentials", {
         redirect: true,
@@ -34,40 +36,42 @@ export default function LoginPage() {
 
   return (
     <div className={styles.login}>
-      <Card className={styles.card}>
-        <Form noValidate layout="vertical" onFinish={handleSubmit}>
-          <Form.Item label="Email" name="email">
-            <Input
+      <div className={styles.card}>
+        <form noValidate onSubmit={handleSubmit}>
+          <label>
+            Email
+            <input
               name="email"
               type="email"
               value={email}
               onChange={({ target: { value } }) => setEmail(value)}
             />
-          </Form.Item>
+          </label>
 
-          <Form.Item label="Password" name="password">
-            <Input
+          <label>
+            Password
+            <input
               name="password"
               type="password"
               value={password}
               onChange={({ target: { value } }) => setPassword(value)}
             />
-          </Form.Item>
+          </label>
 
-          <Button type="primary" htmlType="submit">
+          <Button security="Info" type="submit">
             Sign in
           </Button>
-        </Form>
+        </form>
 
         <p>Or sign up with</p>
         <Button
-          type="primary"
-          ghost
-          htmlType="button"
+          type="button"
+          severity="info"
+          outlined
           onClick={handleSignInWithGithub}
           icon={<FaGithub />}
         />
-      </Card>
+      </div>
     </div>
   );
 }
