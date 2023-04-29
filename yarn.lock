@@ -56,6 +56,13 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
+"@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+  version "7.21.5"
+  resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/@babel/runtime/-/runtime-7.21.5.tgz#8492dddda9644ae3bda3b45eabe87382caee7200"
+  integrity sha512-8jI69toZqqcsnqGGqwGS4Qb1VwLOEp4hz+CXPywcvjs60u3B4Pom/U/7rm4W8tMOYEB+E9wgD0mW1l3r8qlI9Q==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz#00629c35a688e05a88b1cda684fb9d5e73f000a1"
@@ -372,6 +379,13 @@
   version "18.0.11"
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/@types/react-dom/-/react-dom-18.0.11.tgz#321351c1459bc9ca3d216aefc8a167beec334e33"
   integrity sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-transition-group@^4.4.1":
+  version "4.4.5"
+  resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/@types/react-transition-group/-/react-transition-group-4.4.5.tgz#aae20dcf773c5aa275d5b9f7cdbca638abc5e416"
+  integrity sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==
   dependencies:
     "@types/react" "*"
 
@@ -843,6 +857,14 @@ dom-align@^1.7.0:
   version "1.12.4"
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/dom-align/-/dom-align-1.12.4.tgz#3503992eb2a7cfcb2ed3b2a6d21e0b9c00d54511"
   integrity sha512-R8LUSEay/68zE5c8/3BDxiTEvgb4xZTF0RKmAHfiEVN3klfIpXfi2/QCoiWPccVQ0J/ZGdz9OjzL4uJEP/MRAw==
+
+dom-helpers@^5.0.1:
+  version "5.2.1"
+  resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/dom-helpers/-/dom-helpers-5.2.1.tgz#d9400536b2bf8225ad98fe052e029451ac40e902"
+  integrity sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    csstype "^3.0.2"
 
 dotenv-cli@^7.2.1:
   version "7.2.1"
@@ -1837,6 +1859,11 @@ next@^13.3.1:
     "@next/swc-win32-ia32-msvc" "13.3.1"
     "@next/swc-win32-x64-msvc" "13.3.1"
 
+normalize.css@^8.0.1:
+  version "8.0.1"
+  resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
+  integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
+
 oauth@^0.9.15:
   version "0.9.15"
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/oauth/-/oauth-0.9.15.tgz#bd1fefaf686c96b75475aed5196412ff60cfb9c1"
@@ -2045,6 +2072,19 @@ pretty-format@^3.8.0:
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
   integrity sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==
 
+primeicons@^6.0.1:
+  version "6.0.1"
+  resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/primeicons/-/primeicons-6.0.1.tgz#431fa7c79825934eefd62087d8e1faa6a9e376ad"
+  integrity sha512-KDeO94CbWI4pKsPnYpA1FPjo79EsY9I+M8ywoPBSf9XMXoe/0crjbUK7jcQEDHuc0ZMRIZsxH3TYLv4TUtHmAA==
+
+primereact@^9.3.1:
+  version "9.3.1"
+  resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/primereact/-/primereact-9.3.1.tgz#c5b4e267a3df6e4566cd4337e895b587d6ad44da"
+  integrity sha512-Ja4ZftnEyuVIcPb2zppbVXE7L6cmYr87XfA6FcQHN0SCsXRW86c2Q/DJi7hC67V/9aPNQd/TrNRxpSQbSI7I/g==
+  dependencies:
+    "@types/react-transition-group" "^4.4.1"
+    react-transition-group "^4.4.1"
+
 prisma@^4.13.0:
   version "4.13.0"
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/prisma/-/prisma-4.13.0.tgz#0b83f40acf50cd47d7463a135c4e9b275713e602"
@@ -2052,7 +2092,7 @@ prisma@^4.13.0:
   dependencies:
     "@prisma/engines" "4.13.0"
 
-prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -2461,6 +2501,16 @@ react-is@^16.12.0, react-is@^16.13.1:
   version "16.13.1"
   resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-transition-group@^4.4.1:
+  version "4.4.5"
+  resolved "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
+  integrity sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
 
 react@18.2.0:
   version "18.2.0"
