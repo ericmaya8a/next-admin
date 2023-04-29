@@ -1,0 +1,7 @@
+.Main-loading {
+    max-width: 50%;
+}
+
+.Main-loading .p-skeleton {
+    margin-bottom: 5px;
+}   

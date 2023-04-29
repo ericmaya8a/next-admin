@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { UserInfo } from "./UserInfo";
+import { Button } from "primereact/button";
+import { PrimeIcons } from "primereact/api";
 
 export default function SignUser() {
   const { data: session, status } = useSession();
@@ -9,5 +11,15 @@ export default function SignUser() {
     return <UserInfo session={session} />;
   }
 
-  return <Link href="/login">Sign in</Link>;
+  return (
+    <Link href="/login">
+      <Button
+        label="Sign in"
+        severity="secondary"
+        text
+        icon={PrimeIcons.SIGN_IN}
+        iconPos="right"
+      />
+    </Link>
+  );
 }

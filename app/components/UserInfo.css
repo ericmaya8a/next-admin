@@ -1,0 +1,12 @@
+.user-info-avatar {
+    cursor: pointer;
+}
+
+.UserInfo .p-confirm-popup-message {
+    margin-left: 0 !important;
+}
+
+.UserInfo .p-confirm-popup-footer {
+    padding-bottom: 1.25rem;
+    text-align: center !important;
+}
