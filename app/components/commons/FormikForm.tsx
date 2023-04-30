@@ -1,4 +1,4 @@
-import { Formik, FormikConfig, FormikValues } from "formik";
+import { Form, Formik, FormikConfig, FormikValues } from "formik";
 
 type ForkimFormProps<T> = {
   initialValues: FormikConfig<T>["initialValues"];
@@ -22,7 +22,7 @@ export function FormikForm<T extends FormikValues>({
       validateOnBlur={false}
       enableReinitialize
     >
-      {() => <>{children}</>}
+      {() => <Form>{children}</Form>}
     </Formik>
   );
 }

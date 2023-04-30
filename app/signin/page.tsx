@@ -1,72 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import * as Yup from "yup";
-import { Button } from "primereact/button";
-import { FaGithub } from "react-icons/fa";
+import { FullPageFormWrapper } from "../components/commons/FullPageFormWrapper";
 import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
 import { FormikSubmitButton } from "../components/commons/FormikSubmitButton";
-import { FullPageFormWrapper } from "../components/commons/FullPageFormWrapper";
 
 type FormProps = {
+  name: string;
   email: string;
   password: string;
 };
 
-const URL = "/admin";
-
 const validationSchema = Yup.object({
+  name: Yup.string().required().label("Name"),
   email: Yup.string().email("Invalid Email").required().label("Email"),
   password: Yup.string().min(7).required().label("Password"),
 });
 
 const initialValues: FormProps = {
+  name: "",
   email: "",
   password: "",
 };
 
-export default function LoginPage() {
+export default function SigninPage() {
   const [loading, setLoading] = useState(false);
 
-  async function handleSignInWithGithub() {
+  const handleSubmit = async ({ name, email, password }: FormProps) => {
     setLoading(true);
-    try {
-      await signIn("github", {
-        redirect: true,
-        callbackUrl: URL,
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const handleSubmit = async ({ email, password }: FormProps) => {
-    setLoading(true);
-    try {
-      await signIn("credentials", {
-        redirect: true,
-        callbackUrl: URL,
-        email,
-        password,
-      });
-    } catch (error) {
-      console.log({ error });
-    } finally {
-      setLoading(false);
-    }
+    console.log({ name, email, password });
+    setLoading(false);
   };
 
   return (
-    <FullPageFormWrapper>
+    <FullPageFormWrapper title="Sign in">
       <FormikForm<FormProps>
         initialValues={initialValues}
         validatiinSchema={validationSchema}
         onSubmit={handleSubmit}
       >
+        <FormikFormField label="Name" id="name" name="name" width="100%" />
         <FormikFormField
           label="Email"
           id="email"
@@ -82,22 +57,12 @@ export default function LoginPage() {
           width="100%"
         />
         <FormikSubmitButton
-          type="submit"
-          severity="info"
+          security="info"
           loading={loading}
-          label="Log in"
+          label="Register"
+          type="submit"
         />
       </FormikForm>
-
-      <p>Or sign up with</p>
-      <Button
-        type="button"
-        severity="info"
-        outlined
-        onClick={handleSignInWithGithub}
-        icon={<FaGithub />}
-        loading={loading}
-      />
     </FullPageFormWrapper>
   );
 }

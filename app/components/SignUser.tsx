@@ -14,7 +14,7 @@ export default function SignUser() {
   return (
     <Link href="/login">
       <Button
-        label="Sign in"
+        label="Log in"
         severity="secondary"
         text
         icon={PrimeIcons.SIGN_IN}
