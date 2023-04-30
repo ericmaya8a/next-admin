@@ -2,26 +2,50 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import * as Yup from "yup";
 import { Button } from "primereact/button";
 import { FaGithub } from "react-icons/fa";
+import { FormikForm } from "../components/commons/FormikForm";
+import { FormikFormField } from "../components/commons/FormikFormField";
+import { FormikSubmitButton } from "../components/commons/FormikSubmitButton";
 import styles from "./Login.module.css";
+
+type FormProps = {
+  email: string;
+  password: string;
+};
 
 const URL = "/admin";
 
-function handleSignInWithGithub() {
-  signIn("github", {
-    redirect: true,
-    callbackUrl: URL,
-  });
-}
+const validationSchema = Yup.object({
+  email: Yup.string().email("Invalid Email").required().label("Email"),
+  password: Yup.string().min(7).required().label("Password"),
+});
+
+const initialValues: FormProps = {
+  email: "",
+  password: "",
+};
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  async function handleSignInWithGithub() {
+    setLoading(true);
+    try {
+      await signIn("github", {
+        redirect: true,
+        callbackUrl: URL,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
+  const handleSubmit = async ({ email, password }: FormProps) => {
+    setLoading(true);
     try {
       await signIn("credentials", {
         redirect: true,
@@ -31,37 +55,39 @@ export default function LoginPage() {
       });
     } catch (error) {
       console.log({ error });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={styles.login}>
       <div className={styles.card}>
-        <form noValidate onSubmit={handleSubmit}>
-          <label>
-            Email
-            <input
-              name="email"
-              type="email"
-              value={email}
-              onChange={({ target: { value } }) => setEmail(value)}
-            />
-          </label>
-
-          <label>
-            Password
-            <input
-              name="password"
-              type="password"
-              value={password}
-              onChange={({ target: { value } }) => setPassword(value)}
-            />
-          </label>
-
-          <Button security="Info" type="submit">
-            Sign in
-          </Button>
-        </form>
+        <FormikForm<FormProps>
+          initialValues={initialValues}
+          validatiinSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <FormikFormField
+            label="Email"
+            id="email"
+            name="email"
+            type="email"
+            width="100%"
+          />
+          <FormikFormField
+            label="Password"
+            id="password"
+            name="password"
+            type="password"
+            width="100%"
+          />
+          <FormikSubmitButton
+            severity="info"
+            loading={loading}
+            label="Sign in"
+          />
+        </FormikForm>
 
         <p>Or sign up with</p>
         <Button
@@ -70,6 +96,7 @@ export default function LoginPage() {
           outlined
           onClick={handleSignInWithGithub}
           icon={<FaGithub />}
+          loading={loading}
         />
       </div>
     </div>
