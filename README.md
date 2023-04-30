@@ -16,13 +16,15 @@ This project uses the following technologies:
 yarn
 ```
 
-3. Start postgres container, seed data and run development server:
+3. Set your environment variables (example in `.env.example` file)
+
+4. Start postgres container, seed data and run development server:
 
 ```bash
 yarn dev:open
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
 ## Other commands
 
