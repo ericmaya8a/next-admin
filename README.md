@@ -2,14 +2,14 @@
 
 This project uses the following technologies:
 
-- [Next.js](https://nextjs.org/docs)
-- [Prisma.io](https://www.prisma.io/docs)
-- [Formik.org](https://formik.org/)
-- [PrimeReact.org](https://primereact.org/)
+- [Next.js](https://nextjs.org/docs){:target="\_blank"}
+- [Prisma.io](https://www.prisma.io/docs){:target="\_blank"}
+- [Formik.org](https://formik.org/){:target="\_blank"}
+- [PrimeReact.org](https://primereact.org/){:target="\_blank"}
 
 ## Getting Started
 
-1. Install [`docker desktop`](https://docs.docker.com/desktop/install/mac-install/)
+1. Install [`docker desktop`](https://docs.docker.com/desktop/install/mac-install/){:target="\_blank"}
 2. Install dependencies:
 
 ```bash
@@ -24,7 +24,7 @@ yarn
 yarn dev:open
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
+5. Open [http://localhost:3000](http://localhost:3000){:target="\_blank"} with your browser to see the application.
 
 ## Other commands
 
