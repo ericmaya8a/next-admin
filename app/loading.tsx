@@ -1,7 +1,6 @@
 "use client";
 
 import { Skeleton } from "primereact/skeleton";
-import "./loading.css";
 
 export default function Loading() {
   return (

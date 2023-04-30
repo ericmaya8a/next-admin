@@ -1,6 +1,6 @@
 import { useFormikContext } from "formik";
-import { Input } from "./Input";
 import { InputTextProps } from "primereact/inputtext";
+import { Input } from "./Input";
 
 export function FormikFormField({
   id,
@@ -26,27 +26,25 @@ export function FormikFormField({
   const hasError: boolean = touched[name] && error;
 
   return (
-    <>
-      <Input
-        // @ts-ignore
-        className={errors[name] ? "p-invalid" : undefined}
-        label={label}
-        name={name}
-        type={type}
-        value={value}
-        onChange={({ target: { value } }) => setFieldValue(name, value)}
-        onBlur={() => {
-          setFieldTouched(name);
-          validateField(name);
-        }}
-        error={hasError ? error : undefined}
-        style={
-          otherProps.width
-            ? { ...otherProps.style, width: otherProps.width }
-            : { ...otherProps.style }
-        }
-        {...otherProps}
-      />
-    </>
+    <Input
+      // @ts-ignore
+      className={errors[name] ? "p-invalid" : undefined}
+      label={label}
+      name={name}
+      type={type}
+      value={value}
+      onChange={({ target: { value } }) => setFieldValue(name, value)}
+      onBlur={() => {
+        setFieldTouched(name);
+        validateField(name);
+      }}
+      error={hasError ? error : undefined}
+      style={
+        otherProps.width
+          ? { ...otherProps.style, width: otherProps.width }
+          : { ...otherProps.style }
+      }
+      {...otherProps}
+    />
   );
 }
