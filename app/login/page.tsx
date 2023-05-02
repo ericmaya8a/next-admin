@@ -26,6 +26,7 @@ const validationSchema = Yup.object({
     .matches(CONSTANTS.regex.password, {
       message: CONSTANTS.messages.invalidPassword,
     })
+    .max(16)
     .required()
     .label("Password"),
 });
