@@ -45,11 +45,14 @@ export default function SigninPage() {
   const handleSubmit = async ({ name, email, password }: FormProps) => {
     setLoading(true);
     try {
-      const data = await clientUtils.fetching.post(CONSTANTS.urls.REGISTER, {
-        name,
-        email,
-        password,
-      });
+      const data = await clientUtils.fetching.post<FormProps>(
+        CONSTANTS.urls.REGISTER,
+        {
+          name,
+          email,
+          password,
+        }
+      );
 
       if (data.ok) {
         toast.current?.show({
