@@ -2,6 +2,8 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+const users = ["Eric", "John", "Mike", "Jane", "Diana"];
+
 async function load() {
   try {
     await prisma.post.createMany({
@@ -25,14 +27,17 @@ async function load() {
       ],
     });
 
-    await prisma.user.create({
-      data: {
-        name: "Eric",
-        email: "eric@gmail.com",
-        password:
-          "$2a$10$lhx0BuWdQaFogSryz5Hr2OQKIkd5zy9P4nCrTl5df7qpoS4QW/IAy", // test123
-      },
-    });
+    users.map(
+      async (user) =>
+        await prisma.user.create({
+          data: {
+            name: user,
+            email: `${user.toLowerCase()}@gmail.com`,
+            password:
+              "$2a$10$QuXvPZQn7WVbRVIVG1bIEeB70uCqKyAa7bqLqznbhLoAjOsltXfVe", // Test!234
+          },
+        })
+    );
   } catch (error) {
     console.log(error);
     process.exit(1);

@@ -9,17 +9,25 @@ import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
 import { FormikSubmitButton } from "../components/commons/FormikSubmitButton";
 import { FullPageFormWrapper } from "../components/commons/FullPageFormWrapper";
+import { CONSTANTS } from "../constatnts";
 
 type FormProps = {
   email: string;
   password: string;
 };
 
-const URL = "/admin";
-
 const validationSchema = Yup.object({
-  email: Yup.string().email("Invalid Email").required().label("Email"),
-  password: Yup.string().min(7).required().label("Password"),
+  email: Yup.string()
+    .matches(CONSTANTS.regex.email, { message: "Invalid Email" })
+    .required()
+    .label("Email"),
+  password: Yup.string()
+    .min(8)
+    .matches(CONSTANTS.regex.password, {
+      message: CONSTANTS.messages.invalidPassword,
+    })
+    .required()
+    .label("Password"),
 });
 
 const initialValues: FormProps = {
@@ -35,7 +43,7 @@ export default function LoginPage() {
     try {
       await signIn("github", {
         redirect: true,
-        callbackUrl: URL,
+        callbackUrl: CONSTANTS.urls.ADMIN,
       });
     } catch (error) {
       console.log(error);
@@ -49,7 +57,7 @@ export default function LoginPage() {
     try {
       await signIn("credentials", {
         redirect: true,
-        callbackUrl: URL,
+        callbackUrl: CONSTANTS.urls.ADMIN,
         email,
         password,
       });
