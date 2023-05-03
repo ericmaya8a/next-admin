@@ -1,6 +1,6 @@
 import React from "react";
 import { InputText, InputTextProps } from "primereact/inputtext";
-import styles from "./Input.module.css";
+import styled from "styled-components";
 
 export function Input({
   id,
@@ -13,7 +13,7 @@ export function Input({
   ...otherProps
 }: InputTextProps & { label: string; error?: string }) {
   return (
-    <div className={styles.Input}>
+    <InputWrapper>
       <label htmlFor={id}>{label}</label>
       <InputText
         id={id}
@@ -24,6 +24,14 @@ export function Input({
         {...otherProps}
       />
       {error ? <small className="p-error">{error}</small> : null}
-    </div>
+    </InputWrapper>
   );
 }
+
+const InputWrapper = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 1rem;
+`;

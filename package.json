@@ -37,11 +37,13 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
+    "styled-components": "^5.3.10",
     "typescript": "5.0.4",
     "yup": "^1.1.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
+    "@types/styled-components": "^5.1.26",
     "dotenv-cli": "^7.2.1",
     "prisma": "^4.13.0",
     "ts-node": "^10.9.1"

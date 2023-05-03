@@ -1,4 +1,6 @@
 "use client";
+
+import { StyledComponentsRegistry } from "@/lib/registry";
 import { App } from "./App";
 import { Providers } from "./components/commons/Providers";
 import "normalize.css";
@@ -16,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <App>{children}</App>
+          <StyledComponentsRegistry>
+            <App>{children}</App>
+          </StyledComponentsRegistry>
         </Providers>
       </body>
     </html>
