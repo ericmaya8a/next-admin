@@ -35,6 +35,12 @@ async function load() {
             email: `${user.toLowerCase()}@gmail.com`,
             password:
               "$2a$10$QuXvPZQn7WVbRVIVG1bIEeB70uCqKyAa7bqLqznbhLoAjOsltXfVe", // Test!234
+            role:
+              user === "Eric"
+                ? "SUPER_ADMIN"
+                : user === "Jane"
+                ? "ADMIN"
+                : "USER",
           },
         })
     );
