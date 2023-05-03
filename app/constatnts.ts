@@ -1,7 +1,9 @@
 export const CONSTANTS = {
   urls: {
+    HOME: "/",
     ADMIN: "/admin",
     LOGIN: "/login",
+    SIGNIN: "/signin",
     REGISTER: "/api/register",
   },
   bcrypt: {
