@@ -13,7 +13,7 @@ const items: MenuItem[] = [
           icon={PrimeIcons.HOME}
           label="Home"
           iconPos="right"
-          severity="secondary"
+          severity="info"
           text
         />
       </Link>
@@ -26,7 +26,7 @@ const items: MenuItem[] = [
           icon={PrimeIcons.INFO_CIRCLE}
           label="About"
           iconPos="right"
-          severity="secondary"
+          severity="info"
           text
         />
       </Link>
@@ -39,7 +39,7 @@ const items: MenuItem[] = [
           icon={PrimeIcons.BOOK}
           label="Admin"
           iconPos="right"
-          severity="secondary"
+          severity="info"
           text
         />
       </Link>

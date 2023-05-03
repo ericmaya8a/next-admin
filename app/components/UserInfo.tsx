@@ -41,6 +41,7 @@ export function UserInfo({ session }: UserInfoProps) {
                 handleSignOut();
                 setVisible(false);
               }}
+              severity="info"
             >
               Sign out
             </Button>

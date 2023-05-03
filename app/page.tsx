@@ -1,7 +1,7 @@
 import { getSessionFromServer } from "./server/utils";
 
 export const metadata = {
-  title: "Create Next App",
+  title: "Next Admin",
 };
 
 export default async function Home() {
