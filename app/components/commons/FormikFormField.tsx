@@ -33,7 +33,12 @@ export function FormikFormField({
       name={name}
       type={type}
       value={value}
-      onChange={({ target: { value } }) => setFieldValue(name, value)}
+      onChange={(e) => {
+        setFieldValue(name, e.target.value);
+        if (onChange) {
+          onChange(e);
+        }
+      }}
       onBlur={() => {
         setFieldTouched(name);
         validateField(name);

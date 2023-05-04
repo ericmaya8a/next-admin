@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import * as Yup from "yup";
 import { Button } from "primereact/button";
+import { Message } from "primereact/message";
 import { FaGithub } from "react-icons/fa";
 import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
@@ -37,7 +39,10 @@ const initialValues: FormProps = {
 };
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const hasError = Boolean(searchParams.toString());
   const [loading, setLoading] = useState(false);
+  const [hideError, setHideError] = useState(false);
 
   async function handleSignInWithGithub() {
     setLoading(true);
@@ -69,8 +74,21 @@ export default function LoginPage() {
     }
   };
 
+  const handleError = () => {
+    if (hasError) {
+      setHideError(true);
+    }
+  };
+
   return (
     <FullPageFormWrapper>
+      {hasError && !hideError ? (
+        <Message
+          severity="error"
+          text="Invalid Email or Password"
+          style={{ marginBottom: "1rem" }}
+        />
+      ) : null}
       <FormikForm<FormProps>
         initialValues={initialValues}
         validatiinSchema={validationSchema}
@@ -82,6 +100,7 @@ export default function LoginPage() {
           name="email"
           type="email"
           width="100%"
+          onChange={handleError}
         />
         <FormikFormField
           label="Password"
@@ -89,6 +108,7 @@ export default function LoginPage() {
           name="password"
           type="password"
           width="100%"
+          onChange={handleError}
         />
         <FormikSubmitButton
           type="submit"
