@@ -40,7 +40,7 @@ const initialValues: FormProps = {
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
-  const hasError = Boolean(searchParams.toString());
+  const hasError = searchParams.toString().includes("error");
   const [loading, setLoading] = useState(false);
   const [hideError, setHideError] = useState(false);
 
