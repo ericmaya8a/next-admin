@@ -1,3 +1,11 @@
+import { ToastMessage } from "primereact/toast";
+
+const serverError: ToastMessage = {
+  severity: "error",
+  summary: "Error",
+  detail: "Server Error, please try again later",
+};
+
 export const CONSTANTS = {
   urls: {
     HOME: "/",
@@ -18,5 +26,6 @@ export const CONSTANTS = {
   messages: {
     invalidPassword:
       "Password should have at least 1 uppercase, 1 lowercase, 1 number and 1 special character",
+    serverError,
   },
 };

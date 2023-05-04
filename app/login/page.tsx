@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import * as Yup from "yup";
 import { Button } from "primereact/button";
 import { Message } from "primereact/message";
+import { Toast } from "primereact/toast";
 import { FaGithub } from "react-icons/fa";
 import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
@@ -40,9 +41,10 @@ const initialValues: FormProps = {
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
-  const hasError = searchParams.toString().includes("error");
+  const toast = useRef<Toast>(null);
   const [loading, setLoading] = useState(false);
   const [hideError, setHideError] = useState(false);
+  const hasError = searchParams.toString().includes("error");
 
   async function handleSignInWithGithub() {
     setLoading(true);
@@ -53,6 +55,7 @@ export default function LoginPage() {
       });
     } catch (error) {
       console.log(error);
+      toast.current?.show(CONSTANTS.messages.serverError);
     } finally {
       setLoading(false);
     }
@@ -69,6 +72,7 @@ export default function LoginPage() {
       });
     } catch (error) {
       console.log({ error });
+      toast.current?.show(CONSTANTS.messages.serverError);
     } finally {
       setLoading(false);
     }
@@ -81,52 +85,55 @@ export default function LoginPage() {
   };
 
   return (
-    <FullPageFormWrapper>
-      {hasError && !hideError ? (
-        <Message
-          severity="error"
-          text="Invalid Email or Password"
-          style={{ marginBottom: "1rem" }}
-        />
-      ) : null}
-      <FormikForm<FormProps>
-        initialValues={initialValues}
-        validatiinSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <FormikFormField
-          label="Email"
-          id="email"
-          name="email"
-          type="email"
-          width="100%"
-          onChange={handleError}
-        />
-        <FormikFormField
-          label="Password"
-          id="password"
-          name="password"
-          type="password"
-          width="100%"
-          onChange={handleError}
-        />
-        <FormikSubmitButton
-          type="submit"
-          severity="info"
-          loading={loading}
-          label="Log in"
-        />
-      </FormikForm>
+    <>
+      <Toast position="bottom-left" ref={toast} />
+      <FullPageFormWrapper>
+        {hasError && !hideError ? (
+          <Message
+            severity="error"
+            text="Invalid Email or Password"
+            style={{ marginBottom: "1rem" }}
+          />
+        ) : null}
+        <FormikForm<FormProps>
+          initialValues={initialValues}
+          validatiinSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <FormikFormField
+            label="Email"
+            id="email"
+            name="email"
+            type="email"
+            width="100%"
+            onChange={handleError}
+          />
+          <FormikFormField
+            label="Password"
+            id="password"
+            name="password"
+            type="password"
+            width="100%"
+            onChange={handleError}
+          />
+          <FormikSubmitButton
+            type="submit"
+            severity="info"
+            loading={loading}
+            label="Log in"
+          />
+        </FormikForm>
 
-      <p>Or sign up with</p>
-      <Button
-        type="button"
-        severity="info"
-        outlined
-        onClick={handleSignInWithGithub}
-        icon={<FaGithub />}
-        loading={loading}
-      />
-    </FullPageFormWrapper>
+        <p>Or sign up with</p>
+        <Button
+          type="button"
+          severity="info"
+          outlined
+          onClick={handleSignInWithGithub}
+          icon={<FaGithub />}
+          loading={loading}
+        />
+      </FullPageFormWrapper>
+    </>
   );
 }

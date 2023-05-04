@@ -83,11 +83,7 @@ export default function SigninPage() {
       });
     } catch (error) {
       console.log(error);
-      toast.current?.show({
-        severity: "error",
-        summary: "Error",
-        detail: "Server Error, please try again later",
-      });
+      toast.current?.show(CONSTANTS.messages.serverError);
     } finally {
       setLoading(false);
     }
@@ -95,7 +91,7 @@ export default function SigninPage() {
 
   return (
     <>
-      <Toast ref={toast} />
+      <Toast position="top-center" ref={toast} />
       <FullPageFormWrapper title="Sign in">
         <FormikForm<FormProps>
           initialValues={initialValues}
