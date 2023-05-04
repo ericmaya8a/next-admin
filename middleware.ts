@@ -3,6 +3,8 @@ import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 import { CONSTANTS } from "./app/constatnts";
 
+const protectedRoutes = [CONSTANTS.urls.ADMIN];
+
 export default withAuth(
   async function middleware(req) {
     const token = await getToken({ req });
@@ -10,6 +12,13 @@ export default withAuth(
     const isAuthPage =
       req.nextUrl.pathname.startsWith(CONSTANTS.urls.LOGIN) ||
       req.nextUrl.pathname.startsWith(CONSTANTS.urls.SIGNIN);
+    const isProtectedRoute = protectedRoutes.some((item) =>
+      req.nextUrl.pathname.startsWith(item)
+    );
+
+    if (isProtectedRoute && !isAuth) {
+      return NextResponse.redirect(new URL(CONSTANTS.urls.LOGIN, req.url));
+    }
 
     if (isAuthPage) {
       if (isAuth) {

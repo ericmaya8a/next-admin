@@ -70,7 +70,7 @@ export const authOptions: NextAuthOptions = {
           ...token,
           id: user.id,
           // @ts-ignore
-          role: user.role,
+          role: user.role ?? "USER",
         };
       }
       return token;
