@@ -1,4 +1,3 @@
-import { getToken } from "next-auth/jwt";
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 import { CONSTANTS } from "./app/constatnts";
@@ -6,8 +5,8 @@ import { CONSTANTS } from "./app/constatnts";
 const protectedRoutes = [CONSTANTS.urls.ADMIN];
 
 export default withAuth(
-  async function middleware(req) {
-    const token = await getToken({ req });
+  function middleware(req) {
+    const token = req.nextauth.token;
     const isAuth = !!token;
     const isAuthPage =
       req.nextUrl.pathname.startsWith(CONSTANTS.urls.LOGIN) ||
@@ -30,7 +29,7 @@ export default withAuth(
   },
   {
     callbacks: {
-      async authorized() {
+      authorized() {
         // This is a work-around for handling redirect on auth pages.
         // We return true here so that the middleware function above
         // is always called.
@@ -39,5 +38,3 @@ export default withAuth(
     },
   }
 );
-
-export const config = { matcher: [CONSTANTS.urls.ADMIN] };
