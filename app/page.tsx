@@ -1,3 +1,4 @@
+import { DisplayData } from "./components/commons/DisplayData";
 import { getSessionFromServer } from "./server/utils";
 
 export default async function Home() {
@@ -6,7 +7,7 @@ export default async function Home() {
   return (
     <>
       <h1>Hello Next.js!</h1>
-      {session ? <pre>{JSON.stringify(session, null, 2)}</pre> : null}
+      {session ? <DisplayData<typeof session> data={session} /> : null}
     </>
   );
 }
