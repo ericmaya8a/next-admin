@@ -1,9 +1,5 @@
 import { getSessionFromServer } from "./server/utils";
 
-export const metadata = {
-  title: "Next Admin",
-};
-
 export default async function Home() {
   const session = await getSessionFromServer();
 

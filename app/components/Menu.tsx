@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { MenuItem } from "primereact/menuitem";
 import { Menubar } from "primereact/menubar";
