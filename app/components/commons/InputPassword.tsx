@@ -1,28 +1,34 @@
-import { InputText, InputTextProps } from "primereact/inputtext";
+import { Password, PasswordProps } from "primereact/password";
+import styled from "styled-components";
 import { FormikFieldError } from "./FormikFieldError";
 import { InputWrapper } from "./InputWrapper";
 
-export function Input({
+export function InputPassword({
   id,
   name,
-  type,
   value,
   label,
   error,
   onChange,
   ...otherProps
-}: InputTextProps & { label: string; error?: string }) {
+}: PasswordProps & { label: string; error?: string }) {
   return (
     <InputWrapper id={id} label={label}>
-      <InputText
+      <StyledPassword
         id={id}
         name={name}
-        type={type}
         value={value}
         onChange={onChange}
+        toggleMask
         {...otherProps}
       />
       <FormikFieldError error={error} />
     </InputWrapper>
   );
 }
+
+const StyledPassword = styled(Password)`
+  input {
+    width: 100%;
+  }
+`;
