@@ -114,7 +114,6 @@ export default function SigninForm() {
             width="100%"
           />
           <FormikSubmitButton
-            security="info"
             loading={loading}
             label="Register"
             type="submit"

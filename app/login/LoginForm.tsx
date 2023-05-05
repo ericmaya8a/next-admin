@@ -116,18 +116,12 @@ export function LoginForm() {
             width="100%"
             onChange={handleError}
           />
-          <FormikSubmitButton
-            type="submit"
-            severity="info"
-            loading={loading}
-            label="Log in"
-          />
+          <FormikSubmitButton type="submit" loading={loading} label="Log in" />
         </FormikForm>
 
         <p>Or sign up with</p>
         <Button
           type="button"
-          severity="info"
           outlined
           onClick={handleSignInWithGithub}
           icon={<FaGithub />}

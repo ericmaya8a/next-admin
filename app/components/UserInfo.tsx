@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { FaSignOutAlt } from "react-icons/fa";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -8,6 +7,7 @@ import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import "./UserInfo.css";
+import { PrimeIcons } from "primereact/api";
 
 function handleSignOut() {
   signOut({
@@ -36,15 +36,14 @@ export function UserInfo({ session }: UserInfoProps) {
         footer={
           <div className="p-confirm-popup-footer">
             <Button
-              icon={<FaSignOutAlt />}
+              icon={PrimeIcons.SIGN_OUT}
+              iconPos="right"
+              label="Sign out"
               onClick={() => {
                 handleSignOut();
                 setVisible(false);
               }}
-              severity="info"
-            >
-              Sign out
-            </Button>
+            />
           </div>
         }
       />
