@@ -1,8 +1,9 @@
 const { PrismaClient } = require("@prisma/client");
-
 const prisma = new PrismaClient();
+const fakerUtils = require("./faker.utils");
 
 const users = ["Eric", "John", "Mike", "Jane", "Diana"];
+const students = Array.from(Array(15).keys());
 
 async function load() {
   try {
@@ -27,21 +28,19 @@ async function load() {
       ],
     });
 
+    // create users
     users.map(
       async (user) =>
         await prisma.user.create({
-          data: {
-            name: user,
-            email: `${user.toLowerCase()}@gmail.com`,
-            password:
-              "$2a$10$QuXvPZQn7WVbRVIVG1bIEeB70uCqKyAa7bqLqznbhLoAjOsltXfVe", // Test!234
-            role:
-              user === "Eric"
-                ? "SUPER_ADMIN"
-                : user === "Jane"
-                ? "ADMIN"
-                : "USER",
-          },
+          data: fakerUtils.createUser(user),
+        })
+    );
+
+    // create students
+    students.map(
+      async () =>
+        await prisma.student.create({
+          data: fakerUtils.createStudent(),
         })
     );
   } catch (error) {

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import * as Yup from "yup";
 import { Toast } from "primereact/toast";
+import { PrimeIcons } from "primereact/api";
 import { FullPageFormWrapper } from "../components/commons/FullPageFormWrapper";
 import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
@@ -114,6 +115,8 @@ export default function SigninForm() {
             width="100%"
           />
           <FormikSubmitButton
+            icon={PrimeIcons.CHECK}
+            iconPos="right"
             loading={loading}
             label="Register"
             type="submit"

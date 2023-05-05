@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import * as Yup from "yup";
 import { FaGithub } from "react-icons/fa";
+import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
 import { Message } from "primereact/message";
 import { Toast } from "primereact/toast";
@@ -116,7 +117,12 @@ export function LoginForm() {
             width="100%"
             onChange={handleError}
           />
-          <FormikSubmitButton type="submit" loading={loading} label="Log in" />
+          <FormikSubmitButton
+            type="submit"
+            icon={PrimeIcons.CHECK}
+            loading={loading}
+            label="Log in"
+          />
         </FormikForm>
 
         <p>Or sign up with</p>

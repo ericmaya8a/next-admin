@@ -26,8 +26,26 @@ model User {
   role     Role   @default(USER)
 }
 
+model Student {
+  id              String   @id @default(uuid())
+  firstName       String
+  lastName        String
+  birthDate       DateTime
+  gender          Gender   @default(FEMALE)
+  height          Float?
+  weight          Float?
+  active          Boolean  @default(true)
+  inscriptionDate DateTime
+}
+
 enum Role {
   SUPER_ADMIN
   ADMIN
   USER
+}
+
+enum Gender {
+  FEMALE
+  MALE
+  OTHER
 }
