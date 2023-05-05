@@ -1,4 +1,3 @@
-import React from "react";
 import { Card } from "primereact/card";
 import styled from "styled-components";
 
