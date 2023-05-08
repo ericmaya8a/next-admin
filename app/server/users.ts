@@ -14,7 +14,12 @@ export async function getUserByEmail(email: string) {
   return null;
 }
 
-export async function createUser({ email, name, password }: Omit<User, "id">) {
+export async function createUser({
+  email,
+  name,
+  password,
+}: Omit<User, "id" | "role">) {
+  email = email.toLowerCase();
   const isValidData = [
     CONSTANTS.regex.email.test(email),
     CONSTANTS.regex.password.test(password),

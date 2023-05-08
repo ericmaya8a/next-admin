@@ -63,12 +63,13 @@ export function LoginForm() {
   }
 
   const handleSubmit = async ({ email, password }: FormProps) => {
+    const lowerCaseEmail = email.toLowerCase();
     setLoading(true);
     try {
       await signIn("credentials", {
         redirect: true,
         callbackUrl: CONSTANTS.urls.ADMIN,
-        email,
+        email: lowerCaseEmail,
         password,
       });
     } catch (error) {

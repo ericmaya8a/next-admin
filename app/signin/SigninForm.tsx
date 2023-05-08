@@ -10,12 +10,15 @@ import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
 import { FormikSubmitButton } from "../components/commons/FormikSubmitButton";
 import { CONSTANTS } from "../constatnts";
-import { clientUtils } from "../clientUtils";
 
-type FormProps = {
+export type FormProps = {
   name: string;
   email: string;
   password: string;
+};
+
+type SigninFormProps = {
+  createUser: (props: FormProps) => Promise<{ ok: boolean }>;
 };
 
 const validationSchema = Yup.object({
@@ -40,27 +43,25 @@ const initialValues: FormProps = {
   password: "",
 };
 
-export default function SigninForm() {
+export default function SigninForm(props: SigninFormProps) {
   const [loading, setLoading] = useState(false);
   const toast = useRef<Toast>(null);
 
   const handleSubmit = async ({ name, email, password }: FormProps) => {
+    const lowerCaseEmail = email.toLowerCase();
     setLoading(true);
     try {
-      const data = await clientUtils.fetching.post<FormProps>(
-        CONSTANTS.urls.REGISTER,
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const response = await props.createUser({
+        name,
+        email: lowerCaseEmail,
+        password,
+      });
 
-      if (data.ok) {
+      if (response.ok) {
         toast.current?.show({
           severity: "success",
           summary: "Success",
-          detail: `User: ${email} was created successfully!`,
+          detail: `User: ${lowerCaseEmail} was created successfully!`,
         });
 
         setTimeout(
@@ -68,7 +69,7 @@ export default function SigninForm() {
             await signIn("credentials", {
               redirect: true,
               callbackUrl: CONSTANTS.urls.ADMIN,
-              email,
+              email: lowerCaseEmail,
               password,
             }),
           2000
@@ -80,7 +81,7 @@ export default function SigninForm() {
       toast.current?.show({
         severity: "error",
         summary: "Error",
-        detail: data.error,
+        detail: "User already exist",
       });
     } catch (error) {
       console.log(error);
