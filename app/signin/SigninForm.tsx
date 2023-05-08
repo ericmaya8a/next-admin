@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { signIn } from "next-auth/react";
-import * as Yup from "yup";
 import { Toast } from "primereact/toast";
 import { PrimeIcons } from "primereact/api";
 import { FullPageFormWrapper } from "../components/commons/FullPageFormWrapper";
@@ -10,6 +9,7 @@ import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
 import { FormikSubmitButton } from "../components/commons/FormikSubmitButton";
 import { CONSTANTS } from "../constatnts";
+import { SigninSchema } from "../server/validationSchemas";
 
 export type FormProps = {
   name: string;
@@ -21,29 +21,13 @@ type SigninFormProps = {
   createUser: (props: FormProps) => Promise<{ ok: boolean }>;
 };
 
-const validationSchema = Yup.object({
-  name: Yup.string().required().label("Name"),
-  email: Yup.string()
-    .matches(CONSTANTS.regex.email, { message: "Invalid Email" })
-    .required()
-    .label("Email"),
-  password: Yup.string()
-    .min(8)
-    .matches(CONSTANTS.regex.password, {
-      message: CONSTANTS.messages.invalidPassword,
-    })
-    .max(16)
-    .required()
-    .label("Password"),
-});
-
 const initialValues: FormProps = {
   name: "",
   email: "",
   password: "",
 };
 
-export default function SigninForm(props: SigninFormProps) {
+export function SigninForm(props: SigninFormProps) {
   const [loading, setLoading] = useState(false);
   const toast = useRef<Toast>(null);
 
@@ -97,7 +81,7 @@ export default function SigninForm(props: SigninFormProps) {
       <FullPageFormWrapper title="Sign in">
         <FormikForm<FormProps>
           initialValues={initialValues}
-          validatiinSchema={validationSchema}
+          validatiinSchema={SigninSchema}
           onSubmit={handleSubmit}
         >
           <FormikFormField label="Name" id="name" name="name" width="100%" />

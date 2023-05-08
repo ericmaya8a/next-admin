@@ -1,4 +1,4 @@
-import SigninForm, { FormProps } from "./SigninForm";
+import { FormProps, SigninForm } from "./SigninForm";
 import { createUser } from "../server/users";
 
 export const metadata = {
@@ -6,11 +6,11 @@ export const metadata = {
 };
 
 export default function SigninPage() {
-  const postUser = async ({ name, email, password }: FormProps) => {
+  const addUser = async ({ name, email, password }: FormProps) => {
     "use server";
     const { ok } = await createUser({ name, email, password });
     return { ok };
   };
 
-  return <SigninForm createUser={postUser} />;
+  return <SigninForm createUser={addUser} />;
 }

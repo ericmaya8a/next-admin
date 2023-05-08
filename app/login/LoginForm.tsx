@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-import * as Yup from "yup";
 import { FaGithub } from "react-icons/fa";
 import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
@@ -14,26 +13,12 @@ import { FullPageFormWrapper } from "../components/commons/FullPageFormWrapper";
 import { FormikForm } from "../components/commons/FormikForm";
 import { FormikFormField } from "../components/commons/FormikFormField";
 import { FormikSubmitButton } from "../components/commons/FormikSubmitButton";
+import { LoginSchema } from "../server/validationSchemas";
 
 type FormProps = {
   email: string;
   password: string;
 };
-
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .matches(CONSTANTS.regex.email, { message: "Invalid Email" })
-    .required()
-    .label("Email"),
-  password: Yup.string()
-    .min(8)
-    .matches(CONSTANTS.regex.password, {
-      message: CONSTANTS.messages.invalidPassword,
-    })
-    .max(16)
-    .required()
-    .label("Password"),
-});
 
 const initialValues: FormProps = {
   email: "",
@@ -99,7 +84,7 @@ export function LoginForm() {
         ) : null}
         <FormikForm<FormProps>
           initialValues={initialValues}
-          validatiinSchema={validationSchema}
+          validatiinSchema={LoginSchema}
           onSubmit={handleSubmit}
         >
           <FormikFormField
