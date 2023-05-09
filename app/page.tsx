@@ -1,13 +1,8 @@
-import { DisplayData } from "./components/commons/DisplayData";
 import { getSessionFromServer } from "./server/utils";
+import { Welcome } from "./components/Welcome";
 
 export default async function Home() {
   const session = await getSessionFromServer();
 
-  return (
-    <>
-      <h1>Hello Next.js!</h1>
-      {session ? <DisplayData<typeof session> data={session} /> : null}
-    </>
-  );
+  return <Welcome session={session} />;
 }

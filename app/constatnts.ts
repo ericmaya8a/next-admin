@@ -10,6 +10,7 @@ export const CONSTANTS = {
   urls: {
     HOME: "/",
     ADMIN: "/admin",
+    STUDENTS: "/admin/students",
     LOGIN: "/login",
     SIGNIN: "/signin",
     REGISTER: "/api/register",

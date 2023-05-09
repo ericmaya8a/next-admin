@@ -20,9 +20,7 @@ export function FullPageFormWrapper({
 const Container = styled.div`
   background-color: var(--highlight-bg);
   display: grid;
-  margin-left: -1rem;
-  margin-right: -1rem;
-  min-height: calc(100vh - 62.4px);
+  min-height: 100vh;
 
   p {
     margin-top: 1em;
