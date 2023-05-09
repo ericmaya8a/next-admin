@@ -7,6 +7,7 @@ import { Tooltip } from "primereact/tooltip";
 import { FaOptinMonster } from "react-icons/fa";
 import styled from "styled-components";
 import { CONSTANTS } from "../constatnts";
+import { CenterFullPageContainer } from "./commons/CenterFullPageContainer";
 
 type WelcomeProps = {
   session: Session | null;
@@ -19,7 +20,9 @@ export function Welcome({ session }: WelcomeProps) {
   return (
     <>
       <Tooltip target=".logo" />
-      <Container>
+      <CenterFullPageContainer
+        style={{ backgroundColor: "var(--highlight-bg)" }}
+      >
         <StyledButton
           className="logo"
           icon={<FaOptinMonster />}
@@ -31,21 +34,14 @@ export function Welcome({ session }: WelcomeProps) {
           tooltip={hasSession ? JSON.stringify(session) : undefined}
           tooltipOptions={hasSession ? { position: "top" } : undefined}
         />
-      </Container>
+      </CenterFullPageContainer>
     </>
   );
 }
 
-const Container = styled.div`
-  background-color: var(--highlight-bg);
-  display: grid;
-  min-height: 100vh;
-`;
-
 const StyledButton = styled(Button)`
   font-size: 10rem;
   height: 14rem !important;
-  place-self: center;
   width: 14rem !important;
 
   @media only screen and (min-width: 600px) {
