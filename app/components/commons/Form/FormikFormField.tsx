@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik";
 import { InputTextProps } from "primereact/inputtext";
-import { Input } from "./Input";
-import { InputPassword } from "./InputPassword";
+import { Input } from "../Input/Input";
+import { InputPassword } from "../Input/InputPassword";
 
 export function FormikFormField({
   id,

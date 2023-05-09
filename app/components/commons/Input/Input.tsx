@@ -1,5 +1,5 @@
 import { InputText, InputTextProps } from "primereact/inputtext";
-import { FormikFieldError } from "./FormikFieldError";
+import { FormikFieldError } from "../Form/FormikFieldError";
 import { InputWrapper } from "./InputWrapper";
 
 export function Input({

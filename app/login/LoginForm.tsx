@@ -10,9 +10,9 @@ import { Message } from "primereact/message";
 import { Toast } from "primereact/toast";
 import { CONSTANTS } from "../constatnts";
 import { FullPageFormWrapper } from "../components/commons/FullPageFormWrapper";
-import { FormikForm } from "../components/commons/FormikForm";
-import { FormikFormField } from "../components/commons/FormikFormField";
-import { FormikSubmitButton } from "../components/commons/FormikSubmitButton";
+import { FormikForm } from "../components/commons/Form/FormikForm";
+import { FormikFormField } from "../components/commons/Form/FormikFormField";
+import { FormikSubmitButton } from "../components/commons/Form/FormikSubmitButton";
 import { LoginSchema } from "../server/validationSchemas";
 
 type FormProps = {

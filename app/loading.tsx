@@ -5,13 +5,9 @@ import styled from "styled-components";
 
 export default function Loading() {
   return (
-    <Loader>
-      <Skeleton className="mb-2"></Skeleton>
-      <Skeleton width="10rem"></Skeleton>
-      <Skeleton width="5rem"></Skeleton>
-      <Skeleton height="2rem"></Skeleton>
-      <Skeleton width="10rem" height="4rem"></Skeleton>
-    </Loader>
+    <Container>
+      <StyledSkeleton height="416px" width="416px" shape="circle" />
+    </Container>
   );
 }
 
@@ -21,4 +17,13 @@ const Loader = styled.div`
   .p-skeleton {
     margin-bottom: 5px;
   }
+`;
+
+const Container = styled.div`
+  display: grid;
+  min-height: 100vh;
+`;
+
+const StyledSkeleton = styled(Skeleton)`
+  place-self: center;
 `;

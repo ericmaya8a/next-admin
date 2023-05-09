@@ -1,7 +1,7 @@
 import { Password, PasswordProps } from "primereact/password";
 import styled from "styled-components";
-import { FormikFieldError } from "./FormikFieldError";
 import { InputWrapper } from "./InputWrapper";
+import { FormikFieldError } from "../Form/FormikFieldError";
 
 export function InputPassword({
   id,
