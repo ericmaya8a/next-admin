@@ -37,12 +37,32 @@ async function load() {
     );
 
     // create students
-    students.map(
-      async () =>
-        await prisma.student.create({
-          data: fakerUtils.createStudent(),
-        })
-    );
+    students.map(async () => {
+      const random = Math.floor(Math.random() * 8);
+      const randomArray = Array.from(Array(random).keys());
+      const student = fakerUtils.createStudent();
+
+      await prisma.student.create({
+        data: {
+          ...student,
+          address: {
+            create: fakerUtils.createAddress(),
+          },
+          communication: {
+            create: fakerUtils.createCommInfo(
+              student.firstName,
+              student.lastName
+            ),
+          },
+          promotion: {
+            create: randomArray.map(() => fakerUtils.createPromotion()),
+          },
+          tuition: {
+            create: randomArray.map(() => fakerUtils.createTuition()),
+          },
+        },
+      });
+    });
   } catch (error) {
     console.log(error);
     process.exit(1);

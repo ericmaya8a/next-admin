@@ -27,15 +27,58 @@ model User {
 }
 
 model Student {
-  id              String   @id @default(uuid())
+  id              String         @id @default(uuid())
   firstName       String
   lastName        String
   birthDate       DateTime
-  gender          Gender   @default(FEMALE)
+  gender          Gender         @default(FEMALE)
   height          Float?
   weight          Float?
-  active          Boolean  @default(true)
+  active          Boolean        @default(true)
   inscriptionDate DateTime
+  address         Address?
+  communication   Communication?
+  promotion       Promotion[]
+  tuition         Tuition[]
+}
+
+model Address {
+  id             String  @id @default(uuid())
+  lineOne        String
+  lineTwo        String?
+  exteriorNumber String
+  interiorNumber String?
+  suburb         String
+  municipality   String
+  zipCode        String
+  student        Student @relation(fields: [studentId], references: [id])
+  studentId      String  @unique
+}
+
+model Communication {
+  id        String  @id @default(uuid())
+  phone     String?
+  cellPhone String?
+  email     String
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String  @unique
+}
+
+model Promotion {
+  id        String   @id @default(uuid())
+  date      DateTime @default(now())
+  rank      Rank     @default(BLANCA)
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+}
+
+model Tuition {
+  id        String   @id @default(uuid())
+  date      DateTime @default(now())
+  month     Int
+  year      Int
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
 }
 
 enum Role {
@@ -48,4 +91,26 @@ enum Gender {
   FEMALE
   MALE
   OTHER
+}
+
+enum Rank {
+  BLANCA
+  AMARILLA
+  NARANJA
+  VERDE
+  AZUL
+  MORADA
+  CAFE
+  ROJA
+  NEGRA
+  DAN_1
+  DAN_2
+  DAN_3
+  DAN_4
+  DAN_5
+  DAN_6
+  DAN_7
+  DAN_8
+  DAN_9
+  DAN_10
 }
