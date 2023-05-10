@@ -14,3 +14,9 @@ export async function hashPassword(password: string) {
 export async function getSessionFromServer() {
   return await getServerSession(authOptions);
 }
+
+export function dateToString(date: Date) {
+  return date.toLocaleDateString(CONSTANTS.date.region, {
+    dateStyle: "medium",
+  });
+}

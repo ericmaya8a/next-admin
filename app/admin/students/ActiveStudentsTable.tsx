@@ -1,4 +1,4 @@
-import { Student } from "@prisma/client";
+import { Rank } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { FilterMatchMode } from "primereact/api";
 import { Column } from "primereact/column";
@@ -8,37 +8,24 @@ import {
   DataTableFilterMeta,
 } from "primereact/datatable";
 import { FaCheckCircle } from "react-icons/fa";
-import { TfiRuler } from "react-icons/tfi";
-import { GiWeight } from "react-icons/gi";
-import { MapStudentsT, mapStudents } from "@/app/clientUtils";
+import { Belt } from "@/app/components/commons/Belt";
 import { Header } from "@/app/components/commons/Header";
 import { SearchTableHeader } from "@/app/components/commons/Table/SearchTableHeader";
 import { BirthdayHeader } from "./BirthdayHeader";
 import { InscriptionHeader } from "./InscriptionHeader";
 import { genderTemplate } from "./GenderTemplate";
+import { RowExpansion } from "./RowExpansion";
 
-type ActiveStudentsTableProps = {
-  students: Student[];
+type ActiveStudentsTableProps<T> = {
+  students: T;
 };
 
-export function ActiveStudentsTable({ students }: ActiveStudentsTableProps) {
+export function ActiveStudentsTable<T>({
+  students,
+}: ActiveStudentsTableProps<T>) {
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [filters, setFilters] = useState<DataTableFilterMeta | null>(null);
   const [globalFilterValue, setGlobalFilterValue] = useState<string>("");
-
-  const mapedStudents: MapStudentsT = mapStudents(students).filter(
-    ({ active }) => active
-  );
-
-  const rowExpansionTemplate = ({
-    height,
-    weight,
-  }: (typeof mapedStudents)[0]) => (
-    <>
-      <Header icon={<TfiRuler />}>{height} m.</Header>
-      <Header icon={<GiWeight />}>{weight} kg.</Header>
-    </>
-  );
 
   const initFilters = () => {
     setFilters({
@@ -65,7 +52,8 @@ export function ActiveStudentsTable({ students }: ActiveStudentsTableProps) {
 
   return (
     <DataTable
-      value={mapedStudents}
+      // @ts-ignore
+      value={students.filter((st) => st.active)}
       header={
         <SearchTableHeader
           value={globalFilterValue}
@@ -85,15 +73,35 @@ export function ActiveStudentsTable({ students }: ActiveStudentsTableProps) {
       expandedRows={expandedRows}
       onRowToggle={(e) => setExpandedRows(e.data as DataTableExpandedRows)}
       dataKey="id"
-      rowExpansionTemplate={rowExpansionTemplate}
+      rowExpansionTemplate={RowExpansion}
       // @ts-ignore
       filters={filters}
+      size="small"
     >
       <Column expander style={{ width: "1rem" }} />
       <Column field="name" header="Name" sortable />
-      <Column field="inscriptionDate" header={<InscriptionHeader />} sortable />
+      <Column
+        field="promotion"
+        header="Rank"
+        body={(val) => {
+          const promotions = val.promotion;
+          return (
+            <Belt
+              belt={
+                promotions.length > 0
+                  ? promotions[promotions.length - 1].rank
+                  : Rank["BLANCA"]
+              }
+              tooltip
+              tooltipPosition="right"
+              width={70}
+            />
+          );
+        }}
+      />
+      <Column field="inscriptionDate" header={<InscriptionHeader />} />
       <Column field="gender" header="Gender" body={genderTemplate} sortable />
-      <Column field="birthDate" header={<BirthdayHeader />} sortable />
+      <Column field="birthDate" header={<BirthdayHeader />} />
     </DataTable>
   );
 }

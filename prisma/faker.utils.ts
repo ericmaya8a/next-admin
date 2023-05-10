@@ -33,7 +33,7 @@ function createStudent() {
 
 function createAddress() {
   return {
-    lineOne: faker.address.streetName(),
+    lineOne: faker.address.street(),
     lineTwo: faker.address.secondaryAddress(),
     exteriorNumber: faker.address.buildingNumber(),
     suburb: faker.address.cityName(),

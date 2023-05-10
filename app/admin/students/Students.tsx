@@ -1,14 +1,13 @@
 "use client";
 
-import { Student } from "@prisma/client";
 import { IncativeStudentsTable } from "./IncativeStudentsTable";
 import { ActiveStudentsTable } from "./ActiveStudentsTable";
 
-type StudentsProps = {
-  students: Student[];
+type StudentsProps<T> = {
+  students: T;
 };
 
-export function Students({ students }: StudentsProps) {
+export function Students<T>({ students }: StudentsProps<T>) {
   return (
     <>
       <ActiveStudentsTable students={students} />

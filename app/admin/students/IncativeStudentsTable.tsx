@@ -1,29 +1,31 @@
-import { Student } from "@prisma/client";
+import { Rank } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { FilterMatchMode } from "primereact/api";
 import { Column } from "primereact/column";
-import { DataTable, DataTableFilterMeta } from "primereact/datatable";
+import {
+  DataTable,
+  DataTableExpandedRows,
+  DataTableFilterMeta,
+} from "primereact/datatable";
 import { FaBan } from "react-icons/fa";
-import { MapStudentsT, mapStudents } from "@/app/clientUtils";
+import { Belt } from "@/app/components/commons/Belt";
 import { Header } from "@/app/components/commons/Header";
 import { SearchTableHeader } from "@/app/components/commons/Table/SearchTableHeader";
 import { BirthdayHeader } from "./BirthdayHeader";
 import { InscriptionHeader } from "./InscriptionHeader";
 import { genderTemplate } from "./GenderTemplate";
+import { RowExpansion } from "./RowExpansion";
 
-type IncativeStudentsTableProps = {
-  students: Student[];
+type IncativeStudentsTableProps<T> = {
+  students: T;
 };
 
-export function IncativeStudentsTable({
+export function IncativeStudentsTable<T>({
   students,
-}: IncativeStudentsTableProps) {
+}: IncativeStudentsTableProps<T>) {
+  const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [filters, setFilters] = useState<DataTableFilterMeta | null>(null);
   const [globalFilterValue, setGlobalFilterValue] = useState<string>("");
-
-  const mapedStudents: MapStudentsT = mapStudents(students).filter(
-    ({ active }) => !active
-  );
 
   const initFilters = () => {
     setFilters({
@@ -50,7 +52,8 @@ export function IncativeStudentsTable({
 
   return (
     <DataTable
-      value={mapedStudents}
+      // @ts-ignore
+      value={students.filter((st) => !st.active)}
       header={
         <SearchTableHeader
           value={globalFilterValue}
@@ -63,13 +66,38 @@ export function IncativeStudentsTable({
         </SearchTableHeader>
       }
       removableSort
+      expandedRows={expandedRows}
+      onRowToggle={(e) => setExpandedRows(e.data as DataTableExpandedRows)}
+      dataKey="id"
+      rowExpansionTemplate={RowExpansion}
       // @ts-ignore
       filters={filters}
+      size="small"
     >
+      <Column expander style={{ width: "1rem" }} />
       <Column field="name" header="Name" sortable />
-      <Column field="inscriptionDate" header={<InscriptionHeader />} sortable />
+      <Column
+        field="promotion"
+        header="Rank"
+        body={(val) => {
+          const promotions = val.promotion;
+          return (
+            <Belt
+              belt={
+                promotions.length > 0
+                  ? promotions[promotions.length - 1].rank
+                  : Rank["BLANCA"]
+              }
+              tooltip
+              tooltipPosition="right"
+              width={70}
+            />
+          );
+        }}
+      />
+      <Column field="inscriptionDate" header={<InscriptionHeader />} />
       <Column field="gender" header="Gender" body={genderTemplate} sortable />
-      <Column field="birthDate" header={<BirthdayHeader />} sortable />
+      <Column field="birthDate" header={<BirthdayHeader />} />
     </DataTable>
   );
 }
