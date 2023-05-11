@@ -1,5 +1,5 @@
 import { HeaderAndTableSkeleton } from "@/app/components/commons/Skeletons/HeaderAndTableSkeleton";
 
-export default function StudentsLoading() {
+export default function AdminLoading() {
   return <HeaderAndTableSkeleton />;
 }

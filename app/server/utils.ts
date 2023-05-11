@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import moment from "moment";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { CONSTANTS } from "../constatnts";
@@ -16,7 +17,18 @@ export async function getSessionFromServer() {
 }
 
 export function dateToString(date: Date) {
-  return date.toLocaleDateString(CONSTANTS.date.region, {
-    dateStyle: "medium",
-  });
+  return moment(date).utc().format("DD MMM YYYY");
+}
+
+export function getDateInNumbers(date: Date) {
+  const momentDate = moment(date);
+  return {
+    day: Number(momentDate.format("D")),
+    month: Number(momentDate.format("M")),
+    year: Number(momentDate.format("YYYY")),
+  };
+}
+
+export function getDayNumber(date: Date): number {
+  return Number(moment(date).utc().format("D"));
 }
