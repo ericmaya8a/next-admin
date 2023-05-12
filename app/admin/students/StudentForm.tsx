@@ -1,21 +1,22 @@
-import { Gender, Rank } from "@prisma/client";
-import { useState } from "react";
+import { Gender } from "@prisma/client";
 import styled from "styled-components";
-import { Calendar, CalendarChangeEvent } from "primereact/calendar";
-import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { FormikForm } from "@/app/components/commons/Form/FormikForm";
 import { FormikFormField } from "@/app/components/commons/Form/FormikFormField";
 import { FormikSubmitButton } from "@/app/components/commons/Form/FormikSubmitButton";
+import { FormikFormCalendarField } from "@/app/components/commons/Form/FormikFormCalendarField";
+import { StudentFormSchema } from "@/app/server/validationSchemas";
+import { SelectItemOptionsType } from "primereact/selectitem";
+import { FormikFormSelectField } from "@/app/components/commons/Form/FormikFormSelectField";
 
 type StudentFormT = {
   firstName: string;
   lastName: string;
-  birthDate: string;
-  gender: Gender;
+  birthDate?: Date;
+  gender?: Gender;
   height?: string;
   weight?: string;
   active: boolean;
-  inscriptionDate: string;
+  inscriptionDate?: Date;
   address: {
     lineOne: string;
     lineTwo?: string;
@@ -39,12 +40,12 @@ type StudentFormProps = {
 const initialValues: StudentFormT = {
   firstName: "",
   lastName: "",
-  birthDate: "",
-  gender: "FEMALE",
+  birthDate: new Date(),
+  gender: undefined,
   height: "",
   weight: "",
   active: true,
-  inscriptionDate: "",
+  inscriptionDate: undefined,
   address: {
     lineOne: "",
     lineTwo: "",
@@ -60,18 +61,12 @@ const initialValues: StudentFormT = {
     email: "",
   },
 };
-const options = Object.keys(Gender).map((g) => ({
+const options: SelectItemOptionsType = Object.keys(Gender).map((g) => ({
   label: g.toLowerCase(),
-  code: g,
+  value: g,
 }));
 
 export function StudentForm({ onSubmit }: StudentFormProps) {
-  const [date, setDate] = useState<string | Date | Date[] | null | undefined>(
-    new Date()
-  );
-  const [gender, setGender] = useState(options[0]);
-  console.log(gender);
-
   const handleSubmit = (values: StudentFormT) => {
     console.log(values);
     onSubmit();
@@ -80,7 +75,7 @@ export function StudentForm({ onSubmit }: StudentFormProps) {
   return (
     <FormikForm<StudentFormT>
       initialValues={initialValues}
-      validatiinSchema={{}}
+      validatiinSchema={StudentFormSchema}
       onSubmit={handleSubmit}
     >
       <Row>
@@ -99,18 +94,18 @@ export function StudentForm({ onSubmit }: StudentFormProps) {
       </Row>
 
       <Row>
-        <Calendar
-          value={date}
-          onChange={(e: CalendarChangeEvent) => setDate(e.value)}
-          dateFormat="dd/M/yy"
-          showIcon
+        <FormikFormCalendarField
+          label="Birth Date"
+          id="birthDate"
+          name="birthDate"
+          width="100%"
         />
-        <Dropdown
-          value={gender}
-          onChange={(e: DropdownChangeEvent) => setGender(e.value)}
+        <FormikFormSelectField
+          label="Gender"
+          id="gender"
+          name="gender"
           options={options}
-          optionLabel="label"
-          placeholder="Select a Gender"
+          placeholder="Select gender"
         />
       </Row>
 

@@ -31,6 +31,7 @@ export const CONSTANTS = {
   },
   date: {
     region: "es-MX",
+    calendarFormat: "dd/M/yy",
   },
   belts: {
     BLANCA: "#CCCCCC",

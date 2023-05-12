@@ -1,3 +1,4 @@
+import { Gender } from "@prisma/client";
 import * as Yup from "yup";
 import { CONSTANTS } from "../constatnts";
 
@@ -25,3 +26,10 @@ const stringSchema = (key: string) =>
 export const LoginSchema = EmailSchema.concat(PasswordSchema);
 
 export const SigninSchema = stringSchema("Name").concat(LoginSchema);
+
+export const StudentFormSchema = Yup.object({
+  firstName: Yup.string().required().label("Name"),
+  lastName: Yup.string().required().label("Last Name"),
+  birthDate: Yup.date().required().label("Birth Date"),
+  gender: Yup.mixed().oneOf(Object.keys(Gender)).required().label("Gender"),
+});
