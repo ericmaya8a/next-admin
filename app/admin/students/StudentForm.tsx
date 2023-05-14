@@ -1,4 +1,6 @@
-import { Gender } from "@prisma/client";
+import { Address, Communication, Gender, Student } from "@prisma/client";
+import { useState } from "react";
+import { Message } from "primereact/message";
 import styled from "styled-components";
 import { FormikForm } from "@/app/components/commons/Form/FormikForm";
 import { FormikFormField } from "@/app/components/commons/Form/FormikFormField";
@@ -33,7 +35,13 @@ type StudentFormT = {
 };
 
 type StudentFormProps = {
-  onSubmit: VoidFunction;
+  handleClose: VoidFunction;
+  handleToast: (message: string) => void;
+  createStudent: (
+    student: Omit<Student, "id" | "active"> &
+      Omit<Address, "id" | "studentId"> &
+      Omit<Communication, "id" | "studentId">
+  ) => Promise<{ ok: boolean }>;
 };
 
 const initialValues: StudentFormT = {
@@ -61,10 +69,69 @@ const options: SelectItemOptionsType = Object.keys(Gender).map((g) => ({
   value: g,
 }));
 
-export function StudentForm({ onSubmit }: StudentFormProps) {
-  const handleSubmit = (values: StudentFormT) => {
-    console.log(values);
-    onSubmit();
+export function StudentForm({
+  createStudent,
+  handleToast,
+  handleClose,
+}: StudentFormProps) {
+  const [message, setMessage] = useState<string>();
+
+  const errorMessage = message ? (
+    <Message
+      text={message}
+      severity="error"
+      style={{ marginBottom: "1rem", display: "block" }}
+    />
+  ) : null;
+
+  const handleSubmit = async ({
+    firstName,
+    lastName,
+    birthDate,
+    gender,
+    height,
+    weight,
+    inscriptionDate,
+    email,
+    cellPhone,
+    phone,
+    lineOne,
+    lineTwo,
+    exteriorNumber,
+    interiorNumber,
+    suburb,
+    municipality,
+    zipCode,
+  }: StudentFormT) => {
+    const newStudent: Omit<Student, "id" | "active"> &
+      Omit<Address, "id" | "studentId"> &
+      Omit<Communication, "id" | "studentId"> = {
+      firstName,
+      lastName,
+      birthDate: birthDate as Date,
+      gender: gender as Gender,
+      height: height ? Number(height) : null,
+      weight: weight ? Number(weight) : null,
+      inscriptionDate: inscriptionDate as Date,
+      lineOne,
+      lineTwo: lineTwo ?? null,
+      exteriorNumber,
+      interiorNumber: interiorNumber ?? null,
+      suburb,
+      municipality,
+      zipCode,
+      phone: phone ?? null,
+      cellPhone,
+      email,
+    };
+    const { ok } = await createStudent(newStudent);
+
+    if (!ok) {
+      return setMessage(`Student with email: ${email} already exists`);
+    }
+
+    handleToast(`Student "${firstName} ${lastName}" was successfully created!`);
+    handleClose();
   };
 
   return (
@@ -73,6 +140,7 @@ export function StudentForm({ onSubmit }: StudentFormProps) {
       validationSchema={StudentFormSchema}
       onSubmit={handleSubmit}
     >
+      {errorMessage}
       <Row>
         <FormikFormField
           label="First Name"
@@ -135,6 +203,7 @@ export function StudentForm({ onSubmit }: StudentFormProps) {
           id="email"
           name="email"
           type="email"
+          onChange={() => setMessage(undefined)}
           width="100%"
         />
       </Row>
@@ -179,35 +248,51 @@ export function StudentForm({ onSubmit }: StudentFormProps) {
           label="Exterior Number"
           id="exteriorNumber"
           name="exteriorNumber"
+          width="100%"
         />
         <FormikFormField
           label="Interior Number"
           id="interiorNumber"
           name="interiorNumber"
+          width="100%"
         />
       </Row>
 
       <Row>
-        <FormikFormField label="Suburb" id="suburb" name="suburb" />
+        <FormikFormField
+          label="Suburb"
+          id="suburb"
+          name="suburb"
+          width="100%"
+        />
         <FormikFormField
           label="Municipality"
           id="municipality"
           name="municipality"
+          width="100%"
         />
+      </Row>
+
+      <Row>
         <FormikFormField label="Zip code" id="zipCode" name="zipCode" />
       </Row>
 
+      {errorMessage}
       <FormikSubmitButton type="submit" label="Submit" />
     </FormikForm>
   );
 }
 
 const Row = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  justify-content: space-between;
+  display: block;
 
   div {
     width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
   }
 `;

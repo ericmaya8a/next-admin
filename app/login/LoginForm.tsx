@@ -84,7 +84,7 @@ export function LoginForm() {
         ) : null}
         <FormikForm<FormProps>
           initialValues={initialValues}
-          validatiinSchema={LoginSchema}
+          validationSchema={LoginSchema}
           onSubmit={handleSubmit}
         >
           <FormikFormField

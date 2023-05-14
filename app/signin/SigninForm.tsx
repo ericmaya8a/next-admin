@@ -81,7 +81,7 @@ export function SigninForm(props: SigninFormProps) {
       <FullPageFormWrapper title="Sign in">
         <FormikForm<FormProps>
           initialValues={initialValues}
-          validatiinSchema={SigninSchema}
+          validationSchema={SigninSchema}
           onSubmit={handleSubmit}
         >
           <FormikFormField label="Name" id="name" name="name" width="100%" />

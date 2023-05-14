@@ -1,4 +1,6 @@
 import { prisma } from "@/server/db/client";
+import { Address, Communication, Student } from "@prisma/client";
+import { NextResponse } from "next/server";
 import { dateToString, getDateInNumbers, getDayNumber } from "./utils";
 
 export async function getStudents() {
@@ -60,4 +62,80 @@ export async function getStudentsNextPayment() {
       name: `${firstName} ${lastName}`,
       inscriptionDate: dateToString(inscriptionDate),
     }));
+}
+
+export async function addStudent({
+  firstName,
+  lastName,
+  birthDate,
+  gender,
+  height,
+  weight,
+  inscriptionDate,
+  lineOne,
+  lineTwo,
+  exteriorNumber,
+  interiorNumber,
+  suburb,
+  municipality,
+  zipCode,
+  phone,
+  cellPhone,
+  email,
+}: Omit<Student, "id" | "active"> &
+  Omit<Address, "id" | "studentId"> &
+  Omit<Communication, "id" | "studentId">) {
+  // validate if student exists
+  const commStudent = await prisma.communication.findUnique({
+    where: { email },
+  });
+
+  if (commStudent) {
+    return new NextResponse(
+      JSON.stringify({
+        error: `Student with email: ${email} already exists`,
+      }),
+      { status: 400 }
+    );
+  }
+
+  // Create student
+  await prisma.student.create({
+    data: {
+      firstName,
+      lastName,
+      birthDate,
+      gender,
+      height,
+      weight,
+      inscriptionDate,
+      address: {
+        create: {
+          lineOne,
+          lineTwo,
+          exteriorNumber,
+          interiorNumber,
+          suburb,
+          municipality,
+          zipCode,
+        },
+      },
+      communication: {
+        create: {
+          phone,
+          cellPhone,
+          email,
+        },
+      },
+      promotion: {
+        create: {
+          date: inscriptionDate,
+        },
+      },
+    },
+  });
+
+  return NextResponse.json({
+    ok: true,
+  });
 }

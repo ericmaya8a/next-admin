@@ -59,7 +59,7 @@ model Communication {
   id        String  @id @default(uuid())
   phone     String?
   cellPhone String?
-  email     String
+  email     String  @unique
   student   Student @relation(fields: [studentId], references: [id])
   studentId String  @unique
 }
@@ -75,6 +75,7 @@ model Promotion {
 model Tuition {
   id        String   @id @default(uuid())
   date      DateTime @default(now())
+  amount    Float
   month     Int
   year      Int
   student   Student  @relation(fields: [studentId], references: [id])

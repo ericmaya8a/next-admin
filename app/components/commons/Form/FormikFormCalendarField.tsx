@@ -63,6 +63,7 @@ export function FormikFormCalendarField({
         showIcon
         style={style}
         aria-describedby={helper ? `${name}-help` : undefined}
+        showButtonBar
         {...otherProps}
       />
       <InputHelper name={name} helper={helper} />

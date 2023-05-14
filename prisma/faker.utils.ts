@@ -74,6 +74,7 @@ function createTuition() {
     date,
     month: date.getMonth() + 1,
     year: date.getFullYear(),
+    amount: 1000,
   };
 }
 
