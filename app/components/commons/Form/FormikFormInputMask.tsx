@@ -1,9 +1,14 @@
 import { useFormikContext } from "formik";
-import { InputTextProps } from "primereact/inputtext";
-import { Input } from "../Input/Input";
-import { InputPassword } from "../Input/InputPassword";
+import {
+  InputMask,
+  InputMaskChangeEvent,
+  InputMaskProps,
+} from "primereact/inputmask";
+import { InputWrapper } from "../Input/InputWrapper";
+import { InputHelper } from "../Input/InputHelper";
+import { FormikFieldError } from "./FormikFieldError";
 
-export function FormikFormField({
+export function FormikFormInputMask({
   id,
   name = "",
   type,
@@ -11,7 +16,7 @@ export function FormikFormField({
   helper,
   onChange,
   ...otherProps
-}: InputTextProps & { label: string; helper?: string }) {
+}: InputMaskProps & { label: string; helper?: string }) {
   const {
     errors,
     touched,
@@ -33,7 +38,7 @@ export function FormikFormField({
     : { ...otherProps.style };
   const errorMessage = hasError ? error : undefined;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: InputMaskChangeEvent) => {
     setFieldValue(name, e.target.value);
     if (onChange) {
       onChange(e);
@@ -45,36 +50,21 @@ export function FormikFormField({
     validateField(name);
   };
 
-  if (type === "password") {
-    return (
-      <InputPassword
+  return (
+    <InputWrapper id={id} label={label}>
+      <InputMask
         className={className}
-        label={label}
+        id={id}
         name={name}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={errorMessage}
         style={style}
-        feedback={false}
+        aria-describedby={helper ? `${name}-help` : undefined}
         {...otherProps}
       />
-    );
-  }
-
-  return (
-    <Input
-      className={className}
-      label={label}
-      name={name}
-      type={type}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      error={errorMessage}
-      style={style}
-      helper={helper}
-      {...otherProps}
-    />
+      <InputHelper name={name} helper={helper} />
+      <FormikFieldError error={errorMessage} />
+    </InputWrapper>
   );
 }

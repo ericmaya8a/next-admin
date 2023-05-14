@@ -25,7 +25,6 @@ export function ActionButton() {
         transitionDelay={50}
         showIcon={PrimeIcons.BARS}
         hideIcon={PrimeIcons.TIMES}
-        // buttonClassName="p-button-outlined"
         model={[
           {
             label: "Add",

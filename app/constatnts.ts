@@ -31,7 +31,7 @@ export const CONSTANTS = {
   },
   date: {
     region: "es-MX",
-    calendarFormat: "dd/M/yy",
+    calendarFormat: "dd/mm/yy",
   },
   belts: {
     BLANCA: "#CCCCCC",
@@ -53,5 +53,8 @@ export const CONSTANTS = {
     DAN_8: "#E53E3E",
     DAN_9: "#E53E3E",
     DAN_10: "#E53E3E",
+  },
+  inputMask: {
+    phone: "99 9999 9999",
   },
 };

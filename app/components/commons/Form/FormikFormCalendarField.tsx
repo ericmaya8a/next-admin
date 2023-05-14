@@ -6,15 +6,17 @@ import {
 } from "primereact/calendar";
 import { CONSTANTS } from "@/app/constatnts";
 import { InputWrapper } from "../Input/InputWrapper";
+import { InputHelper } from "../Input/InputHelper";
 import { FormikFieldError } from "./FormikFieldError";
 
 export function FormikFormCalendarField({
   id,
   name = "",
   label,
+  helper,
   onChange,
   ...otherProps
-}: CalendarProps & { label: string; width?: string }) {
+}: CalendarProps & { label: string; width?: string; helper?: string }) {
   const {
     errors,
     touched,
@@ -60,8 +62,10 @@ export function FormikFormCalendarField({
         dateFormat={CONSTANTS.date.calendarFormat}
         showIcon
         style={style}
+        aria-describedby={helper ? `${name}-help` : undefined}
         {...otherProps}
       />
+      <InputHelper name={name} helper={helper} />
       <FormikFieldError error={errorMessage} />
     </InputWrapper>
   );

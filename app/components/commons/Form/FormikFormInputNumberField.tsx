@@ -1,9 +1,14 @@
 import { useFormikContext } from "formik";
-import { InputTextProps } from "primereact/inputtext";
-import { Input } from "../Input/Input";
-import { InputPassword } from "../Input/InputPassword";
+import {
+  InputNumber,
+  InputNumberChangeEvent,
+  InputNumberProps,
+} from "primereact/inputnumber";
+import { InputWrapper } from "../Input/InputWrapper";
+import { InputHelper } from "../Input/InputHelper";
+import { FormikFieldError } from "./FormikFieldError";
 
-export function FormikFormField({
+export function FormikFormInputNumberField({
   id,
   name = "",
   type,
@@ -11,7 +16,7 @@ export function FormikFormField({
   helper,
   onChange,
   ...otherProps
-}: InputTextProps & { label: string; helper?: string }) {
+}: InputNumberProps & { label: string; width?: string; helper?: string }) {
   const {
     errors,
     touched,
@@ -27,14 +32,14 @@ export function FormikFormField({
   // @ts-ignore
   const hasError: boolean = touched[name] && error;
   // @ts-ignore
-  const className = error ? "p-invalid" : undefined;
+  const className = errors[name] ? "p-invalid" : undefined;
   const style = otherProps.width
     ? { ...otherProps.style, width: otherProps.width }
     : { ...otherProps.style };
   const errorMessage = hasError ? error : undefined;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldValue(name, e.target.value);
+  const handleChange = (e: InputNumberChangeEvent) => {
+    setFieldValue(name, e.value);
     if (onChange) {
       onChange(e);
     }
@@ -45,36 +50,21 @@ export function FormikFormField({
     validateField(name);
   };
 
-  if (type === "password") {
-    return (
-      <InputPassword
+  return (
+    <InputWrapper id={id} label={label}>
+      <InputNumber
         className={className}
-        label={label}
+        id={id}
         name={name}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={errorMessage}
         style={style}
-        feedback={false}
+        aria-describedby={helper ? `${name}-help` : undefined}
         {...otherProps}
       />
-    );
-  }
-
-  return (
-    <Input
-      className={className}
-      label={label}
-      name={name}
-      type={type}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      error={errorMessage}
-      style={style}
-      helper={helper}
-      {...otherProps}
-    />
+      <InputHelper name={name} helper={helper} />
+      <FormikFieldError error={errorMessage} />
+    </InputWrapper>
   );
 }

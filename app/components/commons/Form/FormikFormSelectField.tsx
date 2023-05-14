@@ -5,6 +5,7 @@ import {
   DropdownProps,
 } from "primereact/dropdown";
 import { InputWrapper } from "../Input/InputWrapper";
+import { InputHelper } from "../Input/InputHelper";
 import { FormikFieldError } from "./FormikFieldError";
 
 export function FormikFormSelectField({
@@ -12,9 +13,10 @@ export function FormikFormSelectField({
   name = "",
   label,
   options,
+  helper,
   onChange,
   ...otherProps
-}: DropdownProps & { label: string }) {
+}: DropdownProps & { label: string; helper?: string }) {
   const {
     errors,
     touched,
@@ -57,8 +59,10 @@ export function FormikFormSelectField({
         options={options}
         optionLabel="label"
         placeholder="Select a Gender"
+        aria-describedby={helper ? `${name}-help` : undefined}
         style={style}
       />
+      <InputHelper name={name} helper={helper} />
       <FormikFieldError error={errorMessage} />
     </InputWrapper>
   );
