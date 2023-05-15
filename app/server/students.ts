@@ -64,6 +64,75 @@ export async function getStudentsNextPayment() {
     }));
 }
 
+export async function updateStudent({
+  id,
+  firstName,
+  lastName,
+  birthDate,
+  gender,
+  height,
+  weight,
+  inscriptionDate,
+  lineOne,
+  lineTwo,
+  exteriorNumber,
+  interiorNumber,
+  suburb,
+  municipality,
+  zipCode,
+  phone,
+  cellPhone,
+  email,
+  active,
+}: Student &
+  Omit<Address, "id" | "studentId"> &
+  Omit<Communication, "id" | "studentId">) {
+  try {
+    await prisma.student.update({
+      where: { id },
+      data: {
+        firstName,
+        lastName,
+        birthDate,
+        gender,
+        height,
+        weight,
+        inscriptionDate,
+        active,
+        address: {
+          update: {
+            lineOne,
+            lineTwo,
+            exteriorNumber,
+            interiorNumber,
+            suburb,
+            municipality,
+            zipCode,
+          },
+        },
+        communication: {
+          update: {
+            phone,
+            cellPhone,
+            email: email.toLowerCase(),
+          },
+        },
+      },
+    });
+
+    return NextResponse.json({
+      ok: true,
+    });
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify({
+        error: "Internal Server Errror",
+      }),
+      { status: 500 }
+    );
+  }
+}
+
 export async function addStudent({
   firstName,
   lastName,

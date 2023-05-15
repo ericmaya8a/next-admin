@@ -31,9 +31,11 @@ export function RowExpansion(props: any) {
         <Header icon={<FaMobile color={color} />}>
           {props.communication.cellPhone}
         </Header>
-        <Header icon={<FaPhone color={color} />}>
-          {props.communication.phone}
-        </Header>
+        {props.communication.phone ? (
+          <Header icon={<FaPhone color={color} />}>
+            {props.communication.phone}
+          </Header>
+        ) : null}
         <Header icon={<FaAt color={color} />}>
           {props.communication.email}
         </Header>

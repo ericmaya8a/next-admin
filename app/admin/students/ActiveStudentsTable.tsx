@@ -1,6 +1,7 @@
 import { Rank } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { FilterMatchMode } from "primereact/api";
+import { FilterMatchMode, PrimeIcons } from "primereact/api";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import {
   DataTable,
@@ -8,6 +9,7 @@ import {
   DataTableFilterMeta,
 } from "primereact/datatable";
 import { FaCheckCircle } from "react-icons/fa";
+import { useRole } from "@/app/hooks/useRole";
 import { Belt } from "@/app/components/commons/Belt";
 import { Header } from "@/app/components/commons/Header";
 import { SearchTableHeader } from "@/app/components/commons/Table/SearchTableHeader";
@@ -18,14 +20,18 @@ import { RowExpansion } from "./RowExpansion";
 
 type ActiveStudentsTableProps<T> = {
   students: T;
+  handleEdit: (data: any) => void;
 };
 
 export function ActiveStudentsTable<T>({
   students,
+  handleEdit,
 }: ActiveStudentsTableProps<T>) {
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [filters, setFilters] = useState<DataTableFilterMeta | null>(null);
   const [globalFilterValue, setGlobalFilterValue] = useState<string>("");
+  const { isAdmin, isSuperAdmin } = useRole();
+  const hasUpdatePermission = isAdmin || isSuperAdmin;
 
   const initFilters = () => {
     setFilters({
@@ -102,6 +108,21 @@ export function ActiveStudentsTable<T>({
       <Column field="inscriptionDate" header={<InscriptionHeader />} />
       <Column field="gender" header="Gender" body={genderTemplate} sortable />
       <Column field="birthDate" header={<BirthdayHeader />} />
+      {hasUpdatePermission ? (
+        <Column
+          field="name"
+          body={(row) => (
+            <Button
+              icon={PrimeIcons.USER_EDIT}
+              title="Edit User"
+              aria-label="Edit user"
+              rounded
+              outlined
+              onClick={() => handleEdit(row)}
+            />
+          )}
+        />
+      ) : null}
     </DataTable>
   );
 }

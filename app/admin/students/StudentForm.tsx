@@ -11,9 +11,12 @@ import { SelectItemOptionsType } from "primereact/selectitem";
 import { FormikFormSelectField } from "@/app/components/commons/Form/FormikFormSelectField";
 import { FormikFormInputNumberField } from "@/app/components/commons/Form/FormikFormInputNumberField";
 import { FormikFormInputMask } from "@/app/components/commons/Form/FormikFormInputMask";
+import { FormikFormInputSwitch } from "@/app/components/commons/Form/FormikFormInputSwitch";
 import { CONSTANTS } from "@/app/constatnts";
+import { CurrentStudent, RowStudent } from "./Students";
 
 type StudentFormT = {
+  id?: string;
   firstName: string;
   lastName: string;
   birthDate?: Date;
@@ -35,10 +38,12 @@ type StudentFormT = {
 };
 
 type StudentFormProps = {
+  currentStudent?: RowStudent;
   handleClose: VoidFunction;
   handleToast: (message: string) => void;
-  createStudent: (
-    student: Omit<Student, "id" | "active"> &
+  createStudent: (student: CurrentStudent) => Promise<{ ok: boolean }>;
+  editStudent: (
+    student: Student &
       Omit<Address, "id" | "studentId"> &
       Omit<Communication, "id" | "studentId">
   ) => Promise<{ ok: boolean }>;
@@ -70,11 +75,14 @@ const options: SelectItemOptionsType = Object.keys(Gender).map((g) => ({
 }));
 
 export function StudentForm({
+  currentStudent,
   createStudent,
+  editStudent,
   handleToast,
   handleClose,
 }: StudentFormProps) {
   const [message, setMessage] = useState<string>();
+  const isEditMode = Boolean(currentStudent);
 
   const errorMessage = message ? (
     <Message
@@ -85,6 +93,8 @@ export function StudentForm({
   ) : null;
 
   const handleSubmit = async ({
+    id,
+    active,
     firstName,
     lastName,
     birthDate,
@@ -103,9 +113,8 @@ export function StudentForm({
     municipality,
     zipCode,
   }: StudentFormT) => {
-    const newStudent: Omit<Student, "id" | "active"> &
-      Omit<Address, "id" | "studentId"> &
-      Omit<Communication, "id" | "studentId"> = {
+    const newStudent: CurrentStudent = {
+      active,
       firstName,
       lastName,
       birthDate: birthDate as Date,
@@ -122,21 +131,70 @@ export function StudentForm({
       zipCode,
       phone: phone ?? null,
       cellPhone,
-      email,
+      email: email.toLowerCase(),
     };
-    const { ok } = await createStudent(newStudent);
 
-    if (!ok) {
-      return setMessage(`Student with email: ${email} already exists`);
+    if (isEditMode) {
+      const editedStudent: Student &
+        Omit<Address, "id" | "studentId"> &
+        Omit<Communication, "id" | "studentId"> = {
+        id: id as string,
+        ...newStudent,
+      };
+      const { ok } = await editStudent(editedStudent);
+
+      if (!ok) {
+        return setMessage("Invalida data");
+      }
+    } else {
+      const { ok } = await createStudent(newStudent);
+
+      if (!ok) {
+        return setMessage(`Student with email: ${email} already exists`);
+      }
     }
 
-    handleToast(`Student "${firstName} ${lastName}" was successfully created!`);
+    handleToast(
+      `Student "${firstName} ${lastName}" was successfully ${
+        isEditMode ? "updated" : "created"
+      }!`
+    );
     handleClose();
   };
 
   return (
     <FormikForm<StudentFormT>
-      initialValues={initialValues}
+      initialValues={
+        isEditMode
+          ? {
+              id: currentStudent?.id,
+              firstName: currentStudent!.firstName,
+              lastName: currentStudent!.lastName,
+              birthDate: new Date(currentStudent!.birthDate),
+              gender: currentStudent?.gender,
+              height: currentStudent?.height
+                ? String(currentStudent.height)
+                : undefined,
+              weight: currentStudent?.weight
+                ? String(currentStudent.weight)
+                : undefined,
+              inscriptionDate: new Date(currentStudent!.inscriptionDate),
+              lineOne: currentStudent!.address.lineOne,
+              lineTwo: currentStudent?.address.lineTwo as string | undefined,
+              exteriorNumber: currentStudent!.address.exteriorNumber,
+              interiorNumber: currentStudent?.address.interiorNumber as
+                | string
+                | undefined,
+              suburb: currentStudent!.address.suburb,
+              municipality: currentStudent!.address.municipality,
+              zipCode: currentStudent!.address.zipCode,
+              phone: currentStudent?.communication.phone as string | undefined,
+              cellPhone: currentStudent?.communication.cellPhone as string,
+              email: currentStudent!.communication.email,
+              active: currentStudent!.active,
+            }
+          : initialValues
+      }
       validationSchema={StudentFormSchema}
       onSubmit={handleSubmit}
     >
@@ -275,6 +333,13 @@ export function StudentForm({
 
       <Row>
         <FormikFormField label="Zip code" id="zipCode" name="zipCode" />
+        {isEditMode ? (
+          <FormikFormInputSwitch
+            label="Active Student"
+            id="active"
+            name="active"
+          />
+        ) : null}
       </Row>
 
       {errorMessage}
