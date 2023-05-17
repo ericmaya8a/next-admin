@@ -2,16 +2,14 @@ import { PrimeIcons } from "primereact/api";
 import { SpeedDial } from "primereact/speeddial";
 import { Tooltip } from "primereact/tooltip";
 import styled from "styled-components";
+import { useStudent } from "./student-context";
 
 type ActionButtonProps = {
-  handleOpenDialog: VoidFunction;
   refreshPage: VoidFunction;
 };
 
-export function ActionButton({
-  handleOpenDialog,
-  refreshPage,
-}: ActionButtonProps) {
+export function ActionButton({ refreshPage }: ActionButtonProps) {
+  const { setIsOpenStudentModal } = useStudent();
   return (
     <ActionButtonWrapper>
       <Tooltip target=".p-speeddial-action" position="left" />
@@ -26,7 +24,7 @@ export function ActionButton({
           {
             label: "Add",
             icon: PrimeIcons.PLUS,
-            command: handleOpenDialog,
+            command: () => setIsOpenStudentModal(true),
           },
           {
             label: "Refresh",

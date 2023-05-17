@@ -47,6 +47,8 @@ type StudentProviderProps = {
 const StudentContext = React.createContext<
   | {
       currentStudent: RowStudent | undefined;
+      isOpenStudentModal: boolean;
+      setIsOpenStudentModal: React.Dispatch<React.SetStateAction<boolean>>;
       setCurrentStudent: React.Dispatch<
         React.SetStateAction<RowStudent | undefined>
       >;
@@ -64,8 +66,12 @@ function StudentProvider({
   editStudent,
 }: StudentProviderProps) {
   const [currentStudent, setCurrentStudent] = useState<RowStudent>();
+  const [isOpenStudentModal, setIsOpenStudentModal] = useState(false);
+
   const value = {
+    isOpenStudentModal,
     currentStudent,
+    setIsOpenStudentModal,
     setCurrentStudent,
     createStudent,
     editStudent,

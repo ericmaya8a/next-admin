@@ -21,12 +21,10 @@ import { MappedStudent } from "./student-context";
 
 type IncativeStudentsTableProps<T> = {
   students: T;
-  handleEdit: VoidFunction;
 };
 
 export function IncativeStudentsTable<T>({
   students,
-  handleEdit,
 }: IncativeStudentsTableProps<T>) {
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [filters, setFilters] = useState<DataTableFilterMeta | null>(null);
@@ -105,9 +103,7 @@ export function IncativeStudentsTable<T>({
       {hasUpdatePermission ? (
         <Column
           field="name"
-          body={(row: MappedStudent) => (
-            <TableActionButton row={row} handleEdit={handleEdit} />
-          )}
+          body={(row: MappedStudent) => <TableActionButton row={row} />}
         />
       ) : null}
     </DataTable>

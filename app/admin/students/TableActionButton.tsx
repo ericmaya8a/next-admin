@@ -6,11 +6,10 @@ import { MappedStudent, RowStudent, useStudent } from "./student-context";
 
 type TableActionButtonProps = {
   row: MappedStudent;
-  handleEdit: VoidFunction;
 };
 
-export function TableActionButton({ row, handleEdit }: TableActionButtonProps) {
-  const { setCurrentStudent } = useStudent();
+export function TableActionButton({ row }: TableActionButtonProps) {
+  const { setCurrentStudent, setIsOpenStudentModal } = useStudent();
   const menu = useRef<Menu>(null);
 
   return (
@@ -38,7 +37,7 @@ export function TableActionButton({ row, handleEdit }: TableActionButtonProps) {
                     address: row.address!,
                   };
                   setCurrentStudent(studentRow);
-                  handleEdit();
+                  setIsOpenStudentModal(true);
                 },
               },
             ],

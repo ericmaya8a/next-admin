@@ -1,6 +1,7 @@
 import { Gender } from "@prisma/client";
 import { useState } from "react";
 import { Message } from "primereact/message";
+import { ToastMessage } from "primereact/toast";
 import styled from "styled-components";
 import { FormikForm } from "@/app/components/commons/Form/FormikForm";
 import { FormikFormField } from "@/app/components/commons/Form/FormikFormField";
@@ -38,8 +39,7 @@ type StudentFormT = {
 };
 
 type StudentFormProps = {
-  handleClose: VoidFunction;
-  handleToast: (message: string) => void;
+  handleToast: (message: ToastMessage | ToastMessage[]) => void;
 };
 
 const initialValues: StudentFormT = {
@@ -67,8 +67,9 @@ const options: SelectItemOptionsType = Object.keys(Gender).map((g) => ({
   value: g,
 }));
 
-export function StudentForm({ handleToast, handleClose }: StudentFormProps) {
-  const { currentStudent, setCurrentStudent } = useStudent();
+export function StudentForm({ handleToast }: StudentFormProps) {
+  const { currentStudent, setCurrentStudent, setIsOpenStudentModal } =
+    useStudent();
   const { createStudent, editStudent } = useStudent();
   const [message, setMessage] = useState<string>();
   const isEditMode = Boolean(currentStudent);
@@ -141,13 +142,15 @@ export function StudentForm({ handleToast, handleClose }: StudentFormProps) {
       }
     }
 
-    handleToast(
-      `Student "${firstName} ${lastName}" was successfully ${
+    handleToast({
+      severity: "success",
+      summary: "Success",
+      detail: `Student "${firstName} ${lastName}" was successfully ${
         isEditMode ? "updated" : "created"
-      }!`
-    );
+      }!`,
+    });
     setCurrentStudent(undefined);
-    handleClose();
+    setIsOpenStudentModal(false);
   };
 
   return (

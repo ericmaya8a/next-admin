@@ -21,12 +21,10 @@ import { MappedStudent } from "./student-context";
 
 type ActiveStudentsTableProps<T> = {
   students: T;
-  handleEdit: VoidFunction;
 };
 
 export function ActiveStudentsTable<T>({
   students,
-  handleEdit,
 }: ActiveStudentsTableProps<T>) {
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [filters, setFilters] = useState<DataTableFilterMeta | null>(null);
@@ -109,9 +107,7 @@ export function ActiveStudentsTable<T>({
       {hasUpdatePermission ? (
         <Column
           field="name"
-          body={(row: MappedStudent) => (
-            <TableActionButton row={row} handleEdit={handleEdit} />
-          )}
+          body={(row: MappedStudent) => <TableActionButton row={row} />}
         />
       ) : null}
     </DataTable>
