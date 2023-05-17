@@ -63,6 +63,7 @@ const StudentContext = React.createContext<
         student: CreateStudentT & StudentComplement
       ) => BackendResponse;
       editStudent: (student: EditStudentT) => BackendResponse;
+      onClose: VoidFunction;
     }
   | undefined
 >(undefined);
@@ -77,6 +78,12 @@ function StudentProvider({
   const [isOpenStudentModal, setIsOpenStudentModal] = useState(false);
   const [isOpenPromotionModal, setIsOpenPromotionModal] = useState(false);
 
+  const onClose = () => {
+    setCurrentStudent(undefined);
+    setIsOpenPromotionModal(false);
+    setIsOpenStudentModal(false);
+  };
+
   const value = {
     currentStudent,
     isOpenStudentModal,
@@ -87,6 +94,7 @@ function StudentProvider({
     setCurrentStudent,
     setIsOpenPromotionModal,
     setIsOpenStudentModal,
+    onClose,
   };
 
   return (

@@ -9,14 +9,13 @@ type StudentModalProps = {
 };
 
 export function StudentModal({ showToast }: StudentModalProps) {
-  const { currentStudent, isOpenStudentModal, setIsOpenStudentModal } =
-    useStudent();
+  const { currentStudent, isOpenStudentModal, onClose } = useStudent();
 
   return (
     <Dialog
       header={`${Boolean(currentStudent) ? "Edit" : "Add"} Student`}
       visible={isOpenStudentModal}
-      onHide={() => setIsOpenStudentModal(false)}
+      onHide={onClose}
       breakpoints={CONSTANTS.modal.breackpoints}
       style={{ minWidth: "50vw" }}
     >

@@ -1,5 +1,5 @@
 import { Rank } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastMessage } from "primereact/toast";
 import { PromotionFormSchema } from "@/app/server/validationSchemas";
 import { capitalizeEnum, createAvailableRanks } from "@/app/clientUtils";
@@ -11,7 +11,7 @@ import { Row } from "@/app/components/commons/Row";
 import { PromotionT, useStudent } from "../student-context";
 
 type PromotionFormT = {
-  date: Date;
+  date?: Date;
   rank?: Rank;
 };
 
@@ -19,28 +19,24 @@ type PromotionFormProps = {
   handleToast: (message: ToastMessage | ToastMessage[]) => void;
 };
 
-const initialValues: PromotionFormT = {
-  date: new Date(),
-  rank: undefined,
-};
-
 export function PromotionForm({ handleToast }: PromotionFormProps) {
   const [loading, setLoading] = useState(false);
-  const {
-    currentStudent,
-    createPromotion,
-    setCurrentStudent,
-    setIsOpenPromotionModal,
-  } = useStudent();
+  const [initialValues, setInitialValues] = useState<PromotionFormT>({
+    date: undefined,
+    rank: undefined,
+  });
+  const { currentStudent, createPromotion, onClose } = useStudent();
 
-  const handleClose = () => {
-    setCurrentStudent(undefined);
-    setIsOpenPromotionModal(false);
-  };
+  useEffect(() => {
+    setInitialValues({
+      date: new Date(),
+      rank: undefined,
+    });
+  }, []);
 
   const handleSubmit = async ({ date, rank }: PromotionFormT) => {
     const promotion: PromotionT = {
-      date,
+      date: date!,
       rank: rank!,
       studentId: currentStudent!.id,
     };
@@ -65,7 +61,7 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
       severity: "success",
     });
     setLoading(false);
-    handleClose();
+    onClose();
   };
 
   return (

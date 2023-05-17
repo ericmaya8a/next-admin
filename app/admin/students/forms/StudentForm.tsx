@@ -65,13 +65,7 @@ const initialValues: StudentFormT = {
 const options = createOptionsFromEnum(Gender);
 
 export function StudentForm({ handleToast }: StudentFormProps) {
-  const {
-    currentStudent,
-    setCurrentStudent,
-    setIsOpenStudentModal,
-    createStudent,
-    editStudent,
-  } = useStudent();
+  const { currentStudent, createStudent, editStudent, onClose } = useStudent();
   const [message, setMessage] = useState<string>();
   const [loading, setLoading] = useState(false);
   const isEditMode = Boolean(currentStudent);
@@ -155,8 +149,7 @@ export function StudentForm({ handleToast }: StudentFormProps) {
         isEditMode ? "updated" : "created"
       }!`,
     });
-    setCurrentStudent(undefined);
-    setIsOpenStudentModal(false);
+    onClose();
   };
 
   return (

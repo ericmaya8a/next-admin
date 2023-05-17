@@ -9,21 +9,13 @@ type PromotionModalProps = {
 };
 
 export function PromotionModal({ showToast }: PromotionModalProps) {
-  const {
-    currentStudent,
-    isOpenPromotionModal,
-    setIsOpenPromotionModal,
-    setCurrentStudent,
-  } = useStudent();
+  const { currentStudent, isOpenPromotionModal, onClose } = useStudent();
 
   return (
     <Dialog
       header={`${currentStudent?.firstName} ${currentStudent?.lastName}'s promotion`}
       visible={isOpenPromotionModal}
-      onHide={() => {
-        setIsOpenPromotionModal(false);
-        setCurrentStudent(undefined);
-      }}
+      onHide={onClose}
       breakpoints={CONSTANTS.modal.breackpoints}
       style={{ width: "50vw" }}
     >
