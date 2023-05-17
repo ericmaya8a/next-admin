@@ -17,6 +17,7 @@ import { InscriptionHeader } from "./InscriptionHeader";
 import { genderTemplate } from "./GenderTemplate";
 import { RowExpansion } from "./RowExpansion";
 import { TableActionButton } from "./TableActionButton";
+import { MappedStudent } from "./student-context";
 
 type IncativeStudentsTableProps<T> = {
   students: T;
@@ -59,7 +60,7 @@ export function IncativeStudentsTable<T>({
   return (
     <DataTable
       // @ts-ignore
-      value={students.filter((st) => !st.active)}
+      value={students.filter((st: MappedStudent) => !st.active)}
       header={
         <SearchTableHeader
           value={globalFilterValue}
@@ -85,21 +86,18 @@ export function IncativeStudentsTable<T>({
       <Column
         field="promotion"
         header="Rank"
-        body={(val) => {
-          const promotions = val.promotion;
-          return (
-            <Belt
-              belt={
-                promotions.length > 0
-                  ? promotions[promotions.length - 1].rank
-                  : Rank["BLANCA"]
-              }
-              tooltip
-              tooltipPosition="right"
-              width={70}
-            />
-          );
-        }}
+        body={({ promotion }: MappedStudent) => (
+          <Belt
+            belt={
+              promotion.length > 0
+                ? promotion[promotion.length - 1].rank
+                : Rank["BLANCA"]
+            }
+            tooltip
+            tooltipPosition="right"
+            width={70}
+          />
+        )}
       />
       <Column field="inscriptionDate" header={<InscriptionHeader />} />
       <Column field="gender" header="Gender" body={genderTemplate} sortable />
@@ -107,7 +105,7 @@ export function IncativeStudentsTable<T>({
       {hasUpdatePermission ? (
         <Column
           field="name"
-          body={(row) => (
+          body={(row: MappedStudent) => (
             <TableActionButton row={row} handleEdit={handleEdit} />
           )}
         />

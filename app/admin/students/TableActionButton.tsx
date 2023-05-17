@@ -2,10 +2,11 @@ import React, { useRef } from "react";
 import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
+import { MappedStudent } from "./student-context";
 
 type TableActionButtonProps = {
-  row: any;
-  handleEdit: (data: any) => void;
+  row: MappedStudent;
+  handleEdit: (data: MappedStudent) => void;
 };
 
 export function TableActionButton({ row, handleEdit }: TableActionButtonProps) {

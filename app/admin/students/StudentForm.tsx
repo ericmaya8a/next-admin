@@ -1,4 +1,4 @@
-import { Address, Communication, Gender, Student } from "@prisma/client";
+import { Gender } from "@prisma/client";
 import { useState } from "react";
 import { Message } from "primereact/message";
 import styled from "styled-components";
@@ -13,7 +13,12 @@ import { FormikFormInputNumberField } from "@/app/components/commons/Form/Formik
 import { FormikFormInputMask } from "@/app/components/commons/Form/FormikFormInputMask";
 import { FormikFormInputSwitch } from "@/app/components/commons/Form/FormikFormInputSwitch";
 import { CONSTANTS } from "@/app/constatnts";
-import { CurrentStudent, RowStudent } from "./Students";
+import {
+  CreateStudentT,
+  EditStudentT,
+  RowStudent,
+  useStudent,
+} from "./student-context";
 
 type StudentFormT = {
   id?: string;
@@ -41,12 +46,6 @@ type StudentFormProps = {
   currentStudent?: RowStudent;
   handleClose: VoidFunction;
   handleToast: (message: string) => void;
-  createStudent: (student: CurrentStudent) => Promise<{ ok: boolean }>;
-  editStudent: (
-    student: Student &
-      Omit<Address, "id" | "studentId"> &
-      Omit<Communication, "id" | "studentId">
-  ) => Promise<{ ok: boolean }>;
 };
 
 const initialValues: StudentFormT = {
@@ -76,11 +75,10 @@ const options: SelectItemOptionsType = Object.keys(Gender).map((g) => ({
 
 export function StudentForm({
   currentStudent,
-  createStudent,
-  editStudent,
   handleToast,
   handleClose,
 }: StudentFormProps) {
+  const { createStudent, editStudent } = useStudent();
   const [message, setMessage] = useState<string>();
   const isEditMode = Boolean(currentStudent);
 
@@ -113,7 +111,7 @@ export function StudentForm({
     municipality,
     zipCode,
   }: StudentFormT) => {
-    const newStudent: CurrentStudent = {
+    const newStudent: CreateStudentT = {
       active,
       firstName,
       lastName,
@@ -135,9 +133,7 @@ export function StudentForm({
     };
 
     if (isEditMode) {
-      const editedStudent: Student &
-        Omit<Address, "id" | "studentId"> &
-        Omit<Communication, "id" | "studentId"> = {
+      const editedStudent: EditStudentT = {
         id: id as string,
         ...newStudent,
       };

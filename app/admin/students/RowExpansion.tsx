@@ -18,8 +18,15 @@ import {
 } from "react-icons/fa";
 import { Header } from "@/app/components/commons/Header";
 import { Belt } from "@/app/components/commons/Belt";
+import { MappedStudent } from "./student-context";
 
-export function RowExpansion(props: any) {
+export function RowExpansion({
+  communication,
+  height,
+  weight,
+  address,
+  promotion,
+}: MappedStudent) {
   const color = "var(--primary-color)";
 
   return (
@@ -29,47 +36,41 @@ export function RowExpansion(props: any) {
         rightIcon={<FaComment style={{ marginLeft: "5px" }} />}
       >
         <Header icon={<FaMobile color={color} />}>
-          {props.communication.cellPhone}
+          {communication?.cellPhone}
         </Header>
-        {props.communication.phone ? (
+        {communication?.phone ? (
           <Header icon={<FaPhone color={color} />}>
-            {props.communication.phone}
+            {communication.phone}
           </Header>
         ) : null}
-        <Header icon={<FaAt color={color} />}>
-          {props.communication.email}
-        </Header>
+        <Header icon={<FaAt color={color} />}>{communication?.email}</Header>
       </TabPanel>
       <TabPanel
         header="Size"
         rightIcon={<FaUserTag style={{ marginLeft: "5px" }} />}
       >
-        <Header icon={<TfiRuler color={color} />}>{props.height} m.</Header>
-        <Header icon={<GiWeight color={color} />}>{props.weight} kg.</Header>
+        <Header icon={<TfiRuler color={color} />}>{height} m.</Header>
+        <Header icon={<GiWeight color={color} />}>{weight} kg.</Header>
       </TabPanel>
       <TabPanel
         header="Address"
         rightIcon={<FaAddressCard style={{ marginLeft: "5px" }} />}
       >
         <Header icon={<FaHome color={color} />}>
-          {props.address.lineOne} {props.address.lineTwo}{" "}
-          {props.address.exteriorNumber} {props.address.interiorNumber}
+          {address?.lineOne} {address?.lineTwo} {address?.exteriorNumber}{" "}
+          {address?.interiorNumber}
         </Header>
         <Header icon={<BsFillHouseHeartFill color={color} />}>
-          {props.address.suburb}
+          {address?.suburb}
         </Header>
-        <Header icon={<FaCity color={color} />}>
-          {props.address.municipality}
-        </Header>
-        <Header icon={<FaBarcode color={color} />}>
-          {props.address.zipCode}
-        </Header>
+        <Header icon={<FaCity color={color} />}>{address?.municipality}</Header>
+        <Header icon={<FaBarcode color={color} />}>{address?.zipCode}</Header>
       </TabPanel>
       <TabPanel
         header="Promotions"
         rightIcon={<FaGraduationCap style={{ marginLeft: "5px" }} />}
       >
-        {props.promotion.map((prom: any) => (
+        {promotion.map((prom) => (
           <PromotionWrapper key={prom.id}>
             <Header
               icon={<FaCalendarCheck color={color} />}

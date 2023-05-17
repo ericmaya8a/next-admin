@@ -1,6 +1,5 @@
 "use client";
 
-import { Address, Communication, Student } from "@prisma/client";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Dialog } from "primereact/dialog";
@@ -11,24 +10,18 @@ import { IncativeStudentsTable } from "./IncativeStudentsTable";
 import { ActiveStudentsTable } from "./ActiveStudentsTable";
 import { ActionButton } from "./ActionButton";
 import { StudentForm } from "./StudentForm";
-
-export type CurrentStudent = Omit<Student, "id"> &
-  Omit<Address, "id" | "studentId"> &
-  Omit<Communication, "id" | "studentId">;
-
-export type RowStudent = Student & {
-  address: Omit<Address, "id" | "studentId">;
-  communication: Omit<Communication, "id" | "studentId">;
-};
+import {
+  BackendResponse,
+  CreateStudentT,
+  EditStudentT,
+  RowStudent,
+  StudentProvider,
+} from "./student-context";
 
 type StudentsProps<T> = {
   students: T;
-  createStudent: (student: CurrentStudent) => Promise<{ ok: boolean }>;
-  editStudent: (
-    student: Student &
-      Omit<Address, "id" | "studentId"> &
-      Omit<Communication, "id" | "studentId">
-  ) => Promise<{ ok: boolean }>;
+  createStudent: (student: CreateStudentT) => BackendResponse;
+  editStudent: (student: EditStudentT) => BackendResponse;
 };
 
 export function Students<T>(props: StudentsProps<T>) {
@@ -63,7 +56,10 @@ export function Students<T>(props: StudentsProps<T>) {
   };
 
   return (
-    <>
+    <StudentProvider
+      createStudent={props.createStudent}
+      editStudent={props.editStudent}
+    >
       <PageHeader
         title="Students"
         actions={
@@ -90,13 +86,11 @@ export function Students<T>(props: StudentsProps<T>) {
         style={{ minWidth: "50vw" }}
       >
         <StudentForm
-          createStudent={props.createStudent}
           handleClose={handleClose}
           handleToast={showToast}
           currentStudent={currentStudent}
-          editStudent={props.editStudent}
         />
       </Dialog>
-    </>
+    </StudentProvider>
   );
 }
