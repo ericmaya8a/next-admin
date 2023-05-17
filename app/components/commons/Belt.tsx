@@ -87,29 +87,6 @@ export function Belt({
           />
         </g>
       </svg>
-      {/* <svg
-        className="belt"
-        version="1.0"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 153.000000 57.000000"
-        preserveAspectRatio="xMidYMid meet"
-        width={width}
-        data-pr-tooltip={tooltip ? belt.toLowerCase() : undefined}
-        data-pr-position={tooltipPosition}
-      >
-        <g
-          transform="translate(0.000000,57.000000) scale(0.100000,-0.100000)"
-          fill={fill}
-          stroke="none"
-        >
-          <path
-            d="M30 480 l0 -70 295 0 c162 0 295 -2 295 -5 0 -3 -38 -64 -85 -135
-            -110 -169 -109 -168 -94 -186 16 -20 87 -56 98 -50 4 3 54 75 111 160 56 86
-            106 156 110 156 4 0 55 -72 113 -160 59 -88 110 -160 115 -160 4 0 31 15 60
-            33 l52 33 -105 155 -105 154 302 5 303 5 3 68 3 67 -736 0 -735 0 0 -70z"
-          />
-        </g>
-      </svg> */}
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { Rank } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { FilterMatchMode, PrimeIcons } from "primereact/api";
-import { Button } from "primereact/button";
+import { FilterMatchMode } from "primereact/api";
 import { Column } from "primereact/column";
 import {
   DataTable,
@@ -17,6 +16,7 @@ import { BirthdayHeader } from "./BirthdayHeader";
 import { InscriptionHeader } from "./InscriptionHeader";
 import { genderTemplate } from "./GenderTemplate";
 import { RowExpansion } from "./RowExpansion";
+import { TableActionButton } from "./TableActionButton";
 
 type IncativeStudentsTableProps<T> = {
   students: T;
@@ -108,13 +108,7 @@ export function IncativeStudentsTable<T>({
         <Column
           field="name"
           body={(row) => (
-            <Button
-              icon={PrimeIcons.USER_EDIT}
-              aria-label="Edit user"
-              rounded
-              outlined
-              onClick={() => handleEdit(row)}
-            />
+            <TableActionButton row={row} handleEdit={handleEdit} />
           )}
         />
       ) : null}
