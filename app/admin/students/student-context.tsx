@@ -1,5 +1,5 @@
 import { Address, Communication, Promotion, Student } from "@prisma/client";
-import React from "react";
+import React, { useState } from "react";
 
 type StudentAddress = Omit<Address, "id" | "studentId">;
 type StudentCommunication = Omit<Communication, "id" | "studentId">;
@@ -46,6 +46,10 @@ type StudentProviderProps = {
 
 const StudentContext = React.createContext<
   | {
+      currentStudent: RowStudent | undefined;
+      setCurrentStudent: React.Dispatch<
+        React.SetStateAction<RowStudent | undefined>
+      >;
       createStudent: (
         student: CreateStudentT & StudentComplement
       ) => BackendResponse;
@@ -59,7 +63,14 @@ function StudentProvider({
   createStudent,
   editStudent,
 }: StudentProviderProps) {
-  const value = { createStudent, editStudent };
+  const [currentStudent, setCurrentStudent] = useState<RowStudent>();
+  const value = {
+    currentStudent,
+    setCurrentStudent,
+    createStudent,
+    editStudent,
+  };
+
   return (
     <StudentContext.Provider value={value}>{children}</StudentContext.Provider>
   );

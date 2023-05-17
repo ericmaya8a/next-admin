@@ -13,12 +13,7 @@ import { FormikFormInputNumberField } from "@/app/components/commons/Form/Formik
 import { FormikFormInputMask } from "@/app/components/commons/Form/FormikFormInputMask";
 import { FormikFormInputSwitch } from "@/app/components/commons/Form/FormikFormInputSwitch";
 import { CONSTANTS } from "@/app/constatnts";
-import {
-  CreateStudentT,
-  EditStudentT,
-  RowStudent,
-  useStudent,
-} from "./student-context";
+import { CreateStudentT, EditStudentT, useStudent } from "./student-context";
 
 type StudentFormT = {
   id?: string;
@@ -43,7 +38,6 @@ type StudentFormT = {
 };
 
 type StudentFormProps = {
-  currentStudent?: RowStudent;
   handleClose: VoidFunction;
   handleToast: (message: string) => void;
 };
@@ -73,11 +67,8 @@ const options: SelectItemOptionsType = Object.keys(Gender).map((g) => ({
   value: g,
 }));
 
-export function StudentForm({
-  currentStudent,
-  handleToast,
-  handleClose,
-}: StudentFormProps) {
+export function StudentForm({ handleToast, handleClose }: StudentFormProps) {
+  const { currentStudent, setCurrentStudent } = useStudent();
   const { createStudent, editStudent } = useStudent();
   const [message, setMessage] = useState<string>();
   const isEditMode = Boolean(currentStudent);
@@ -155,6 +146,7 @@ export function StudentForm({
         isEditMode ? "updated" : "created"
       }!`
     );
+    setCurrentStudent(undefined);
     handleClose();
   };
 

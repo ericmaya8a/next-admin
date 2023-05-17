@@ -21,7 +21,7 @@ import { MappedStudent } from "./student-context";
 
 type IncativeStudentsTableProps<T> = {
   students: T;
-  handleEdit: (data: any) => void;
+  handleEdit: VoidFunction;
 };
 
 export function IncativeStudentsTable<T>({

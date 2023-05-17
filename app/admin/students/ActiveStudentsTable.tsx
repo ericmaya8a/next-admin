@@ -21,7 +21,7 @@ import { MappedStudent } from "./student-context";
 
 type ActiveStudentsTableProps<T> = {
   students: T;
-  handleEdit: (data: any) => void;
+  handleEdit: VoidFunction;
 };
 
 export function ActiveStudentsTable<T>({
