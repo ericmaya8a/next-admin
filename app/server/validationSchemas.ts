@@ -1,4 +1,4 @@
-import { Gender } from "@prisma/client";
+import { Gender, Rank } from "@prisma/client";
 import * as Yup from "yup";
 import { CONSTANTS } from "../constatnts";
 
@@ -46,3 +46,8 @@ export const StudentFormSchema = Yup.object({
   zipCode: Yup.string().required().min(5).max(5).label("Zip code"),
   active: Yup.bool().label("Active Student"),
 }).concat(EmailSchema);
+
+export const PromotionFormSchema = Yup.object({
+  date: Yup.date().required().label("Date"),
+  rank: Yup.mixed().oneOf(Object.keys(Rank)).required().label("Rank"),
+});

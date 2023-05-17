@@ -1,5 +1,5 @@
 import { prisma } from "@/server/db/client";
-import { Address, Communication, Student } from "@prisma/client";
+import { Address, Communication, Promotion, Student } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { dateToString, getDateInNumbers, getDayNumber } from "./utils";
 
@@ -207,4 +207,31 @@ export async function addStudent({
   return NextResponse.json({
     ok: true,
   });
+}
+
+export async function addPromotion({
+  date,
+  rank,
+  studentId,
+}: Omit<Promotion, "id">) {
+  try {
+    await prisma.promotion.create({
+      data: {
+        date,
+        rank,
+        studentId,
+      },
+    });
+
+    return NextResponse.json({
+      ok: true,
+    });
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify({
+        error: "Internal Server Errror",
+      }),
+      { status: 500 }
+    );
+  }
 }

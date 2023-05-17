@@ -15,6 +15,7 @@ export type EditStudentT = Student & StudentComplement;
 export type RowStudent = Student & {
   address: StudentAddress;
   communication: StudentCommunication;
+  promotion?: MappedStudent["promotion"];
 };
 
 export type MappedStudent = {
@@ -38,8 +39,11 @@ export type MappedStudent = {
   }[];
 };
 
+export type PromotionT = Omit<Promotion, "id">;
+
 type StudentProviderProps = {
   children: React.ReactNode;
+  createPromotion: (promotion: PromotionT) => BackendResponse;
   createStudent: (student: CreateStudentT) => BackendResponse;
   editStudent: (student: Student & StudentComplement) => BackendResponse;
 };
@@ -48,10 +52,13 @@ const StudentContext = React.createContext<
   | {
       currentStudent: RowStudent | undefined;
       isOpenStudentModal: boolean;
+      isOpenPromotionModal: boolean;
+      setIsOpenPromotionModal: React.Dispatch<React.SetStateAction<boolean>>;
       setIsOpenStudentModal: React.Dispatch<React.SetStateAction<boolean>>;
       setCurrentStudent: React.Dispatch<
         React.SetStateAction<RowStudent | undefined>
       >;
+      createPromotion: (promotion: PromotionT) => BackendResponse;
       createStudent: (
         student: CreateStudentT & StudentComplement
       ) => BackendResponse;
@@ -64,17 +71,22 @@ function StudentProvider({
   children,
   createStudent,
   editStudent,
+  createPromotion,
 }: StudentProviderProps) {
   const [currentStudent, setCurrentStudent] = useState<RowStudent>();
   const [isOpenStudentModal, setIsOpenStudentModal] = useState(false);
+  const [isOpenPromotionModal, setIsOpenPromotionModal] = useState(false);
 
   const value = {
-    isOpenStudentModal,
     currentStudent,
-    setIsOpenStudentModal,
-    setCurrentStudent,
+    isOpenStudentModal,
+    isOpenPromotionModal,
+    createPromotion,
     createStudent,
     editStudent,
+    setCurrentStudent,
+    setIsOpenPromotionModal,
+    setIsOpenStudentModal,
   };
 
   return (

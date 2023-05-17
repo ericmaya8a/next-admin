@@ -1,5 +1,15 @@
-import { addStudent, getStudents, updateStudent } from "@/app/server/students";
-import { CreateStudentT, EditStudentT, MappedStudent } from "./student-context";
+import {
+  addPromotion,
+  addStudent,
+  getStudents,
+  updateStudent,
+} from "@/app/server/students";
+import {
+  CreateStudentT,
+  EditStudentT,
+  MappedStudent,
+  PromotionT,
+} from "./student-context";
 import { Students } from "./Students";
 
 export default async function StudentsPage() {
@@ -14,10 +24,16 @@ export default async function StudentsPage() {
     const { ok } = await updateStudent(student);
     return { ok };
   };
+  const createPromotion = async (promotion: PromotionT) => {
+    "use server";
+    const { ok } = await addPromotion(promotion);
+    return { ok };
+  };
 
   return (
     <Students<MappedStudent[]>
       students={students}
+      createPromotion={createPromotion}
       createStudent={createStudent}
       editStudent={editStudent}
     />

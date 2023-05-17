@@ -5,12 +5,14 @@ import { CONSTANTS } from "@/app/constatnts";
 type BeltProps = {
   belt: Rank;
   width?: number;
+  style?: React.CSSProperties;
   tooltip?: boolean;
   tooltipPosition?: "top" | "right" | "bottom" | "left" | "mouse";
 };
 
 export function Belt({
   belt,
+  style,
   tooltip = false,
   tooltipPosition = "top",
   width,
@@ -28,6 +30,7 @@ export function Belt({
         width={width}
         data-pr-tooltip={tooltip ? belt.toLowerCase() : undefined}
         data-pr-position={tooltipPosition}
+        style={style}
       >
         <g id="#000000ff">
           <path

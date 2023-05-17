@@ -2,18 +2,18 @@ import { Gender } from "@prisma/client";
 import { useState } from "react";
 import { Message } from "primereact/message";
 import { ToastMessage } from "primereact/toast";
-import styled from "styled-components";
+import { createOptionsFromEnum } from "@/app/clientUtils";
+import { CONSTANTS } from "@/app/constatnts";
 import { FormikForm } from "@/app/components/commons/Form/FormikForm";
 import { FormikFormField } from "@/app/components/commons/Form/FormikFormField";
 import { FormikSubmitButton } from "@/app/components/commons/Form/FormikSubmitButton";
 import { FormikFormCalendarField } from "@/app/components/commons/Form/FormikFormCalendarField";
 import { StudentFormSchema } from "@/app/server/validationSchemas";
-import { SelectItemOptionsType } from "primereact/selectitem";
 import { FormikFormSelectField } from "@/app/components/commons/Form/FormikFormSelectField";
 import { FormikFormInputNumberField } from "@/app/components/commons/Form/FormikFormInputNumberField";
 import { FormikFormInputMask } from "@/app/components/commons/Form/FormikFormInputMask";
 import { FormikFormInputSwitch } from "@/app/components/commons/Form/FormikFormInputSwitch";
-import { CONSTANTS } from "@/app/constatnts";
+import { Row } from "@/app/components/commons/Row";
 import { CreateStudentT, EditStudentT, useStudent } from "../student-context";
 
 type StudentFormT = {
@@ -62,16 +62,18 @@ const initialValues: StudentFormT = {
   cellPhone: "",
   email: "",
 };
-const options: SelectItemOptionsType = Object.keys(Gender).map((g) => ({
-  label: g.toLowerCase(),
-  value: g,
-}));
+const options = createOptionsFromEnum(Gender);
 
 export function StudentForm({ handleToast }: StudentFormProps) {
-  const { currentStudent, setCurrentStudent, setIsOpenStudentModal } =
-    useStudent();
-  const { createStudent, editStudent } = useStudent();
+  const {
+    currentStudent,
+    setCurrentStudent,
+    setIsOpenStudentModal,
+    createStudent,
+    editStudent,
+  } = useStudent();
   const [message, setMessage] = useState<string>();
+  const [loading, setLoading] = useState(false);
   const isEditMode = Boolean(currentStudent);
 
   const errorMessage = message ? (
@@ -124,18 +126,22 @@ export function StudentForm({ handleToast }: StudentFormProps) {
       email: email.toLowerCase(),
     };
 
+    setLoading(true);
+
     if (isEditMode) {
       const editedStudent: EditStudentT = {
         id: id as string,
         ...newStudent,
       };
       const { ok } = await editStudent(editedStudent);
+      setLoading(false);
 
       if (!ok) {
         return setMessage("Invalida data");
       }
     } else {
       const { ok } = await createStudent(newStudent);
+      setLoading(false);
 
       if (!ok) {
         return setMessage(`Student with email: ${email} already exists`);
@@ -334,21 +340,7 @@ export function StudentForm({ handleToast }: StudentFormProps) {
       </Row>
 
       {errorMessage}
-      <FormikSubmitButton type="submit" label="Submit" />
+      <FormikSubmitButton type="submit" label="Submit" loading={loading} />
     </FormikForm>
   );
 }
-
-const Row = styled.div`
-  display: block;
-
-  div {
-    width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: space-between;
-  }
-`;

@@ -9,15 +9,18 @@ import {
   BackendResponse,
   CreateStudentT,
   EditStudentT,
+  PromotionT,
   StudentProvider,
 } from "./student-context";
 import { ActiveStudentsTable } from "./tables/ActiveStudentsTable";
 import { IncativeStudentsTable } from "./tables/IncativeStudentsTable";
+import { PromotionModal } from "./modals/PromotionModal";
 import { StudentModal } from "./modals/StudentModal";
 import { ActionButton } from "./ActionButton";
 
 type StudentsProps<T> = {
   students: T;
+  createPromotion: (promotion: PromotionT) => BackendResponse;
   createStudent: (student: CreateStudentT) => BackendResponse;
   editStudent: (student: EditStudentT) => BackendResponse;
 };
@@ -37,6 +40,7 @@ export function Students<T>(props: StudentsProps<T>) {
 
   return (
     <StudentProvider
+      createPromotion={props.createPromotion}
       createStudent={props.createStudent}
       editStudent={props.editStudent}
     >
@@ -53,6 +57,7 @@ export function Students<T>(props: StudentsProps<T>) {
 
       <Toast position="top-center" ref={toast} />
       <StudentModal showToast={showToast} />
+      <PromotionModal showToast={showToast} />
     </StudentProvider>
   );
 }

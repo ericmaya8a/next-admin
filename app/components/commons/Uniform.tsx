@@ -1,9 +1,10 @@
 type UniformProps = {
   fill?: string;
   width?: number;
+  style?: React.CSSProperties;
 };
 
-export function Uniform({ fill = "#000000", width }: UniformProps) {
+export function Uniform({ fill = "#000000", width, style }: UniformProps) {
   return (
     <svg
       version="1.0"
@@ -11,6 +12,7 @@ export function Uniform({ fill = "#000000", width }: UniformProps) {
       viewBox="0 0 211.000000 173.000000"
       preserveAspectRatio="xMidYMid meet"
       width={width}
+      style={style}
     >
       <g
         transform="translate(0.000000,173.000000) scale(0.100000,-0.100000)"

@@ -58,7 +58,7 @@ export function FormikFormSelectField({
         onBlur={handleBlur}
         options={options}
         optionLabel="label"
-        placeholder="Select a Gender"
+        placeholder={otherProps.placeholder}
         aria-describedby={helper ? `${name}-help` : undefined}
         style={style}
       />
