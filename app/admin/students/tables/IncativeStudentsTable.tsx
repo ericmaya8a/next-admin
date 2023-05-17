@@ -12,12 +12,12 @@ import { useRole } from "@/app/hooks/useRole";
 import { Belt } from "@/app/components/commons/Belt";
 import { Header } from "@/app/components/commons/Header";
 import { SearchTableHeader } from "@/app/components/commons/Table/SearchTableHeader";
+import { MappedStudent } from "../student-context";
+import { TableActionButton } from "./TableActionButton";
 import { BirthdayHeader } from "./BirthdayHeader";
 import { InscriptionHeader } from "./InscriptionHeader";
 import { genderTemplate } from "./GenderTemplate";
 import { RowExpansion } from "./RowExpansion";
-import { TableActionButton } from "./TableActionButton";
-import { MappedStudent } from "./student-context";
 
 type IncativeStudentsTableProps<T> = {
   students: T;

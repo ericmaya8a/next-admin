@@ -5,16 +5,16 @@ import { useRouter } from "next/navigation";
 import { Toast, ToastMessage } from "primereact/toast";
 import { useRole } from "@/app/hooks/useRole";
 import { PageHeader } from "@/app/components/commons/PageHeader";
-import { IncativeStudentsTable } from "./IncativeStudentsTable";
-import { ActiveStudentsTable } from "./ActiveStudentsTable";
-import { ActionButton } from "./ActionButton";
 import {
   BackendResponse,
   CreateStudentT,
   EditStudentT,
   StudentProvider,
 } from "./student-context";
-import { StudentModal } from "./StudentModal";
+import { ActiveStudentsTable } from "./tables/ActiveStudentsTable";
+import { IncativeStudentsTable } from "./tables/IncativeStudentsTable";
+import { StudentModal } from "./modals/StudentModal";
+import { ActionButton } from "./ActionButton";
 
 type StudentsProps<T> = {
   students: T;

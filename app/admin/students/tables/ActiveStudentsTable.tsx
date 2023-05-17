@@ -17,7 +17,7 @@ import { InscriptionHeader } from "./InscriptionHeader";
 import { genderTemplate } from "./GenderTemplate";
 import { RowExpansion } from "./RowExpansion";
 import { TableActionButton } from "./TableActionButton";
-import { MappedStudent } from "./student-context";
+import { MappedStudent } from "../student-context";
 
 type ActiveStudentsTableProps<T> = {
   students: T;

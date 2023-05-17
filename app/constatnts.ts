@@ -57,4 +57,10 @@ export const CONSTANTS = {
   inputMask: {
     phone: "99 9999 9999",
   },
+  modal: {
+    breackpoints: {
+      "960px": "75vw",
+      "641px": "100vw",
+    },
+  },
 };

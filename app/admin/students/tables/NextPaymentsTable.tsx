@@ -6,9 +6,9 @@ import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
 import { DataTable } from "primereact/datatable";
 import { SiAmazonpay } from "react-icons/si";
-import { useRole } from "../hooks/useRole";
-import { InscriptionHeader } from "./students/InscriptionHeader";
-import { NextPaymentsT } from "./Admin";
+import { useRole } from "../../../hooks/useRole";
+import { NextPaymentsT } from "../../Admin";
+import { InscriptionHeader } from "./InscriptionHeader";
 
 export function NextPaymentsTable({ data }: NextPaymentsT) {
   const [isOpen, setIsOpen] = useState(false);

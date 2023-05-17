@@ -1,7 +1,7 @@
 "use client";
 
 import { PageHeader } from "../components/commons/PageHeader";
-import { NextPaymentsTable } from "./NextPaymentsTable";
+import { NextPaymentsTable } from "./students/tables/NextPaymentsTable";
 
 export type NextPaymentsT = {
   data: {

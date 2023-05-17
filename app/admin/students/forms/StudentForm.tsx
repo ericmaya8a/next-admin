@@ -14,7 +14,7 @@ import { FormikFormInputNumberField } from "@/app/components/commons/Form/Formik
 import { FormikFormInputMask } from "@/app/components/commons/Form/FormikFormInputMask";
 import { FormikFormInputSwitch } from "@/app/components/commons/Form/FormikFormInputSwitch";
 import { CONSTANTS } from "@/app/constatnts";
-import { CreateStudentT, EditStudentT, useStudent } from "./student-context";
+import { CreateStudentT, EditStudentT, useStudent } from "../student-context";
 
 type StudentFormT = {
   id?: string;

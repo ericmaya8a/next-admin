@@ -1,7 +1,8 @@
 import { Dialog } from "primereact/dialog";
 import { ToastMessage } from "primereact/toast";
-import { useStudent } from "./student-context";
-import { StudentForm } from "./StudentForm";
+import { CONSTANTS } from "@/app/constatnts";
+import { useStudent } from "../student-context";
+import { StudentForm } from "../forms/StudentForm";
 
 type StudentModalProps = {
   showToast: (message: ToastMessage | ToastMessage[]) => void;
@@ -16,7 +17,7 @@ export function StudentModal({ showToast }: StudentModalProps) {
       header={`${Boolean(currentStudent) ? "Edit" : "Add"} Student`}
       visible={isOpenStudentModal}
       onHide={() => setIsOpenStudentModal(false)}
-      breakpoints={{ "960px": "75vw", "641px": "100vw" }}
+      breakpoints={CONSTANTS.modal.breackpoints}
       style={{ minWidth: "50vw" }}
     >
       <StudentForm handleToast={showToast} />

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
-import { MappedStudent, RowStudent, useStudent } from "./student-context";
+import { MappedStudent, RowStudent, useStudent } from "../student-context";
 
 type TableActionButtonProps = {
   row: MappedStudent;
