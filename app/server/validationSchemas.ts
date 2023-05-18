@@ -53,6 +53,7 @@ export const PromotionFormSchema = Yup.object({
 });
 
 export const PaymentFormSchema = Yup.object({
+  date: Yup.date().required().label("Date"),
   paymentType: Yup.mixed()
     .oneOf(Object.keys(PaymentType))
     .required()

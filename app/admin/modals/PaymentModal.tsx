@@ -9,6 +9,7 @@ import { FormikFormSelectField } from "@/app/components/commons/Form/FormikFormS
 import { Row } from "@/app/components/commons/Row";
 import { FormikFormInputNumberField } from "@/app/components/commons/Form/FormikFormInputNumberField";
 import { FormikSubmitButton } from "@/app/components/commons/Form/FormikSubmitButton";
+import { FormikFormCalendarField } from "@/app/components/commons/Form/FormikFormCalendarField";
 import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper";
 
 type PaymentModalProps = {
@@ -19,11 +20,13 @@ type PaymentModalProps = {
 };
 
 type PaymentForm = {
+  date: Date;
   paymentType: PaymentType;
   amount: string;
 };
 
 const initialValues: PaymentForm = {
+  date: new Date(),
   paymentType: PaymentType["CASH"],
   amount: "",
 };
@@ -34,8 +37,14 @@ export function PaymentModal({
   onHide,
   onPayment,
 }: PaymentModalProps) {
-  const handleSubmit = (values: PaymentForm) => {
-    console.log(values);
+  const handleSubmit = ({ amount, date, paymentType }: PaymentForm) => {
+    const payment = {
+      date,
+      amount,
+      paymentType,
+      studentId: student?.id,
+    };
+    console.log(payment);
   };
 
   if (!student) {
@@ -56,6 +65,12 @@ export function PaymentModal({
         onSubmit={handleSubmit}
       >
         <Row>
+          <FormikFormCalendarField
+            label="Date"
+            id="data"
+            name="date"
+            width="100%"
+          />
           <FormikFormSelectField
             label="Payment type"
             id="paymentType"
@@ -63,6 +78,9 @@ export function PaymentModal({
             placeholder="Select type"
             options={createOptionsFromEnum(PaymentType)}
           />
+        </Row>
+
+        <Row>
           <FormikFormInputNumberField
             label="Amount"
             id="amount"
@@ -71,7 +89,7 @@ export function PaymentModal({
             currency="USD"
             minFractionDigits={2}
             maxFractionDigits={2}
-            width="100%"
+            width="50%"
           />
         </Row>
 
