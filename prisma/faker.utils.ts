@@ -4,6 +4,11 @@ function randomDate() {
   return faker.date.between("2021-01-01T00:00:00.000Z", new Date().toJSON());
 }
 
+function getRandomValue(values: string[]) {
+  const random = Math.floor(Math.random() * values.length);
+  return values[random];
+}
+
 function createUser(name: String) {
   return {
     name,
@@ -61,20 +66,21 @@ function createPromotion() {
     "ROJA",
     "DAN_1",
   ];
-  const random = Math.floor(Math.random() * ranks.length);
   return {
     date: randomDate(),
-    rank: ranks[random],
+    rank: getRandomValue(ranks),
   };
 }
 
 function createTuition() {
+  const payments = ["CASH", "CREDIT_CARD", "TRANSFER"];
   const date = randomDate();
   return {
     date,
     month: date.getMonth() + 1,
     year: date.getFullYear(),
     amount: 1000,
+    paymentType: getRandomValue(payments),
   };
 }
 

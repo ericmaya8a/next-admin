@@ -73,13 +73,30 @@ model Promotion {
 }
 
 model Tuition {
-  id        String   @id @default(uuid())
-  date      DateTime @default(now())
-  amount    Float
-  month     Int
-  year      Int
-  student   Student  @relation(fields: [studentId], references: [id])
-  studentId String
+  id          String      @id @default(uuid())
+  date        DateTime    @default(now())
+  amount      Float
+  paymentType PaymentType @default(CASH)
+  month       Int
+  year        Int
+  student     Student     @relation(fields: [studentId], references: [id])
+  studentId   String
+}
+
+model Income {
+  id          String      @id @default(uuid())
+  date        DateTime    @default(now())
+  amount      Float
+  paymentType PaymentType @default(CASH)
+  description String
+}
+
+model Expense {
+  id          String      @id @default(uuid())
+  date        DateTime    @default(now())
+  amount      Float
+  paymentType PaymentType @default(CASH)
+  description String
 }
 
 enum Role {
@@ -114,4 +131,10 @@ enum Rank {
   DAN_8
   DAN_9
   DAN_10
+}
+
+enum PaymentType {
+  CASH
+  CREDIT_CARD
+  TRANSFER
 }
