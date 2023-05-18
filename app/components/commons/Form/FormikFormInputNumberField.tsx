@@ -14,9 +14,15 @@ export function FormikFormInputNumberField({
   type,
   label,
   helper,
+  rightIcon,
   onChange,
   ...otherProps
-}: InputNumberProps & { label: string; width?: string; helper?: string }) {
+}: InputNumberProps & {
+  label: string;
+  width?: string;
+  helper?: string;
+  rightIcon?: React.ReactNode;
+}) {
   const {
     errors,
     touched,
@@ -50,19 +56,30 @@ export function FormikFormInputNumberField({
     validateField(name);
   };
 
+  const input = (
+    <InputNumber
+      className={className}
+      id={id}
+      name={name}
+      value={value}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      style={style}
+      aria-describedby={helper ? `${name}-help` : undefined}
+      {...otherProps}
+    />
+  );
+
   return (
     <InputWrapper id={id} label={label}>
-      <InputNumber
-        className={className}
-        id={id}
-        name={name}
-        value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        style={style}
-        aria-describedby={helper ? `${name}-help` : undefined}
-        {...otherProps}
-      />
+      {Boolean(rightIcon) ? (
+        <span className="p-input-icon-right" style={{ width: "100%" }}>
+          <i>{rightIcon}</i>
+          {input}
+        </span>
+      ) : (
+        <>{input}</>
+      )}
       <InputHelper name={name} helper={helper} />
       <FormikFieldError error={errorMessage} />
     </InputWrapper>

@@ -1,5 +1,7 @@
 import { Gender } from "@prisma/client";
 import { useState } from "react";
+import { TfiRuler } from "react-icons/tfi";
+import { GiWeight } from "react-icons/gi";
 import { Message } from "primereact/message";
 import { ToastMessage } from "primereact/toast";
 import { createOptionsFromEnum } from "@/app/clientUtils";
@@ -223,19 +225,21 @@ export function StudentForm({ handleToast }: StudentFormProps) {
 
       <Row>
         <FormikFormInputNumberField
-          label="Height"
+          label="Height (m)"
           id="height"
           name="height"
-          minFractionDigits={2}
+          mode="decimal"
           maxFractionDigits={2}
+          rightIcon={<TfiRuler />}
           width="100%"
         />
         <FormikFormInputNumberField
-          label="Weight"
+          label="Weight (kg)"
           id="weight"
           name="weight"
-          minFractionDigits={1}
+          mode="decimal"
           maxFractionDigits={1}
+          rightIcon={<GiWeight />}
           width="100%"
         />
       </Row>

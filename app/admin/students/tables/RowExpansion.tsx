@@ -18,7 +18,7 @@ import {
 } from "react-icons/fa";
 import { Header } from "@/app/components/commons/Header";
 import { Belt } from "@/app/components/commons/Belt";
-import { MappedStudent } from "./student-context";
+import { MappedStudent } from "../student-context";
 
 export function RowExpansion({
   communication,

@@ -67,6 +67,8 @@ export function PaymentModal({
             label="Amount"
             id="amount"
             name="amount"
+            mode="currency"
+            currency="USD"
             minFractionDigits={2}
             maxFractionDigits={2}
             width="100%"
