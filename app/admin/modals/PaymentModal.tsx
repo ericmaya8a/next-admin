@@ -1,7 +1,9 @@
+import { PaymentType } from "@prisma/client";
+import { useState } from "react";
 import { Dialog } from "primereact/dialog";
+import { ToastMessage } from "primereact/toast";
 import { CONSTANTS } from "../../constatnts";
 import { useAdmin } from "../adminContext";
-import { PaymentType } from "@prisma/client";
 import { PaymentFormSchema } from "@/app/server/validationSchemas";
 import { createOptionsFromEnum } from "@/app/clientUtils";
 import { FormikForm } from "@/app/components/commons/Form/FormikForm";
@@ -18,23 +20,47 @@ type PaymentForm = {
   amount: string;
 };
 
+type PaymentModalProps = {
+  handleToast: (message: ToastMessage | ToastMessage[]) => void;
+};
+
 const initialValues: PaymentForm = {
   date: new Date(),
   paymentType: PaymentType["CASH"],
   amount: "",
 };
 
-export function PaymentModal() {
-  const { isOpenPaymentModal, selectedStudent, onClose } = useAdmin();
+export function PaymentModal({ handleToast }: PaymentModalProps) {
+  const { isOpenPaymentModal, selectedStudent, createTuition, onClose } =
+    useAdmin();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = ({ amount, date, paymentType }: PaymentForm) => {
+  const handleSubmit = async ({ amount, date, paymentType }: PaymentForm) => {
+    setLoading(true);
     const payment = {
       date,
-      amount,
+      amount: parseFloat(amount),
       paymentType,
-      studentId: selectedStudent?.id,
+      studentId: selectedStudent!.id,
     };
-    console.log(payment);
+    const { ok } = await createTuition(payment);
+
+    if (!ok) {
+      setLoading(false);
+      return handleToast({
+        summary: "Error",
+        detail: "Invalid Data",
+        severity: "error",
+      });
+    }
+
+    handleToast({
+      summary: "Success",
+      detail: "Tuition successfully paid",
+      severity: "success",
+    });
+    setLoading(false);
+    onClose();
   };
 
   if (!selectedStudent) {
@@ -84,7 +110,7 @@ export function PaymentModal() {
         </Row>
 
         <ModalButtonWrapper>
-          <FormikSubmitButton type="submit" label="Pay" />
+          <FormikSubmitButton type="submit" label="Pay" loading={loading} />
         </ModalButtonWrapper>
       </FormikForm>
     </Dialog>

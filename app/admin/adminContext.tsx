@@ -1,6 +1,8 @@
+import { PaymentType } from "@prisma/client";
 import React, { useState } from "react";
 
 type AdminProviderProps = {
+  createTuition: (tuition: TuitionT) => BackendResponse;
   children: React.ReactNode;
 };
 
@@ -10,10 +12,28 @@ export type SelectedStudentT = {
   inscriptionDate: string;
 };
 
+export type BackendResponse = Promise<{
+  ok: boolean;
+}>;
+
+export type TuitionT = {
+  amount: number;
+  date: Date;
+  paymentType: PaymentType;
+  studentId: string;
+};
+
+export type NextPaymentsT = {
+  id: string;
+  name: string;
+  inscriptionDate: string;
+}[];
+
 const AdminContext = React.createContext<
   | {
       isOpenPaymentModal: boolean;
       selectedStudent: SelectedStudentT | undefined;
+      createTuition: (tuition: TuitionT) => BackendResponse;
       setIsOpenPaymentModal: React.Dispatch<React.SetStateAction<boolean>>;
       setSelectedStudent: React.Dispatch<
         React.SetStateAction<SelectedStudentT | undefined>
@@ -23,7 +43,7 @@ const AdminContext = React.createContext<
   | undefined
 >(undefined);
 
-function AdminProvider({ children }: AdminProviderProps) {
+function AdminProvider({ createTuition, children }: AdminProviderProps) {
   const [selectedStudent, setSelectedStudent] = useState<SelectedStudentT>();
   const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
 
@@ -35,6 +55,7 @@ function AdminProvider({ children }: AdminProviderProps) {
   const value = {
     isOpenPaymentModal,
     selectedStudent,
+    createTuition,
     setIsOpenPaymentModal,
     setSelectedStudent,
     onClose,

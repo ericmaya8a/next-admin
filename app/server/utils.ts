@@ -16,8 +16,8 @@ export async function getSessionFromServer() {
   return await getServerSession(authOptions);
 }
 
-export function dateToString(date: Date) {
-  return moment(date).utc().format("DD MMM YYYY");
+export function dateToString(date: Date, format: string = "DD MMM YYYY") {
+  return moment(date).utc().format(format);
 }
 
 export function getDateInNumbers(date: Date) {

@@ -56,7 +56,7 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
 
     handleToast({
       summary: "Success",
-      detail: `Rank: ${capitalizeEnum(rank!)} suucessfully asigned to: ${
+      detail: `Rank: ${capitalizeEnum(rank!)} sucessfully asigned to: ${
         currentStudent?.firstName
       } ${currentStudent?.lastName}`,
       severity: "success",

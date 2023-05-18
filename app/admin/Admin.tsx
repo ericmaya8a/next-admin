@@ -1,22 +1,24 @@
 "use client";
 
-import { AdminProvider } from "./adminContext";
+import {
+  AdminProvider,
+  BackendResponse,
+  NextPaymentsT,
+  TuitionT,
+} from "./adminContext";
 import { NextPaymentsTable } from "./tables/NextPaymentsTable";
 import { PageHeader } from "../components/commons/PageHeader";
 
-export type NextPaymentsT = {
-  data: {
-    id: string;
-    name: string;
-    inscriptionDate: string;
-  }[];
+type AdminProps = {
+  data: NextPaymentsT;
+  createTuition: (tuition: TuitionT) => BackendResponse;
 };
 
-export function Admin({ data }: NextPaymentsT) {
+export function Admin(props: AdminProps) {
   return (
-    <AdminProvider>
+    <AdminProvider createTuition={props.createTuition}>
       <PageHeader title="Next Payments" />
-      <NextPaymentsTable data={data} />
+      <NextPaymentsTable data={props.data} />
     </AdminProvider>
   );
 }

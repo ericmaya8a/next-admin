@@ -1,19 +1,34 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
+import { Toast, ToastMessage } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { SiAmazonpay } from "react-icons/si";
 import { useRole } from "../../hooks/useRole";
-import { useAdmin } from "../adminContext";
-import { NextPaymentsT } from "../Admin";
+import { NextPaymentsT, useAdmin } from "../adminContext";
 import { InscriptionHeader } from "../students/tables/InscriptionHeader";
 import { PaymentModal } from "../modals/PaymentModal";
 
-export function NextPaymentsTable({ data }: NextPaymentsT) {
+type NextPaymentsTableProps = {
+  data: NextPaymentsT;
+};
+
+export function NextPaymentsTable({ data }: NextPaymentsTableProps) {
+  const toast = useRef<Toast>(null);
+  const router = useRouter();
   const { setIsOpenPaymentModal, setSelectedStudent } = useAdmin();
   const { isAdmin, isSuperAdmin } = useRole();
   const hasActionsPermission = isAdmin || isSuperAdmin;
+
+  const refreshPage = () => router.refresh();
+
+  const showToast = (message: ToastMessage | ToastMessage[]) => {
+    toast.current?.show(message);
+    refreshPage();
+  };
 
   return (
     <>
@@ -37,7 +52,8 @@ export function NextPaymentsTable({ data }: NextPaymentsT) {
           />
         ) : null}
       </DataTable>
-      {hasActionsPermission ? <PaymentModal /> : null}
+      {hasActionsPermission ? <PaymentModal handleToast={showToast} /> : null}
+      <Toast position="top-center" ref={toast} />
     </>
   );
 }
