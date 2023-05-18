@@ -7,6 +7,7 @@ import { FormikForm } from "@/app/components/commons/Form/FormikForm";
 import { FormikFormCalendarField } from "@/app/components/commons/Form/FormikFormCalendarField";
 import { FormikFormSelectField } from "@/app/components/commons/Form/FormikFormSelectField";
 import { FormikSubmitButton } from "@/app/components/commons/Form/FormikSubmitButton";
+import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper";
 import { Row } from "@/app/components/commons/Row";
 import { PromotionT, useStudent } from "../student-context";
 
@@ -85,7 +86,10 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
           options={createAvailableRanks(currentStudent?.promotion)}
         />
       </Row>
-      <FormikSubmitButton type="submit" label="Add" loading={loading} />
+
+      <ModalButtonWrapper>
+        <FormikSubmitButton type="submit" label="Add" loading={loading} />
+      </ModalButtonWrapper>
     </FormikForm>
   );
 }

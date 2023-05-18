@@ -13,6 +13,7 @@ import { FormikFormSelectField } from "@/app/components/commons/Form/FormikFormS
 import { FormikFormInputNumberField } from "@/app/components/commons/Form/FormikFormInputNumberField";
 import { FormikFormInputMask } from "@/app/components/commons/Form/FormikFormInputMask";
 import { FormikFormInputSwitch } from "@/app/components/commons/Form/FormikFormInputSwitch";
+import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper";
 import { Row } from "@/app/components/commons/Row";
 import { CreateStudentT, EditStudentT, useStudent } from "../student-context";
 
@@ -333,7 +334,9 @@ export function StudentForm({ handleToast }: StudentFormProps) {
       </Row>
 
       {errorMessage}
-      <FormikSubmitButton type="submit" label="Submit" loading={loading} />
+      <ModalButtonWrapper>
+        <FormikSubmitButton type="submit" label="Submit" loading={loading} />
+      </ModalButtonWrapper>
     </FormikForm>
   );
 }

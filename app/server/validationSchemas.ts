@@ -1,4 +1,4 @@
-import { Gender, Rank } from "@prisma/client";
+import { Gender, PaymentType, Rank } from "@prisma/client";
 import * as Yup from "yup";
 import { CONSTANTS } from "../constatnts";
 
@@ -50,4 +50,19 @@ export const StudentFormSchema = Yup.object({
 export const PromotionFormSchema = Yup.object({
   date: Yup.date().required().label("Date"),
   rank: Yup.mixed().oneOf(Object.keys(Rank)).required().label("Rank"),
+});
+
+export const PaymentFormSchema = Yup.object({
+  paymentType: Yup.mixed()
+    .oneOf(Object.keys(PaymentType))
+    .required()
+    .label("Payment Type"),
+  amount: Yup.string()
+    .required()
+    .test(
+      "amount",
+      "invalid value",
+      (value) => CONSTANTS.regex.decimal.test(value) || value.length === 0
+    )
+    .label("Amount"),
 });
