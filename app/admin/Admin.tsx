@@ -1,7 +1,8 @@
 "use client";
 
-import { PageHeader } from "../components/commons/PageHeader";
+import { AdminProvider } from "./adminContext";
 import { NextPaymentsTable } from "./tables/NextPaymentsTable";
+import { PageHeader } from "../components/commons/PageHeader";
 
 export type NextPaymentsT = {
   data: {
@@ -13,9 +14,9 @@ export type NextPaymentsT = {
 
 export function Admin({ data }: NextPaymentsT) {
   return (
-    <>
+    <AdminProvider>
       <PageHeader title="Next Payments" />
       <NextPaymentsTable data={data} />
-    </>
+    </AdminProvider>
   );
 }

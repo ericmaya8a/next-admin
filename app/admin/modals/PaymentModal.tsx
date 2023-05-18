@@ -1,6 +1,6 @@
 import { Dialog } from "primereact/dialog";
 import { CONSTANTS } from "../../constatnts";
-import { NextPaymentsT } from "../Admin";
+import { useAdmin } from "../adminContext";
 import { PaymentType } from "@prisma/client";
 import { PaymentFormSchema } from "@/app/server/validationSchemas";
 import { createOptionsFromEnum } from "@/app/clientUtils";
@@ -11,13 +11,6 @@ import { FormikFormInputNumberField } from "@/app/components/commons/Form/Formik
 import { FormikSubmitButton } from "@/app/components/commons/Form/FormikSubmitButton";
 import { FormikFormCalendarField } from "@/app/components/commons/Form/FormikFormCalendarField";
 import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper";
-
-type PaymentModalProps = {
-  isOpen: boolean;
-  student?: NextPaymentsT["data"][0];
-  onHide: VoidFunction;
-  onPayment: VoidFunction;
-};
 
 type PaymentForm = {
   date: Date;
@@ -31,31 +24,28 @@ const initialValues: PaymentForm = {
   amount: "",
 };
 
-export function PaymentModal({
-  isOpen,
-  student,
-  onHide,
-  onPayment,
-}: PaymentModalProps) {
+export function PaymentModal() {
+  const { isOpenPaymentModal, selectedStudent, onClose } = useAdmin();
+
   const handleSubmit = ({ amount, date, paymentType }: PaymentForm) => {
     const payment = {
       date,
       amount,
       paymentType,
-      studentId: student?.id,
+      studentId: selectedStudent?.id,
     };
     console.log(payment);
   };
 
-  if (!student) {
+  if (!selectedStudent) {
     return null;
   }
 
   return (
     <Dialog
-      header={`Payment for: ${student.name}`}
-      visible={isOpen}
-      onHide={onHide}
+      header={`Payment for: ${selectedStudent.name}`}
+      visible={isOpenPaymentModal}
+      onHide={onClose}
       breakpoints={CONSTANTS.modal.breackpoints}
       style={{ minWidth: "50vw" }}
     >
