@@ -1,4 +1,11 @@
-import { Address, Communication, Promotion, Student } from "@prisma/client";
+import {
+  Address,
+  Communication,
+  PaymentType,
+  Promotion,
+  Student,
+  Uniform,
+} from "@prisma/client";
 import React, { useState } from "react";
 
 type StudentAddress = Omit<Address, "id" | "studentId">;
@@ -41,10 +48,13 @@ export type MappedStudent = {
 
 export type PromotionT = Omit<Promotion, "id">;
 
+export type UniformT = Omit<Uniform, "id"> & { paymentType: PaymentType };
+
 type StudentProviderProps = {
   children: React.ReactNode;
   createPromotion: (promotion: PromotionT) => BackendResponse;
   createStudent: (student: CreateStudentT) => BackendResponse;
+  createUniform: (uniform: UniformT) => BackendResponse;
   editStudent: (student: Student & StudentComplement) => BackendResponse;
 };
 
@@ -53,8 +63,10 @@ const StudentContext = React.createContext<
       currentStudent: RowStudent | undefined;
       isOpenStudentModal: boolean;
       isOpenPromotionModal: boolean;
+      isOpenBuyUniformModal: boolean;
       setIsOpenPromotionModal: React.Dispatch<React.SetStateAction<boolean>>;
       setIsOpenStudentModal: React.Dispatch<React.SetStateAction<boolean>>;
+      setIsOpenBuyUniformModal: React.Dispatch<React.SetStateAction<boolean>>;
       setCurrentStudent: React.Dispatch<
         React.SetStateAction<RowStudent | undefined>
       >;
@@ -62,6 +74,7 @@ const StudentContext = React.createContext<
       createStudent: (
         student: CreateStudentT & StudentComplement
       ) => BackendResponse;
+      createUniform: (uniform: UniformT) => BackendResponse;
       editStudent: (student: EditStudentT) => BackendResponse;
       onClose: VoidFunction;
     }
@@ -71,29 +84,35 @@ const StudentContext = React.createContext<
 function StudentProvider({
   children,
   createStudent,
-  editStudent,
   createPromotion,
+  createUniform,
+  editStudent,
 }: StudentProviderProps) {
   const [currentStudent, setCurrentStudent] = useState<RowStudent>();
   const [isOpenStudentModal, setIsOpenStudentModal] = useState(false);
   const [isOpenPromotionModal, setIsOpenPromotionModal] = useState(false);
+  const [isOpenBuyUniformModal, setIsOpenBuyUniformModal] = useState(false);
 
   const onClose = () => {
     setCurrentStudent(undefined);
     setIsOpenPromotionModal(false);
     setIsOpenStudentModal(false);
+    setIsOpenBuyUniformModal(false);
   };
 
   const value = {
     currentStudent,
     isOpenStudentModal,
     isOpenPromotionModal,
+    isOpenBuyUniformModal,
     createPromotion,
     createStudent,
+    createUniform,
     editStudent,
     setCurrentStudent,
     setIsOpenPromotionModal,
     setIsOpenStudentModal,
+    setIsOpenBuyUniformModal,
     onClose,
   };
 

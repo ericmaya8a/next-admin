@@ -40,6 +40,8 @@ model Student {
   communication   Communication?
   promotion       Promotion[]
   tuition         Tuition[]
+  uniform         Uniform[]
+  gear            Gear[]
 }
 
 model Address {
@@ -81,6 +83,23 @@ model Tuition {
   year        Int
   student     Student     @relation(fields: [studentId], references: [id])
   studentId   String
+}
+
+model Uniform {
+  id        String       @id @default(uuid())
+  type      UniformType  @default(KARATEGI)
+  brand     UniformBrand
+  price     Float
+  size      String
+  Student   Student?     @relation(fields: [studentId], references: [id])
+  studentId String?
+}
+
+model Gear {
+  id          String   @id @default(uuid())
+  description String
+  Student     Student? @relation(fields: [studentId], references: [id])
+  studentId   String?
 }
 
 model Income {
@@ -137,4 +156,18 @@ enum PaymentType {
   CASH
   CREDIT_CARD
   TRANSFER
+}
+
+enum UniformBrand {
+  ASIANA
+  BYAKKO
+  OTHER
+}
+
+enum UniformType {
+  COMPETITION
+  DOBOK
+  KARATEGI
+  KENPOGI
+  OTHER
 }

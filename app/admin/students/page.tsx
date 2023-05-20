@@ -4,11 +4,13 @@ import {
   getStudents,
   updateStudent,
 } from "@/app/server/students";
+import { addUniform } from "@/app/server/uniform";
 import {
   CreateStudentT,
   EditStudentT,
   MappedStudent,
   PromotionT,
+  UniformT,
 } from "./student-context";
 import { Students } from "./Students";
 
@@ -29,12 +31,18 @@ export default async function StudentsPage() {
     const { ok } = await addPromotion(promotion);
     return { ok };
   };
+  const createUniform = async (uniform: UniformT) => {
+    "use server";
+    const { ok } = await addUniform(uniform);
+    return { ok };
+  };
 
   return (
     <Students<MappedStudent[]>
       students={students}
       createPromotion={createPromotion}
       createStudent={createStudent}
+      createUniform={createUniform}
       editStudent={editStudent}
     />
   );

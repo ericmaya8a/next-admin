@@ -1,4 +1,10 @@
-import { Gender, PaymentType, Rank } from "@prisma/client";
+import {
+  Gender,
+  PaymentType,
+  Rank,
+  UniformBrand,
+  UniformType,
+} from "@prisma/client";
 import * as Yup from "yup";
 import { CONSTANTS } from "../constatnts";
 
@@ -22,6 +28,13 @@ const PasswordSchema = Yup.object({
 
 const stringSchema = (key: string) =>
   Yup.object({ [key.toLowerCase()]: Yup.string().required().label(key) });
+
+const PaymentSchema = Yup.object({
+  paymentType: Yup.mixed()
+    .oneOf(Object.keys(PaymentType))
+    .required()
+    .label("Payment Type"),
+});
 
 export const LoginSchema = EmailSchema.concat(PasswordSchema);
 
@@ -54,10 +67,6 @@ export const PromotionFormSchema = Yup.object({
 
 export const PaymentFormSchema = Yup.object({
   date: Yup.date().required().label("Date"),
-  paymentType: Yup.mixed()
-    .oneOf(Object.keys(PaymentType))
-    .required()
-    .label("Payment Type"),
   amount: Yup.string()
     .required()
     .test(
@@ -66,4 +75,12 @@ export const PaymentFormSchema = Yup.object({
       (value) => CONSTANTS.regex.decimal.test(value) || value.length === 0
     )
     .label("Amount"),
-});
+}).concat(PaymentSchema);
+
+export const BuyUniformSchema = Yup.object({
+  type: Yup.mixed().required().oneOf(Object.keys(UniformType)).label("Type"),
+  brand: Yup.mixed().required().oneOf(Object.keys(UniformBrand)).label("Brand"),
+  size: Yup.string().required().min(1).label("Size"),
+  price: Yup.number().required().min(1).label("Price"),
+  amount: Yup.number().required().min(1).label("Amount"),
+}).concat(PaymentSchema);

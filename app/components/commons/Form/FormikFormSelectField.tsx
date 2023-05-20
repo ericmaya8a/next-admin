@@ -61,6 +61,7 @@ export function FormikFormSelectField({
         placeholder={otherProps.placeholder}
         aria-describedby={helper ? `${name}-help` : undefined}
         style={style}
+        {...otherProps}
       />
       <InputHelper name={name} helper={helper} />
       <FormikFieldError error={errorMessage} />

@@ -2,16 +2,21 @@ import React, { useRef } from "react";
 import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
-import { MappedStudent, RowStudent, useStudent } from "../student-context";
+import { MenuItem } from "primereact/menuitem";
 import { Uniform } from "@/app/components/commons/Uniform";
+import { MappedStudent, RowStudent, useStudent } from "../student-context";
 
 type TableActionButtonProps = {
   row: MappedStudent;
 };
 
 export function TableActionButton({ row }: TableActionButtonProps) {
-  const { setCurrentStudent, setIsOpenStudentModal, setIsOpenPromotionModal } =
-    useStudent();
+  const {
+    setCurrentStudent,
+    setIsOpenStudentModal,
+    setIsOpenPromotionModal,
+    setIsOpenBuyUniformModal,
+  } = useStudent();
   const menu = useRef<Menu>(null);
 
   const studentRow: RowStudent = {
@@ -29,30 +34,51 @@ export function TableActionButton({ row }: TableActionButtonProps) {
     promotion: row.promotion,
   };
 
+  const actionItems: MenuItem[] = [
+    {
+      label: "Edit",
+      icon: PrimeIcons.USER_EDIT,
+      command: () => {
+        setCurrentStudent(studentRow);
+        setIsOpenStudentModal(true);
+      },
+    },
+  ];
+
+  if (row.active) {
+    actionItems.push(
+      {
+        label: "Add promotion",
+        icon: (
+          <Uniform
+            width={16}
+            style={{ marginRight: "5px" }}
+            fill="var(--blue-500)"
+          />
+        ),
+        command: () => {
+          setCurrentStudent(studentRow);
+          setIsOpenPromotionModal(true);
+        },
+      },
+      {
+        label: "Buy uniform",
+        icon: <Uniform width={16} style={{ marginRight: "5px" }} />,
+        command: () => {
+          setCurrentStudent(studentRow);
+          setIsOpenBuyUniformModal(true);
+        },
+      }
+    );
+  }
+
   return (
     <>
       <Menu
         model={[
           {
             label: "Actions",
-            items: [
-              {
-                label: "Edit",
-                icon: PrimeIcons.USER_EDIT,
-                command: () => {
-                  setCurrentStudent(studentRow);
-                  setIsOpenStudentModal(true);
-                },
-              },
-              {
-                label: "Add promotion",
-                icon: <Uniform width={16} style={{ marginRight: "5px" }} />,
-                command: () => {
-                  setCurrentStudent(studentRow);
-                  setIsOpenPromotionModal(true);
-                },
-              },
-            ],
+            items: actionItems,
           },
         ]}
         popup

@@ -2,6 +2,7 @@ import { prisma } from "@/server/db/client";
 import { PaymentType } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { dateToString, getDateInNumbers } from "./utils";
+import { getStudentNameById } from "./students";
 
 export async function addTuition({
   amount,
@@ -29,9 +30,7 @@ export async function addTuition({
     });
 
     // Create Income record
-    const student = await prisma.student.findUnique({
-      where: { id: studentId },
-    });
+    const student = await getStudentNameById(studentId);
     await prisma.income.create({
       data: {
         date,

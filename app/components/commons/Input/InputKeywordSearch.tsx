@@ -39,4 +39,5 @@ const CloseIcon = styled(IoCloseOutline)`
   position: absolute;
   right: 10px;
   top: 14px;
+  z-index: 2;
 `;

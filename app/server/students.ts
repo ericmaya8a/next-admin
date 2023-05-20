@@ -27,6 +27,13 @@ export async function getStudents() {
   }));
 }
 
+export async function getStudentNameById(studentId: string) {
+  return await prisma.student.findUnique({
+    where: { id: studentId },
+    select: { firstName: true, lastName: true },
+  });
+}
+
 export async function getStudentsNextPayment() {
   const MID_DAY_NUMBER = 15;
   const date = getDateInNumbers(new Date());
