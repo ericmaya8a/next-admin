@@ -5,9 +5,11 @@ import {
   updateStudent,
 } from "@/app/server/students";
 import { addUniform } from "@/app/server/uniform";
+import { addGear } from "@/app/server/gear";
 import {
   CreateStudentT,
   EditStudentT,
+  GearT,
   MappedStudent,
   PromotionT,
   UniformT,
@@ -36,6 +38,11 @@ export default async function StudentsPage() {
     const { ok } = await addUniform(uniform);
     return { ok };
   };
+  const createGear = async (gear: GearT) => {
+    "use server";
+    const { ok } = await addGear(gear);
+    return { ok };
+  };
 
   return (
     <Students<MappedStudent[]>
@@ -43,6 +50,7 @@ export default async function StudentsPage() {
       createPromotion={createPromotion}
       createStudent={createStudent}
       createUniform={createUniform}
+      createGear={createGear}
       editStudent={editStudent}
     />
   );

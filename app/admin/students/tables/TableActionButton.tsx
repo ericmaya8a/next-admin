@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { MdSportsMma } from "react-icons/md";
 import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
@@ -10,12 +11,15 @@ type TableActionButtonProps = {
   row: MappedStudent;
 };
 
+const iconStyle: React.CSSProperties = { marginRight: "5px" };
+
 export function TableActionButton({ row }: TableActionButtonProps) {
   const {
     setCurrentStudent,
     setIsOpenStudentModal,
     setIsOpenPromotionModal,
     setIsOpenBuyUniformModal,
+    setIsOpenBuyGearModal,
   } = useStudent();
   const menu = useRef<Menu>(null);
 
@@ -44,29 +48,46 @@ export function TableActionButton({ row }: TableActionButtonProps) {
       },
     },
   ];
+  const storeItems: MenuItem[] = [];
+
+  const menuModel: MenuItem[] = [
+    {
+      label: "Actions",
+      items: actionItems,
+    },
+  ];
 
   if (row.active) {
-    actionItems.push(
-      {
-        label: "Add promotion",
-        icon: (
-          <Uniform
-            width={16}
-            style={{ marginRight: "5px" }}
-            fill="var(--blue-500)"
-          />
-        ),
-        command: () => {
-          setCurrentStudent(studentRow);
-          setIsOpenPromotionModal(true);
-        },
+    menuModel.push({
+      label: "Store",
+      items: storeItems,
+    });
+
+    actionItems.push({
+      label: "Rank promotion",
+      icon: <Uniform width={16} style={iconStyle} fill="var(--blue-500)" />,
+      command: () => {
+        setCurrentStudent(studentRow);
+        setIsOpenPromotionModal(true);
       },
+    });
+    storeItems.push(
       {
-        label: "Buy uniform",
-        icon: <Uniform width={16} style={{ marginRight: "5px" }} />,
+        label: "Uniform",
+        icon: <Uniform width={16} style={iconStyle} />,
         command: () => {
           setCurrentStudent(studentRow);
           setIsOpenBuyUniformModal(true);
+        },
+      },
+      {
+        label: "Gear",
+        icon: (
+          <MdSportsMma width={16} style={iconStyle} color="var(--red-700)" />
+        ),
+        command: () => {
+          setCurrentStudent(studentRow);
+          setIsOpenBuyGearModal(true);
         },
       }
     );
@@ -74,16 +95,7 @@ export function TableActionButton({ row }: TableActionButtonProps) {
 
   return (
     <>
-      <Menu
-        model={[
-          {
-            label: "Actions",
-            items: actionItems,
-          },
-        ]}
-        popup
-        ref={menu}
-      />
+      <Menu model={menuModel} popup ref={menu} />
       <Button
         icon={PrimeIcons.ELLIPSIS_V}
         aria-label="Actions"

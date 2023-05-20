@@ -9,12 +9,14 @@ import {
   BackendResponse,
   CreateStudentT,
   EditStudentT,
+  GearT,
   PromotionT,
   StudentProvider,
   UniformT,
 } from "./student-context";
 import { ActiveStudentsTable } from "./tables/ActiveStudentsTable";
 import { IncativeStudentsTable } from "./tables/IncativeStudentsTable";
+import { BuyGearModal } from "./modals/BuyGearModal";
 import { BuyUniformModal } from "./modals/BuyUniformModal";
 import { PromotionModal } from "./modals/PromotionModal";
 import { StudentModal } from "./modals/StudentModal";
@@ -25,6 +27,7 @@ type StudentsProps<T> = {
   createPromotion: (promotion: PromotionT) => BackendResponse;
   createStudent: (student: CreateStudentT) => BackendResponse;
   createUniform: (uniform: UniformT) => BackendResponse;
+  createGear: (gear: GearT) => BackendResponse;
   editStudent: (student: EditStudentT) => BackendResponse;
 };
 
@@ -46,6 +49,7 @@ export function Students<T>(props: StudentsProps<T>) {
       createPromotion={props.createPromotion}
       createStudent={props.createStudent}
       createUniform={props.createUniform}
+      createGear={props.createGear}
       editStudent={props.editStudent}
     >
       <PageHeader
@@ -63,6 +67,7 @@ export function Students<T>(props: StudentsProps<T>) {
       <StudentModal showToast={showToast} />
       <PromotionModal showToast={showToast} />
       <BuyUniformModal showToast={showToast} />
+      <BuyGearModal showToast={showToast} />
     </StudentProvider>
   );
 }

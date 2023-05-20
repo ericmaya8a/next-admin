@@ -1,6 +1,7 @@
 import {
   Address,
   Communication,
+  Gear,
   PaymentType,
   Promotion,
   Student,
@@ -53,11 +54,14 @@ export type PromotionT = Omit<Promotion, "id"> & {
 
 export type UniformT = Omit<Uniform, "id"> & { paymentType: PaymentType };
 
+export type GearT = Omit<Gear, "id"> & { paymentType: PaymentType };
+
 type StudentProviderProps = {
   children: React.ReactNode;
   createPromotion: (promotion: PromotionT) => BackendResponse;
   createStudent: (student: CreateStudentT) => BackendResponse;
   createUniform: (uniform: UniformT) => BackendResponse;
+  createGear: (gear: GearT) => BackendResponse;
   editStudent: (student: Student & StudentComplement) => BackendResponse;
 };
 
@@ -67,9 +71,11 @@ const StudentContext = React.createContext<
       isOpenStudentModal: boolean;
       isOpenPromotionModal: boolean;
       isOpenBuyUniformModal: boolean;
+      isOpenBuyGearModal: boolean;
       setIsOpenPromotionModal: React.Dispatch<React.SetStateAction<boolean>>;
       setIsOpenStudentModal: React.Dispatch<React.SetStateAction<boolean>>;
       setIsOpenBuyUniformModal: React.Dispatch<React.SetStateAction<boolean>>;
+      setIsOpenBuyGearModal: React.Dispatch<React.SetStateAction<boolean>>;
       setCurrentStudent: React.Dispatch<
         React.SetStateAction<RowStudent | undefined>
       >;
@@ -78,6 +84,7 @@ const StudentContext = React.createContext<
         student: CreateStudentT & StudentComplement
       ) => BackendResponse;
       createUniform: (uniform: UniformT) => BackendResponse;
+      createGear: (gear: GearT) => BackendResponse;
       editStudent: (student: EditStudentT) => BackendResponse;
       onClose: VoidFunction;
     }
@@ -89,18 +96,21 @@ function StudentProvider({
   createStudent,
   createPromotion,
   createUniform,
+  createGear,
   editStudent,
 }: StudentProviderProps) {
   const [currentStudent, setCurrentStudent] = useState<RowStudent>();
   const [isOpenStudentModal, setIsOpenStudentModal] = useState(false);
   const [isOpenPromotionModal, setIsOpenPromotionModal] = useState(false);
   const [isOpenBuyUniformModal, setIsOpenBuyUniformModal] = useState(false);
+  const [isOpenBuyGearModal, setIsOpenBuyGearModal] = useState(false);
 
   const onClose = () => {
     setCurrentStudent(undefined);
     setIsOpenPromotionModal(false);
     setIsOpenStudentModal(false);
     setIsOpenBuyUniformModal(false);
+    setIsOpenBuyGearModal(false);
   };
 
   const value = {
@@ -108,14 +118,17 @@ function StudentProvider({
     isOpenStudentModal,
     isOpenPromotionModal,
     isOpenBuyUniformModal,
+    isOpenBuyGearModal,
     createPromotion,
     createStudent,
     createUniform,
+    createGear,
     editStudent,
     setCurrentStudent,
     setIsOpenPromotionModal,
     setIsOpenStudentModal,
     setIsOpenBuyUniformModal,
+    setIsOpenBuyGearModal,
     onClose,
   };
 
