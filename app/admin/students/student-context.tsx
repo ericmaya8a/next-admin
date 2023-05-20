@@ -46,7 +46,10 @@ export type MappedStudent = {
   }[];
 };
 
-export type PromotionT = Omit<Promotion, "id">;
+export type PromotionT = Omit<Promotion, "id"> & {
+  price: number;
+  paymentType: PaymentType;
+};
 
 export type UniformT = Omit<Uniform, "id"> & { paymentType: PaymentType };
 

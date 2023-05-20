@@ -1,5 +1,11 @@
 import { prisma } from "@/server/db/client";
-import { Address, Communication, Promotion, Student } from "@prisma/client";
+import {
+  Address,
+  Communication,
+  PaymentType,
+  Promotion,
+  Student,
+} from "@prisma/client";
 import { NextResponse } from "next/server";
 import { dateToString, getDateInNumbers, getDayNumber } from "./utils";
 
@@ -220,13 +226,29 @@ export async function addPromotion({
   date,
   rank,
   studentId,
-}: Omit<Promotion, "id">) {
+  price,
+  paymentType,
+}: Omit<Promotion, "id"> & { price: number; paymentType: PaymentType }) {
   try {
+    // Create Promotion
     await prisma.promotion.create({
       data: {
         date,
         rank,
         studentId,
+      },
+    });
+
+    // Create Income record
+    const student = await getStudentNameById(studentId);
+    await prisma.income.create({
+      data: {
+        date,
+        amount: price,
+        paymentType,
+        description: `${student?.firstName} ${
+          student?.lastName
+        } - ${rank} - promotion. (${dateToString(date, "DD/MMM/YYYY")})`,
       },
     });
 

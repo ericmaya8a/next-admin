@@ -36,6 +36,10 @@ const PaymentSchema = Yup.object({
     .label("Payment Type"),
 });
 
+const PriceSchema = Yup.object({
+  price: Yup.number().required().min(1).label("Price"),
+});
+
 export const LoginSchema = EmailSchema.concat(PasswordSchema);
 
 export const SigninSchema = stringSchema("Name").concat(LoginSchema);
@@ -63,7 +67,9 @@ export const StudentFormSchema = Yup.object({
 export const PromotionFormSchema = Yup.object({
   date: Yup.date().required().label("Date"),
   rank: Yup.mixed().oneOf(Object.keys(Rank)).required().label("Rank"),
-});
+})
+  .concat(PriceSchema)
+  .concat(PaymentSchema);
 
 export const PaymentFormSchema = Yup.object({
   date: Yup.date().required().label("Date"),
@@ -81,6 +87,7 @@ export const BuyUniformSchema = Yup.object({
   type: Yup.mixed().required().oneOf(Object.keys(UniformType)).label("Type"),
   brand: Yup.mixed().required().oneOf(Object.keys(UniformBrand)).label("Brand"),
   size: Yup.string().required().min(1).label("Size"),
-  price: Yup.number().required().min(1).label("Price"),
   amount: Yup.number().required().min(1).label("Amount"),
-}).concat(PaymentSchema);
+})
+  .concat(PaymentSchema)
+  .concat(PriceSchema);
