@@ -22,7 +22,7 @@
     "seed": "npx dotenv -e .env.local -- ts-node prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^4.14.0",
+    "@prisma/client": "^4.14.1",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
@@ -48,7 +48,7 @@
     "@types/bcryptjs": "2.4.2",
     "@types/styled-components": "^5.1.26",
     "dotenv-cli": "^7.2.1",
-    "prisma": "^4.14.0",
+    "prisma": "^4.14.1",
     "ts-node": "^10.9.1"
   }
 }

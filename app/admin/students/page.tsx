@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import {
   addPromotion,
   addStudent,
@@ -6,6 +7,7 @@ import {
 } from "@/app/server/students";
 import { addUniform } from "@/app/server/uniform";
 import { addGear } from "@/app/server/gear";
+import { HeaderAndTableSkeleton } from "@/app/components/commons/Skeletons/HeaderAndTableSkeleton";
 import {
   CreateStudentT,
   EditStudentT,
@@ -45,13 +47,15 @@ export default async function StudentsPage() {
   };
 
   return (
-    <Students<MappedStudent[]>
-      students={students}
-      createPromotion={createPromotion}
-      createStudent={createStudent}
-      createUniform={createUniform}
-      createGear={createGear}
-      editStudent={editStudent}
-    />
+    <Suspense fallback={<HeaderAndTableSkeleton />}>
+      <Students<MappedStudent[]>
+        students={students}
+        createPromotion={createPromotion}
+        createStudent={createStudent}
+        createUniform={createUniform}
+        createGear={createGear}
+        editStudent={editStudent}
+      />
+    </Suspense>
   );
 }

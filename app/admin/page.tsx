@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import { getStudentsNextPayment } from "../server/students";
 import { addTuition } from "../server/tuition";
+import { HeaderAndTableSkeleton } from "../components/commons/Skeletons/HeaderAndTableSkeleton";
 import { TuitionT } from "./adminContext";
 import { Admin } from "./Admin";
 
@@ -11,5 +13,9 @@ export default async function AdminPage() {
     return { ok };
   };
 
-  return <Admin data={nextPayments} createTuition={createTuition} />;
+  return (
+    <Suspense fallback={<HeaderAndTableSkeleton />}>
+      <Admin data={nextPayments} createTuition={createTuition} />
+    </Suspense>
+  );
 }
