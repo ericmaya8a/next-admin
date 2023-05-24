@@ -22,6 +22,7 @@
     "seed": "npx dotenv -e .env.local -- ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
     "@prisma/client": "^4.14.1",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
@@ -38,6 +39,7 @@
     "primereact": "9.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "styled-components": "^5.3.10",
     "typescript": "5.0.4",

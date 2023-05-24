@@ -19,7 +19,7 @@ export function PromotionModal({ showToast }: PromotionModalProps) {
       breakpoints={CONSTANTS.modal.breackpoints}
       style={{ width: "50vw" }}
     >
-      <PromotionForm handleToast={showToast} />
+      {isOpenPromotionModal ? <PromotionForm handleToast={showToast} /> : null}
     </Dialog>
   );
 }

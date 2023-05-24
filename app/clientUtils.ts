@@ -62,3 +62,7 @@ export function createAvailableRanks(
     value: rank,
   })) as SelectItemOptionsType;
 }
+
+export function handleInvalidClassName(message?: string) {
+  return message ? "p-invalid" : undefined;
+}

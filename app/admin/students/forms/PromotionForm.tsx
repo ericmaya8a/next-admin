@@ -1,20 +1,24 @@
 import { PaymentType, Rank } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { ToastMessage } from "primereact/toast";
 import { PromotionFormSchema } from "@/app/server/validationSchemas";
 import {
   capitalizeEnum,
   createAvailableRanks,
   createOptionsFromEnum,
+  handleInvalidClassName,
 } from "@/app/clientUtils";
-import { FormikForm } from "@/app/components/commons/Form/FormikForm";
-import { FormikFormCalendarField } from "@/app/components/commons/Form/FormikFormCalendarField";
-import { FormikFormSelectField } from "@/app/components/commons/Form/FormikFormSelectField";
-import { FormikSubmitButton } from "@/app/components/commons/Form/FormikSubmitButton";
-import { FormikFormInputNumberField } from "@/app/components/commons/Form/FormikFormInputNumberField";
 import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper";
 import { Row } from "@/app/components/commons/Row";
 import { PromotionT, useStudent } from "../student-context";
+import { InputWrapper } from "@/app/components/commons/Input/InputWrapper";
+import { Calendar } from "primereact/calendar";
+import { CONSTANTS } from "@/app/constatnts";
+import { FormikFieldError } from "@/app/components/commons/Form/FormikFieldError";
+import { Dropdown } from "primereact/dropdown";
+import { InputNumber } from "primereact/inputnumber";
+import { Button } from "primereact/button";
 
 type PromotionFormT = {
   date?: Date;
@@ -28,25 +32,22 @@ type PromotionFormProps = {
 };
 
 export function PromotionForm({ handleToast }: PromotionFormProps) {
-  const [loading, setLoading] = useState(false);
-  const [initialValues, setInitialValues] = useState<PromotionFormT>({
-    date: undefined,
-    rank: undefined,
-    price: undefined,
-    paymentType: PaymentType["CASH"],
-  });
-  const { currentStudent, createPromotion, onClose } = useStudent();
-
-  useEffect(() => {
-    setInitialValues({
+  const {
+    control,
+    formState: { errors, isSubmitting },
+    handleSubmit,
+  } = useForm<PromotionFormT>({
+    defaultValues: {
       date: new Date(),
       rank: undefined,
       price: undefined,
       paymentType: PaymentType["CASH"],
-    });
-  }, []);
+    },
+    resolver: yupResolver(PromotionFormSchema),
+  });
+  const { currentStudent, createPromotion, onClose } = useStudent();
 
-  const handleSubmit = async ({
+  const onSubmit = async ({
     date,
     rank,
     price,
@@ -60,11 +61,9 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
       paymentType,
     };
 
-    setLoading(true);
     const { ok } = await createPromotion(promotion);
 
     if (!ok) {
-      setLoading(false);
       return handleToast({
         summary: "Error",
         detail: "Invalid Data",
@@ -79,53 +78,89 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
       } ${currentStudent?.lastName}`,
       severity: "success",
     });
-    setLoading(false);
     onClose();
   };
 
   return (
-    <FormikForm<PromotionFormT>
-      initialValues={initialValues}
-      validationSchema={PromotionFormSchema}
-      onSubmit={handleSubmit}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Row>
-        <FormikFormCalendarField
-          label="Date"
-          id="date"
+        <Controller
           name="date"
-          width="100%"
+          control={control}
+          render={({ field }) => (
+            <InputWrapper label="Date" id={field.name}>
+              <Calendar
+                {...field}
+                className={handleInvalidClassName(errors.date?.message)}
+                id={field.name}
+                dateFormat={CONSTANTS.date.calendarFormat}
+                showIcon
+                showButtonBar
+              />
+              <FormikFieldError error={errors.date?.message} />
+            </InputWrapper>
+          )}
         />
-        <FormikFormSelectField
-          label="New Rank"
-          id="rank"
+        <Controller
           name="rank"
-          placeholder="Select a Rank"
-          options={createAvailableRanks(currentStudent?.promotion)}
+          control={control}
+          render={({ field }) => (
+            <InputWrapper label="New Rank" id={field.name}>
+              <Dropdown
+                {...field}
+                id={field.name}
+                className={handleInvalidClassName(errors.rank?.message)}
+                options={createAvailableRanks(currentStudent?.promotion)}
+                placeholder="Select a Rank"
+              />
+              <FormikFieldError error={errors.rank?.message} />
+            </InputWrapper>
+          )}
         />
       </Row>
 
       <Row>
-        <FormikFormInputNumberField
-          label="Price"
-          id="price"
+        <Controller
           name="price"
-          mode="currency"
-          currency="USD"
-          maxFractionDigits={2}
+          control={control}
+          render={({ field }) => (
+            <InputWrapper label="Price" id="price">
+              <InputNumber
+                id={field.name}
+                inputRef={field.ref}
+                value={field.value}
+                onBlur={field.onBlur}
+                onValueChange={(e) => field.onChange(e)}
+                className={handleInvalidClassName(errors.price?.message)}
+                mode="currency"
+                currency="USD"
+                maxFractionDigits={2}
+              />
+              <FormikFieldError error={errors.price?.message} />
+            </InputWrapper>
+          )}
         />
-        <FormikFormSelectField
-          label="Payment type"
-          id="paymentType"
+        <Controller
           name="paymentType"
-          placeholder="Select type"
-          options={createOptionsFromEnum(PaymentType)}
+          control={control}
+          render={({ field }) => (
+            <InputWrapper label="Payment Type" id={field.name}>
+              <Dropdown
+                {...field}
+                id={field.name}
+                className={handleInvalidClassName(errors.paymentType?.message)}
+                placeholder="Select option"
+                options={createOptionsFromEnum(PaymentType)}
+              />
+              <FormikFieldError error={errors.paymentType?.message} />
+            </InputWrapper>
+          )}
         />
       </Row>
 
       <ModalButtonWrapper>
-        <FormikSubmitButton type="submit" label="Add" loading={loading} />
+        <Button type="submit" label="Add" loading={isSubmitting} />
       </ModalButtonWrapper>
-    </FormikForm>
+    </form>
   );
 }
