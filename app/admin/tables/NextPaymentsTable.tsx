@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 import { Column } from "primereact/column";
 import { Toast, ToastMessage } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
@@ -31,7 +32,7 @@ export function NextPaymentsTable({ data }: NextPaymentsTableProps) {
   };
 
   return (
-    <>
+    <Card title="Next Payments">
       <DataTable value={data} stripedRows>
         <Column field="name" header="Name" />
         <Column field="inscriptionDate" header={<InscriptionHeader />} />
@@ -54,6 +55,6 @@ export function NextPaymentsTable({ data }: NextPaymentsTableProps) {
       </DataTable>
       {hasActionsPermission ? <PaymentModal handleToast={showToast} /> : null}
       <Toast position="top-center" ref={toast} />
-    </>
+    </Card>
   );
 }

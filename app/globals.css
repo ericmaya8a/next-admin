@@ -1,4 +1,5 @@
 body {
+  background-color: var(--highlight-bg);
   font-family: var(--font-family);
   min-height: 100vh;
 }

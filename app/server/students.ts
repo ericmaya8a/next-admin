@@ -40,6 +40,19 @@ export async function getStudentNameById(studentId: string) {
   });
 }
 
+export async function getStudentInfo(studentId: string) {
+  return await prisma.student.findUnique({
+    where: { id: studentId },
+    include: {
+      address: true,
+      communication: true,
+      promotion: true,
+      uniform: true,
+      gear: true,
+    },
+  });
+}
+
 export async function getStudentsNextPayment() {
   const MID_DAY_NUMBER = 15;
   const date = getDateInNumbers(new Date());

@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Toast, ToastMessage } from "primereact/toast";
 import { useRole } from "@/app/hooks/useRole";
+import { CONSTANTS } from "@/app/constatnts";
+import { AppBreadCrumb } from "@/app/components/commons/AppBreadCrumb";
 import { PageHeader } from "@/app/components/commons/PageHeader";
 import {
   BackendResponse,
@@ -53,7 +55,15 @@ export function Students<T>(props: StudentsProps<T>) {
       editStudent={props.editStudent}
     >
       <PageHeader
-        title="Students"
+        title={
+          <AppBreadCrumb
+            model={[
+              { label: "Admin", url: CONSTANTS.urls.ADMIN },
+              { label: "Students" },
+            ]}
+            style={{ marginBottom: 0 }}
+          />
+        }
         actions={
           hasActionsPermission ? (
             <ActionButton refreshPage={refreshPage} />

@@ -6,8 +6,8 @@ import {
   NextPaymentsT,
   TuitionT,
 } from "./adminContext";
+import { AppBreadCrumb } from "../components/commons/AppBreadCrumb";
 import { NextPaymentsTable } from "./tables/NextPaymentsTable";
-import { PageHeader } from "../components/commons/PageHeader";
 
 type AdminProps = {
   data: NextPaymentsT;
@@ -17,7 +17,7 @@ type AdminProps = {
 export function Admin(props: AdminProps) {
   return (
     <AdminProvider createTuition={props.createTuition}>
-      <PageHeader title="Next Payments" />
+      <AppBreadCrumb model={[{ label: "Admin" }]} />
       <NextPaymentsTable data={props.data} />
     </AdminProvider>
   );

@@ -1,6 +1,8 @@
 import { Rank } from "@prisma/client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { FilterMatchMode } from "primereact/api";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import {
   DataTable,
@@ -8,7 +10,9 @@ import {
   DataTableFilterMeta,
 } from "primereact/datatable";
 import { FaBan } from "react-icons/fa";
+import { Card } from "primereact/card";
 import { useRole } from "@/app/hooks/useRole";
+import { CONSTANTS } from "@/app/constatnts";
 import { Belt } from "@/app/components/commons/Belt";
 import { Header } from "@/app/components/commons/Header";
 import { SearchTableHeader } from "@/app/components/commons/Table/SearchTableHeader";
@@ -56,56 +60,71 @@ export function IncativeStudentsTable<T>({
   }, []);
 
   return (
-    <DataTable
-      // @ts-ignore
-      value={students.filter((st: MappedStudent) => !st.active)}
-      header={
-        <SearchTableHeader
-          value={globalFilterValue}
-          onChange={onGlobalFilterChange}
-          handleClose={() => initFilters()}
-        >
-          <Header icon={<FaBan color="var(--red-700)" />} iconPosition="right">
-            Incative
-          </Header>
-        </SearchTableHeader>
+    <Card
+      title={
+        <Header icon={<FaBan color="var(--red-700)" />} iconPosition="right">
+          Incative Students
+        </Header>
       }
-      removableSort
-      expandedRows={expandedRows}
-      onRowToggle={(e) => setExpandedRows(e.data as DataTableExpandedRows)}
-      dataKey="id"
-      rowExpansionTemplate={RowExpansion}
-      // @ts-ignore
-      filters={filters}
-      size="small"
     >
-      <Column expander style={{ width: "1rem" }} />
-      <Column field="name" header="Name" sortable />
-      <Column
-        field="promotion"
-        header="Rank"
-        body={({ promotion }: MappedStudent) => (
-          <Belt
-            belt={
-              promotion.length > 0
-                ? promotion[promotion.length - 1].rank
-                : Rank["BLANCA"]
-            }
-            tooltip
-            tooltipPosition="right"
-            width={70}
-          />
-        )}
-      />
-      <Column field="inscriptionDate" header={<InscriptionHeader />} />
-      <Column field="gender" header="Gender" body={genderTemplate} sortable />
-      <Column field="birthDate" header={<BirthdayHeader />} />
-      {hasUpdatePermission ? (
+      <DataTable
+        // @ts-ignore
+        value={students.filter((st: MappedStudent) => !st.active)}
+        header={
+          <SearchTableHeader
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            handleClose={() => initFilters()}
+          >
+            <span></span>
+          </SearchTableHeader>
+        }
+        removableSort
+        expandedRows={expandedRows}
+        onRowToggle={(e) => setExpandedRows(e.data as DataTableExpandedRows)}
+        dataKey="id"
+        rowExpansionTemplate={RowExpansion}
+        // @ts-ignore
+        filters={filters}
+        size="small"
+      >
+        <Column expander style={{ width: "1rem" }} />
         <Column
           field="name"
-          body={(row: MappedStudent) => <TableActionButton row={row} />}
+          header="Name"
+          body={({ id, name }: MappedStudent) => (
+            <Link href={`${CONSTANTS.urls.STUDENTS}/${id}`}>
+              <Button label={name} text />
+            </Link>
+          )}
+          sortable
         />
-      ) : null}
-    </DataTable>
+        <Column
+          field="promotion"
+          header="Rank"
+          body={({ promotion }: MappedStudent) => (
+            <Belt
+              belt={
+                promotion.length > 0
+                  ? promotion[promotion.length - 1].rank
+                  : Rank["BLANCA"]
+              }
+              tooltip
+              tooltipPosition="right"
+              width={70}
+            />
+          )}
+        />
+        <Column field="inscriptionDate" header={<InscriptionHeader />} />
+        <Column field="gender" header="Gender" body={genderTemplate} sortable />
+        <Column field="birthDate" header={<BirthdayHeader />} />
+        {hasUpdatePermission ? (
+          <Column
+            field="name"
+            body={(row: MappedStudent) => <TableActionButton row={row} />}
+          />
+        ) : null}
+      </DataTable>
+    </Card>
   );
 }
