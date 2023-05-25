@@ -4,16 +4,18 @@ interface HeaderProps extends React.HTMLProps<HTMLSpanElement> {
   children: React.ReactNode;
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
+  bold?: boolean;
 }
 
 export function Header({
+  bold = true,
   children,
   icon,
   iconPosition = "left",
   style,
 }: HeaderProps) {
   return (
-    <HeaderContainer style={style}>
+    <HeaderContainer style={style} bold={bold}>
       {iconPosition === "left" && icon ? icon : null}
       {children}
       {iconPosition === "right" && icon ? icon : null}
@@ -21,10 +23,10 @@ export function Header({
   );
 }
 
-const HeaderContainer = styled.span`
+const HeaderContainer = styled.span<{ bold: boolean }>`
   align-items: center;
   color: var(--text-color);
   display: flex;
-  font-weight: 700;
+  font-weight: ${({ bold }) => (bold ? 700 : undefined)};
   gap: 5px;
 `;

@@ -1,5 +1,6 @@
 import { Tooltip } from "primereact/tooltip";
 import { Rank } from "@prisma/client";
+import { capitalizeEnum } from "@/app/clientUtils";
 import { CONSTANTS } from "@/app/constatnts";
 
 type BeltProps = {
@@ -28,7 +29,7 @@ export function Belt({
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         width={width}
-        data-pr-tooltip={tooltip ? belt.toLowerCase() : undefined}
+        data-pr-tooltip={tooltip ? capitalizeEnum(belt) : undefined}
         data-pr-position={tooltipPosition}
         style={style}
       >

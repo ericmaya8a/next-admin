@@ -7,7 +7,13 @@ import {
   Student,
 } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { dateToString, getDateInNumbers, getDayNumber } from "./utils";
+import {
+  dateToString,
+  getAge,
+  getDateInNumbers,
+  getDayNumber,
+  mapPromotion,
+} from "./utils";
 
 export async function getStudents() {
   const students = await prisma.student.findMany({
@@ -24,12 +30,7 @@ export async function getStudents() {
     name: `${st.firstName} ${st.lastName}`,
     birthDate: dateToString(st.birthDate),
     inscriptionDate: dateToString(st.inscriptionDate),
-    promotion: st.promotion
-      .sort((a, b) => a.date.getTime() - b.date.getTime())
-      .map((prom) => ({
-        ...prom,
-        date: dateToString(prom.date),
-      })),
+    promotion: mapPromotion(st.promotion),
   }));
 }
 
@@ -41,7 +42,7 @@ export async function getStudentNameById(studentId: string) {
 }
 
 export async function getStudentInfo(studentId: string) {
-  return await prisma.student.findUnique({
+  const student = await prisma.student.findUnique({
     where: { id: studentId },
     include: {
       address: true,
@@ -51,6 +52,16 @@ export async function getStudentInfo(studentId: string) {
       gear: true,
     },
   });
+
+  return {
+    ...student,
+    name: `${student?.firstName} ${student?.lastName}`,
+    birthDate: dateToString(student!.birthDate),
+    age: getAge(student!.birthDate),
+    inscriptionDate: dateToString(student!.inscriptionDate),
+    seniority: getAge(student!.inscriptionDate),
+    promotion: mapPromotion(student!.promotion),
+  };
 }
 
 export async function getStudentsNextPayment() {
