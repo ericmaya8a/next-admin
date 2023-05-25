@@ -1,5 +1,5 @@
-import { HeaderAndTableSkeleton } from "@/app/components/commons/Skeletons/HeaderAndTableSkeleton";
+import { StudentsSkeleton } from "@/app/components/commons/Skeletons/StudentsSkeleton";
 
 export default function StudentLoading() {
-  return <HeaderAndTableSkeleton />;
+  return <StudentsSkeleton />;
 }
