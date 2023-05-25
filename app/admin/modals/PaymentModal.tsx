@@ -17,7 +17,7 @@ import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper"
 type PaymentForm = {
   date: Date;
   paymentType: PaymentType;
-  amount: string;
+  amount?: string;
 };
 
 type PaymentModalProps = {
@@ -27,7 +27,7 @@ type PaymentModalProps = {
 const initialValues: PaymentForm = {
   date: new Date(),
   paymentType: PaymentType["CASH"],
-  amount: "",
+  amount: undefined,
 };
 
 export function PaymentModal({ handleToast }: PaymentModalProps) {
@@ -39,7 +39,7 @@ export function PaymentModal({ handleToast }: PaymentModalProps) {
     setLoading(true);
     const payment = {
       date,
-      amount: parseFloat(amount),
+      amount: parseFloat(amount!),
       paymentType,
       studentId: selectedStudent!.id,
     };
