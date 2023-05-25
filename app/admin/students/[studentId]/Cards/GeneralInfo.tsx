@@ -45,7 +45,8 @@ export function GeneralInfo({
         title="Birthday:"
         description={
           <>
-            {birthday} <small>({age} years)</small>
+            {birthday}
+            <small>({age})</small>
           </>
         }
         icon={<FaBirthdayCake color={COLOR} />}
@@ -64,17 +65,15 @@ export function GeneralInfo({
         title="Inscription:"
         description={
           <>
-            {inscriptionDate}{" "}
-            <small>
-              ({seniority} year{seniority === 1 ? "" : "s"})
-            </small>
+            {inscriptionDate}
+            <small>({seniority})</small>
           </>
         }
         icon={<FaCalendarAlt color={COLOR} />}
       />
       <RowInfo
         title=""
-        icon={<Belt belt={rank ?? Rank["BLANCA"]} width={90} />}
+        icon={<Belt belt={rank ?? Rank["BLANCA"]} width={90} tooltip />}
       />
     </Card>
   );
