@@ -18,33 +18,34 @@ import {
 } from "./student-context";
 import { Students } from "./Students";
 
+async function createStudent(student: CreateStudentT) {
+  "use server";
+  const { ok } = await addStudent(student);
+  return { ok };
+}
+async function editStudent(student: EditStudentT) {
+  "use server";
+  const { ok } = await updateStudent(student);
+  return { ok };
+}
+async function createPromotion(promotion: PromotionT) {
+  "use server";
+  const { ok } = await addPromotion(promotion);
+  return { ok };
+}
+async function createUniform(uniform: UniformT) {
+  "use server";
+  const { ok } = await addUniform(uniform);
+  return { ok };
+}
+async function createGear(gear: GearT) {
+  "use server";
+  const { ok } = await addGear(gear);
+  return { ok };
+}
+
 export default async function StudentsPage() {
   const students = await getStudents();
-  const createStudent = async (student: CreateStudentT) => {
-    "use server";
-    const { ok } = await addStudent(student);
-    return { ok };
-  };
-  const editStudent = async (student: EditStudentT) => {
-    "use server";
-    const { ok } = await updateStudent(student);
-    return { ok };
-  };
-  const createPromotion = async (promotion: PromotionT) => {
-    "use server";
-    const { ok } = await addPromotion(promotion);
-    return { ok };
-  };
-  const createUniform = async (uniform: UniformT) => {
-    "use server";
-    const { ok } = await addUniform(uniform);
-    return { ok };
-  };
-  const createGear = async (gear: GearT) => {
-    "use server";
-    const { ok } = await addGear(gear);
-    return { ok };
-  };
 
   return (
     <Suspense fallback={<HeaderAndTableSkeleton />}>

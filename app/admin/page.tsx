@@ -5,13 +5,14 @@ import { HeaderAndTableSkeleton } from "../components/commons/Skeletons/HeaderAn
 import { TuitionT } from "./adminContext";
 import { Admin } from "./Admin";
 
+async function createTuition(tuition: TuitionT) {
+  "use server";
+  const { ok } = await addTuition(tuition);
+  return { ok };
+}
+
 export default async function AdminPage() {
   const nextPayments = await getStudentsNextPayment();
-  const createTuition = async (tuition: TuitionT) => {
-    "use server";
-    const { ok } = await addTuition(tuition);
-    return { ok };
-  };
 
   return (
     <Suspense fallback={<HeaderAndTableSkeleton />}>
