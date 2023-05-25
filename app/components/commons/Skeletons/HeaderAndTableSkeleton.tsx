@@ -6,7 +6,7 @@ import styled from "styled-components";
 export function HeaderAndTableSkeleton() {
   return (
     <>
-      <HeaderSkeleton height="36.8px" width="10%" />
+      <HeaderSkeleton height="30%" width="10%" />
       <Skeleton height="50vh" />
     </>
   );
