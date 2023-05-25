@@ -12,6 +12,7 @@ import {
   getAge,
   getDateInNumbers,
   getDayNumber,
+  getFullName,
   mapPromotion,
 } from "./utils";
 
@@ -42,26 +43,34 @@ export async function getStudentNameById(studentId: string) {
 }
 
 export async function getStudentInfo(studentId: string) {
-  const student = await prisma.student.findUnique({
-    where: { id: studentId },
-    include: {
-      address: true,
-      communication: true,
-      promotion: true,
-      uniform: true,
-      gear: true,
-    },
-  });
+  try {
+    const student = await prisma.student.findUnique({
+      where: { id: studentId },
+      include: {
+        address: true,
+        communication: true,
+        promotion: true,
+        uniform: true,
+        gear: true,
+      },
+    });
 
-  return {
-    ...student,
-    name: `${student?.firstName} ${student?.lastName}`,
-    birthDate: dateToString(student!.birthDate),
-    age: getAge(student!.birthDate),
-    inscriptionDate: dateToString(student!.inscriptionDate),
-    seniority: getAge(student!.inscriptionDate),
-    promotion: mapPromotion(student!.promotion),
-  };
+    if (student) {
+      return {
+        ...student,
+        name: getFullName(student.firstName, student.lastName),
+        birthDate: dateToString(student.birthDate),
+        age: getAge(student.birthDate),
+        inscriptionDate: dateToString(student.inscriptionDate),
+        seniority: getAge(student.inscriptionDate),
+        promotion: mapPromotion(student.promotion),
+      };
+    }
+
+    return null;
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function getStudentsNextPayment() {
@@ -270,9 +279,10 @@ export async function addPromotion({
         date,
         amount: price,
         paymentType,
-        description: `${student?.firstName} ${
+        description: `${getFullName(
+          student!.firstName,
           student?.lastName
-        } - ${rank} - promotion. (${dateToString(date, "DD/MMM/YYYY")})`,
+        )} - ${rank} - promotion. (${dateToString(date, "DD/MMM/YYYY")})`,
       },
     });
 

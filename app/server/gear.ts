@@ -1,6 +1,7 @@
 import { prisma } from "@/server/db/client";
 import { Gear, PaymentType } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { getFullName } from "./utils";
 import { getStudentNameById } from "./students";
 
 export async function addGear({
@@ -26,7 +27,10 @@ export async function addGear({
         date: new Date(),
         amount: price,
         paymentType,
-        description: `${student?.firstName} ${student?.lastName} - ${description}`,
+        description: `${getFullName(
+          student!.firstName,
+          student?.lastName
+        )} - ${description}`,
       },
     });
 

@@ -73,3 +73,8 @@ export function mapPromotion(promotion: Promotion[]) {
       date: dateToString(prom.date),
     }));
 }
+
+export function getFullName(firstName: string, lastName?: string) {
+  if (!lastName) return firstName;
+  return `${firstName} ${lastName}`;
+}

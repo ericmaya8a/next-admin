@@ -1,7 +1,7 @@
 import { prisma } from "@/server/db/client";
 import { PaymentType } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { dateToString, getDateInNumbers } from "./utils";
+import { dateToString, getDateInNumbers, getFullName } from "./utils";
 import { getStudentNameById } from "./students";
 
 export async function addTuition({
@@ -36,9 +36,10 @@ export async function addTuition({
         date,
         amount,
         paymentType,
-        description: `${student?.firstName} ${
+        description: `${getFullName(
+          student!.firstName,
           student?.lastName
-        } - ${dateToString(date, "MMM - YYYY")}`,
+        )} - ${dateToString(date, "MMM - YYYY")}`,
       },
     });
 
