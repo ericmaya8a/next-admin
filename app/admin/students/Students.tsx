@@ -7,6 +7,7 @@ import { useRole } from "@/app/hooks/useRole";
 import { CONSTANTS } from "@/app/constatnts";
 import { AppBreadCrumb } from "@/app/components/commons/AppBreadCrumb";
 import { PageHeader } from "@/app/components/commons/PageHeader";
+import { StudentT } from "./page";
 import {
   BackendResponse,
   CreateStudentT,
@@ -24,8 +25,8 @@ import { PromotionModal } from "./modals/PromotionModal";
 import { StudentModal } from "./modals/StudentModal";
 import { ActionButton } from "./ActionButton";
 
-type StudentsProps<T> = {
-  students: T;
+type StudentsProps = {
+  students: StudentT;
   createPromotion: (promotion: PromotionT) => BackendResponse;
   createStudent: (student: CreateStudentT) => BackendResponse;
   createUniform: (uniform: UniformT) => BackendResponse;
@@ -33,7 +34,7 @@ type StudentsProps<T> = {
   editStudent: (student: EditStudentT) => BackendResponse;
 };
 
-export function Students<T>(props: StudentsProps<T>) {
+export function Students(props: StudentsProps) {
   const router = useRouter();
   const toast = useRef<Toast>(null);
   const { isAdmin, isSuperAdmin } = useRole();

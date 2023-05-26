@@ -16,9 +16,9 @@ import {
   FaPhone,
   FaUserTag,
 } from "react-icons/fa";
+import { StudentT } from "../page";
 import { Header } from "@/app/components/commons/Header";
 import { Belt } from "@/app/components/commons/Belt";
-import { MappedStudent } from "../student-context";
 
 export function RowExpansion({
   communication,
@@ -26,7 +26,7 @@ export function RowExpansion({
   weight,
   address,
   promotion,
-}: MappedStudent) {
+}: StudentT[0]) {
   const color = "var(--primary-color)";
 
   return (

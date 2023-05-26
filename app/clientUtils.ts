@@ -1,6 +1,6 @@
 import { Rank, Student } from "@prisma/client";
 import { SelectItemOptionsType } from "primereact/selectitem";
-import { MappedStudent } from "./admin/students/student-context";
+import { StudentT } from "./admin/students/page";
 
 export const clientUtils = {
   fetching: {
@@ -51,7 +51,7 @@ export function createOptionsFromEnum(enumValue: {}): SelectItemOptionsType {
 }
 
 export function createAvailableRanks(
-  promotions: MappedStudent["promotion"] = []
+  promotions: StudentT[0]["promotion"] = []
 ) {
   const availableRanks = Object.keys(Rank).filter(
     (rank) => !promotions.map((p) => p.rank).includes(rank as Rank)

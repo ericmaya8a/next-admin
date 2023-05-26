@@ -4,11 +4,12 @@ import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
 import { MenuItem } from "primereact/menuitem";
+import { StudentT } from "../page";
+import { RowStudent, useStudent } from "../student-context";
 import { Uniform } from "@/app/components/commons/Uniform";
-import { MappedStudent, RowStudent, useStudent } from "../student-context";
 
 type TableActionButtonProps = {
-  row: MappedStudent;
+  row: StudentT[0];
 };
 
 const iconStyle: React.CSSProperties = { marginRight: "5px" };

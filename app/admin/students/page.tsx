@@ -10,11 +10,12 @@ import {
   CreateStudentT,
   EditStudentT,
   GearT,
-  MappedStudent,
   PromotionT,
   UniformT,
 } from "./student-context";
 import { Students } from "./Students";
+
+export type StudentT = Awaited<ReturnType<typeof getStudents>>;
 
 async function createStudent(student: CreateStudentT) {
   "use server";
@@ -46,7 +47,7 @@ export default async function StudentsPage() {
   const students = await getStudents();
 
   return (
-    <Students<MappedStudent[]>
+    <Students
       students={students}
       createPromotion={createPromotion}
       createStudent={createStudent}

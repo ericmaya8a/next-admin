@@ -11,12 +11,12 @@ import {
 } from "primereact/datatable";
 import { FaBan } from "react-icons/fa";
 import { Card } from "primereact/card";
+import { StudentT } from "../page";
 import { useRole } from "@/app/hooks/useRole";
 import { CONSTANTS } from "@/app/constatnts";
 import { Belt } from "@/app/components/commons/Belt";
 import { Header } from "@/app/components/commons/Header";
 import { SearchTableHeader } from "@/app/components/commons/Table/SearchTableHeader";
-import { MappedStudent } from "../student-context";
 import { TableActionButton } from "./TableActionButton";
 import { BirthdayHeader } from "./BirthdayHeader";
 import { InscriptionHeader } from "./InscriptionHeader";
@@ -69,7 +69,7 @@ export function IncativeStudentsTable<T>({
     >
       <DataTable
         // @ts-ignore
-        value={students.filter((st: MappedStudent) => !st.active)}
+        value={students.filter((st: StudentT[0]) => !st.active)}
         header={
           <SearchTableHeader
             value={globalFilterValue}
@@ -92,7 +92,7 @@ export function IncativeStudentsTable<T>({
         <Column
           field="name"
           header="Name"
-          body={({ id, name }: MappedStudent) => (
+          body={({ id, name }: StudentT[0]) => (
             <Link href={`${CONSTANTS.urls.STUDENTS}/${id}`}>
               <Button label={name} text />
             </Link>
@@ -102,7 +102,7 @@ export function IncativeStudentsTable<T>({
         <Column
           field="promotion"
           header="Rank"
-          body={({ promotion }: MappedStudent) => (
+          body={({ promotion }: StudentT[0]) => (
             <Belt
               belt={
                 promotion.length > 0
@@ -121,7 +121,7 @@ export function IncativeStudentsTable<T>({
         {hasUpdatePermission ? (
           <Column
             field="name"
-            body={(row: MappedStudent) => <TableActionButton row={row} />}
+            body={(row: StudentT[0]) => <TableActionButton row={row} />}
           />
         ) : null}
       </DataTable>
