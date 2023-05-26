@@ -2,21 +2,21 @@ import { Skeleton, SkeletonProps } from "primereact/skeleton";
 import styled from "styled-components";
 
 interface SkeletonWithMarginBottomProps extends SkeletonProps {
-  marginBottom?: string;
+  marginbottom?: string;
 }
 
 export function SkeletonWithMarginBottom({
-  marginBottom,
+  marginbottom,
   ...otherProps
 }: SkeletonWithMarginBottomProps) {
   return (
     <SkeletonWithMargin
-      marginBottom={(marginBottom = "1rem")}
+      marginbottom={(marginbottom = "1rem")}
       {...otherProps}
     />
   );
 }
 
 const SkeletonWithMargin = styled(Skeleton)<SkeletonWithMarginBottomProps>`
-  margin-bottom: ${({ marginBottom }) => marginBottom};
+  margin-bottom: ${({ marginbottom }) => marginbottom};
 `;
