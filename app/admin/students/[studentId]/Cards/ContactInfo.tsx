@@ -14,55 +14,58 @@ import { COLOR } from "../StudentInfo";
 import { StudentInfo } from "../page";
 
 type ContactInfoProps = {
-  address: StudentInfo["address"];
-  communication: StudentInfo["communication"];
+  info: StudentInfo;
 };
 
-export function ContactInfo({ address, communication }: ContactInfoProps) {
-  const completeAddress = `${address?.lineOne} ${address?.lineTwo ?? ""} ${
-    address?.exteriorNumber
-  } ${address?.interiorNumber ?? ""}`;
+export function ContactInfo({ info }: ContactInfoProps) {
+  if (info) {
+    const { address, communication } = info;
+    const completeAddress = `${address?.lineOne} ${address?.lineTwo ?? ""} ${
+      address?.exteriorNumber
+    } ${address?.interiorNumber ?? ""}`;
 
-  return (
-    <Card title="Contact Info">
-      <RowInfo
-        title="Address:"
-        description={completeAddress}
-        icon={<FaHome color={COLOR} />}
-      />
-      <RowInfo
-        title="Suburb:"
-        description={address!.suburb}
-        icon={<BsFillHouseAddFill color={COLOR} />}
-      />
-      <RowInfo
-        title="Municipality:"
-        description={address!.municipality}
-        icon={<FaCity color={COLOR} />}
-      />
-      <RowInfo
-        title="Zip Code:"
-        description={address!.zipCode}
-        icon={<FaBarcode color={COLOR} />}
-      />
-      <Divider />
-      <RowInfo
-        title="Email:"
-        description={communication!.email}
-        icon={<FaAt color={COLOR} />}
-      />
-      <RowInfo
-        title="Cell phone:"
-        description={communication!.cellPhone}
-        icon={<FaMobile color={COLOR} />}
-      />
-      {communication?.phone ? (
+    return (
+      <Card title="Contact Info">
         <RowInfo
-          title="Phone:"
-          description={communication.phone}
-          icon={<FaPhone color={COLOR} />}
+          title="Address:"
+          description={completeAddress}
+          icon={<FaHome color={COLOR} />}
         />
-      ) : null}
-    </Card>
-  );
+        <RowInfo
+          title="Suburb:"
+          description={address?.suburb}
+          icon={<BsFillHouseAddFill color={COLOR} />}
+        />
+        <RowInfo
+          title="Municipality:"
+          description={address?.municipality}
+          icon={<FaCity color={COLOR} />}
+        />
+        <RowInfo
+          title="Zip Code:"
+          description={address?.zipCode}
+          icon={<FaBarcode color={COLOR} />}
+        />
+        <Divider />
+        <RowInfo
+          title="Email:"
+          description={communication?.email}
+          icon={<FaAt color={COLOR} />}
+        />
+        <RowInfo
+          title="Cell phone:"
+          description={communication?.cellPhone}
+          icon={<FaMobile color={COLOR} />}
+        />
+        {communication?.phone ? (
+          <RowInfo
+            title="Phone:"
+            description={communication.phone}
+            icon={<FaPhone color={COLOR} />}
+          />
+        ) : null}
+      </Card>
+    );
+  }
+  return null;
 }

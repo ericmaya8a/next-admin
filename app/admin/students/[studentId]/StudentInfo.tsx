@@ -37,27 +37,9 @@ export function StudentInfo({ data }: StudentInfoProps) {
       />
       <PageHeader title={title} />
       <Grid className="grid">
-        <GeneralInfo
-          data={{
-            age: data?.age,
-            birthday: data?.birthDate,
-            gender: data?.gender,
-            height: data?.height,
-            inscriptionDate: data?.inscriptionDate,
-            seniority: data?.seniority,
-            weight: data?.weight,
-          }}
-          rank={
-            data?.promotion.length
-              ? data?.promotion[data?.promotion.length - 1].rank
-              : undefined
-          }
-        />
-        <ContactInfo
-          address={data?.address}
-          communication={data?.communication}
-        />
-        <PromotionInfo promotion={data?.promotion} />
+        <GeneralInfo info={data} />
+        <ContactInfo info={data} />
+        <PromotionInfo info={data} />
       </Grid>
     </>
   );
