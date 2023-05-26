@@ -9,6 +9,7 @@ import { GeneralInfo } from "./Cards/GeneralInfo";
 import { StudentInfo } from "./page";
 import { ContactInfo } from "./Cards/ContactInfo";
 import { PromotionInfo } from "./Cards/PromotionInfo";
+import { Notes } from "./Cards/Notes";
 
 type StudentInfoProps = {
   data: StudentInfo;
@@ -19,7 +20,7 @@ export const COLOR = "var(--primary-color)";
 export function StudentInfo({ data }: StudentInfoProps) {
   const title = (
     <h1 style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-      {data?.name}{" "}
+      {data?.name}
       {data?.active ? (
         <FaCheckCircle color="var(--green-500)" />
       ) : (
@@ -40,6 +41,7 @@ export function StudentInfo({ data }: StudentInfoProps) {
         <GeneralInfo info={data} />
         <ContactInfo info={data} />
         <PromotionInfo info={data} />
+        <Notes info={data} />
       </Grid>
     </>
   );

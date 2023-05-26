@@ -27,7 +27,7 @@ export function GeneralInfo({ info }: GeneralInfoProps) {
     } = info;
 
     return (
-      <Card title="General Info">
+      <Card title="General">
         <RowInfo
           title="Gender:"
           icon={<GenderIcon type={gender} />}

@@ -25,7 +25,7 @@ export function ContactInfo({ info }: ContactInfoProps) {
     } ${address?.interiorNumber ?? ""}`;
 
     return (
-      <Card title="Contact Info">
+      <Card title="Contact">
         <RowInfo
           title="Address:"
           description={completeAddress}

@@ -42,6 +42,7 @@ model Student {
   tuition         Tuition[]
   uniform         Uniform[]
   gear            Gear[]
+  note            Note[]
 }
 
 model Address {
@@ -64,6 +65,15 @@ model Communication {
   email     String  @unique
   student   Student @relation(fields: [studentId], references: [id])
   studentId String  @unique
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Student   Student? @relation(fields: [studentId], references: [id])
+  studentId String?
 }
 
 model Promotion {

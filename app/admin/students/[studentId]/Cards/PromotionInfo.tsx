@@ -31,7 +31,7 @@ export function PromotionInfo({ info }: PromotionInfoProps) {
         <p>No promotions here 😪</p>
       );
 
-    return <Card title="Promotion Info">{promotions}</Card>;
+    return <Card title="Promotions">{promotions}</Card>;
   }
   return null;
 }

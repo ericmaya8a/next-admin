@@ -52,6 +52,7 @@ export async function getStudentInfo(studentId: string) {
         promotion: true,
         uniform: true,
         gear: true,
+        note: true,
       },
     });
 
