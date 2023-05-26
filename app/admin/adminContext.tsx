@@ -1,4 +1,4 @@
-import { PaymentType } from "@prisma/client";
+import { Tuition } from "@prisma/client";
 import React, { useState } from "react";
 
 type AdminProviderProps = {
@@ -6,7 +6,7 @@ type AdminProviderProps = {
   children: React.ReactNode;
 };
 
-export type SelectedStudentT = {
+type SelectedStudentT = {
   id: string;
   name: string;
   inscriptionDate: string;
@@ -16,18 +16,7 @@ export type BackendResponse = Promise<{
   ok: boolean;
 }>;
 
-export type TuitionT = {
-  amount: number;
-  date: Date;
-  paymentType: PaymentType;
-  studentId: string;
-};
-
-export type NextPaymentsT = {
-  id: string;
-  name: string;
-  inscriptionDate: string;
-}[];
+export type TuitionT = Omit<Tuition, "id" | "month" | "year">;
 
 const AdminContext = React.createContext<
   | {

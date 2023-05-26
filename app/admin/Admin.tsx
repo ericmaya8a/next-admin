@@ -1,12 +1,8 @@
 "use client";
 
 import { AppBreadCrumb } from "../components/commons/AppBreadCrumb";
-import {
-  AdminProvider,
-  BackendResponse,
-  NextPaymentsT,
-  TuitionT,
-} from "./adminContext";
+import { NextPaymentsT } from "./page";
+import { AdminProvider, BackendResponse, TuitionT } from "./adminContext";
 import { NextPayments } from "./NextPayments";
 
 type AdminProps = {

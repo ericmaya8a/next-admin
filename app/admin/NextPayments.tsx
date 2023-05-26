@@ -12,7 +12,8 @@ import { Toast, ToastMessage } from "primereact/toast";
 import { SiAmazonpay } from "react-icons/si";
 import { getInitialsFromFullName } from "@/app/clientUtils";
 import { useRole } from "../hooks/useRole";
-import { NextPaymentsT, useAdmin } from "./adminContext";
+import { NextPaymentsT } from "./page";
+import { useAdmin } from "./adminContext";
 import { PaymentModal } from "./modals/PaymentModal";
 
 type NextPaymentsProps = {

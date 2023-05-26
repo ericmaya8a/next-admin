@@ -1,5 +1,5 @@
 import { prisma } from "@/server/db/client";
-import { PaymentType } from "@prisma/client";
+import { Tuition } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { dateToString, getDateInNumbers, getFullName } from "./utils";
 import { getStudentNameById } from "./students";
@@ -9,12 +9,7 @@ export async function addTuition({
   date,
   paymentType,
   studentId,
-}: {
-  amount: number;
-  date: Date;
-  paymentType: PaymentType;
-  studentId: string;
-}) {
+}: Omit<Tuition, "id" | "month" | "year">) {
   try {
     // Create Tuition
     const { month, year } = getDateInNumbers(date);

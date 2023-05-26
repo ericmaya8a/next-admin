@@ -5,6 +5,8 @@ import { HeaderAndTableSkeleton } from "../components/commons/Skeletons/HeaderAn
 import { TuitionT } from "./adminContext";
 import { Admin } from "./Admin";
 
+export type NextPaymentsT = Awaited<ReturnType<typeof getStudentsNextPayment>>;
+
 async function createTuition(tuition: TuitionT) {
   "use server";
   const { ok } = await addTuition(tuition);
