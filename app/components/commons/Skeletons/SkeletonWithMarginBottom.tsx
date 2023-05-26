@@ -6,15 +6,10 @@ interface SkeletonWithMarginBottomProps extends SkeletonProps {
 }
 
 export function SkeletonWithMarginBottom({
-  marginbottom,
+  marginbottom = "1rem",
   ...otherProps
 }: SkeletonWithMarginBottomProps) {
-  return (
-    <SkeletonWithMargin
-      marginbottom={(marginbottom = "1rem")}
-      {...otherProps}
-    />
-  );
+  return <SkeletonWithMargin marginbottom={marginbottom} {...otherProps} />;
 }
 
 const SkeletonWithMargin = styled(Skeleton)<SkeletonWithMarginBottomProps>`
