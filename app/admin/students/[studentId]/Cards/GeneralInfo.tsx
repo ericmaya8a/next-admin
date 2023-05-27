@@ -7,14 +7,12 @@ import { Belt } from "@/app/components/commons/Belt";
 import { GenderIcon } from "@/app/components/commons/GenderIcon";
 import { RowInfo } from "@/app/components/commons/RowInfo";
 import { COLOR } from "../StudentInfo";
-import { StudentInfo } from "../page";
+import { useStudentInfo } from "../studentInfoContext";
 
-type GeneralInfoProps = {
-  info: StudentInfo;
-};
+export function GeneralInfo() {
+  const { studentInfo } = useStudentInfo();
 
-export function GeneralInfo({ info }: GeneralInfoProps) {
-  if (info) {
+  if (studentInfo) {
     const {
       gender,
       birthDate,
@@ -24,7 +22,7 @@ export function GeneralInfo({ info }: GeneralInfoProps) {
       inscriptionDate,
       seniority,
       promotion,
-    } = info;
+    } = studentInfo;
 
     return (
       <Card title="General">
@@ -69,7 +67,7 @@ export function GeneralInfo({ info }: GeneralInfoProps) {
             <Belt
               belt={
                 promotion.length
-                  ? info.promotion[info.promotion.length - 1].rank
+                  ? studentInfo.promotion[studentInfo.promotion.length - 1].rank
                   : Rank["BLANCA"]
               }
               width={90}

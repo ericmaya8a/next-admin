@@ -98,3 +98,7 @@ export const BuyGearSchema = Yup.object({
 })
   .concat(PaymentSchema)
   .concat(PriceSchema);
+
+export const NotesSchema = Yup.object({
+  content: Yup.string().trim().required().min(3).label("Note"),
+});

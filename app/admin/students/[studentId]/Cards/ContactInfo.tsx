@@ -10,16 +10,14 @@ import {
 } from "react-icons/fa";
 import { BsFillHouseAddFill } from "react-icons/bs";
 import { RowInfo } from "@/app/components/commons/RowInfo";
+import { useStudentInfo } from "../studentInfoContext";
 import { COLOR } from "../StudentInfo";
-import { StudentInfo } from "../page";
 
-type ContactInfoProps = {
-  info: StudentInfo;
-};
+export function ContactInfo() {
+  const { studentInfo } = useStudentInfo();
 
-export function ContactInfo({ info }: ContactInfoProps) {
-  if (info) {
-    const { address, communication } = info;
+  if (studentInfo) {
+    const { address, communication } = studentInfo;
     const completeAddress = `${address?.lineOne} ${address?.lineTwo ?? ""} ${
       address?.exteriorNumber
     } ${address?.interiorNumber ?? ""}`;

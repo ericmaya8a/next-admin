@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
-type ModalButtonWrapperProps = {
+interface ModalButtonWrapperProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
-};
+}
 
-export function ModalButtonWrapper({ children }: ModalButtonWrapperProps) {
-  return <ButtonWrapper>{children}</ButtonWrapper>;
+export function ModalButtonWrapper({
+  children,
+  ...otherProps
+}: ModalButtonWrapperProps) {
+  return <ButtonWrapper style={otherProps.style}>{children}</ButtonWrapper>;
 }
 
 const ButtonWrapper = styled.div`

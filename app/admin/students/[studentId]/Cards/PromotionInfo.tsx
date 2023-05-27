@@ -2,15 +2,13 @@ import { Card } from "primereact/card";
 import styled from "styled-components";
 import { Belt } from "@/app/components/commons/Belt";
 import { RowInfo } from "@/app/components/commons/RowInfo";
-import { StudentInfo } from "../page";
+import { useStudentInfo } from "../studentInfoContext";
 
-type PromotionInfoProps = {
-  info: StudentInfo;
-};
+export function PromotionInfo() {
+  const { studentInfo } = useStudentInfo();
 
-export function PromotionInfo({ info }: PromotionInfoProps) {
-  if (info) {
-    const { promotion } = info;
+  if (studentInfo) {
+    const { promotion } = studentInfo;
     const promotions =
       promotion.length > 0 ? (
         <>
