@@ -18,7 +18,7 @@ export async function getSessionFromServer() {
 }
 
 export function dateToString(date: Date, format: string = "DD MMM YYYY") {
-  return moment(date).utc().format(format);
+  return moment(date).format(format);
 }
 
 export function getDateInNumbers(date: Date) {
@@ -31,7 +31,7 @@ export function getDateInNumbers(date: Date) {
 }
 
 export function getDayNumber(date: Date): number {
-  return Number(moment(date).utc().format("D"));
+  return Number(moment(date).format("D"));
 }
 
 export function getAge(birthDate: Date) {
@@ -71,6 +71,16 @@ export function mapPromotion(promotion: Promotion[]) {
     .map((prom) => ({
       ...prom,
       date: dateToString(prom.date),
+    }));
+}
+
+export function sortByUpdatedAt(list: any[], format = "DD MMM YYYY") {
+  return list
+    .sort((a, b) => a.updatedAt.getTime() - b.updatedAt.getTime())
+    .reverse()
+    .map((item) => ({
+      ...item,
+      updatedAt: dateToString(item.updatedAt, format),
     }));
 }
 

@@ -14,6 +14,7 @@ import {
   getDayNumber,
   getFullName,
   mapPromotion,
+  sortByUpdatedAt,
 } from "./utils";
 
 export async function getStudents() {
@@ -65,6 +66,7 @@ export async function getStudentInfo(studentId: string) {
         inscriptionDate: dateToString(student.inscriptionDate),
         seniority: getAge(student.inscriptionDate),
         promotion: mapPromotion(student.promotion),
+        note: sortByUpdatedAt(student.note, "DD MMM YYYY HH:mm"),
       };
     }
 

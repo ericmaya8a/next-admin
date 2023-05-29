@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { CreateNoteT, StudentInfoT } from "./page";
 import { useRouter } from "next/navigation";
+import { CreateNoteT, StudentInfoT, UpdateStudentNoteT } from "./page";
 
 type StudentInfoContextT = {
   isFormOpen: boolean;
   studentInfo: StudentInfoT;
   createNote: CreateNoteT;
+  updateStudentNote: UpdateStudentNoteT;
   onClose: VoidFunction;
   refreshPage: VoidFunction;
   setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,6 +18,7 @@ type StudentInfoProviderProps = {
   children: React.ReactNode;
   studentInfo: StudentInfoT;
   createNote: CreateNoteT;
+  updateStudentNote: UpdateStudentNoteT;
 };
 
 const StudentInfoContext = React.createContext<StudentInfoContextT | undefined>(
@@ -27,6 +29,7 @@ function StudentInfoProvider({
   children,
   studentInfo,
   createNote,
+  updateStudentNote,
 }: StudentInfoProviderProps) {
   const router = useRouter();
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -44,6 +47,7 @@ function StudentInfoProvider({
     onClose,
     refreshPage,
     setIsFormOpen,
+    updateStudentNote,
   };
 
   return (

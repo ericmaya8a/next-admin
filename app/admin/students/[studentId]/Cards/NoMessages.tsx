@@ -1,6 +1,6 @@
-import { PrimeIcons } from "primereact/api";
 import { Message } from "primereact/message";
 import styled from "styled-components";
+import { SmallButton } from "@/app/components/commons/SmallButton";
 
 type NoMessagesProps = {
   onClick: VoidFunction;
@@ -13,7 +13,7 @@ export function NoMessages({ onClick }: NoMessagesProps) {
       text={
         <>
           <span>No notes so far</span>
-          <span className={PrimeIcons.PLUS_CIRCLE} onClick={onClick} />
+          <SmallButton label="Add note" onClick={onClick} rounded outlined />
         </>
       }
     />

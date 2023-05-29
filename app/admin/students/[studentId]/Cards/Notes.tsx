@@ -1,13 +1,14 @@
-import { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Card } from "primereact/card";
-import { Editor } from "primereact/editor";
+import { Divider } from "primereact/divider";
 import { Toast, ToastMessage } from "primereact/toast";
 import { NoMessages } from "./NoMessages";
 import { useStudentInfo } from "../studentInfoContext";
-import { EditorControls } from "../forms/EditorControls";
 import { NoteForm } from "../forms/NoteForm";
+import { NoteTitle } from "./NoteTitle";
 
 export function Notes() {
+  const [isNewNote, setIsNewNote] = useState(false);
   const { isFormOpen, studentInfo, setIsFormOpen } = useStudentInfo();
   const toast = useRef<Toast>(null);
 
@@ -17,20 +18,39 @@ export function Notes() {
 
   if (studentInfo) {
     const { note } = studentInfo;
+    const hasNotes: boolean = note.length > 0;
 
     return (
       <>
-        <Card title="Notes">
-          {note.length > 0 ? (
+        <Card
+          title={
+            hasNotes ? (
+              <NoteTitle onClick={() => setIsNewNote(true)} />
+            ) : (
+              "Notes"
+            )
+          }
+        >
+          {hasNotes ? (
             <>
-              {note.map(({ id, content }) => (
-                <Editor
-                  key={id}
-                  headerTemplate={<EditorControls readOnly />}
-                  style={{ height: "200px" }}
-                  value={content}
-                  readOnly
+              {isNewNote ? (
+                <NoteForm
+                  showToast={showToast}
+                  closeNew={() => setIsNewNote(false)}
+                  style={{ marginBottom: "1.5rem" }}
                 />
+              ) : null}
+              {note.map(({ id, content, updatedAt }, index) => (
+                <React.Fragment key={id}>
+                  {index > 0 ? <Divider /> : null}
+                  <NoteForm
+                    content={content}
+                    date={updatedAt}
+                    showToast={showToast}
+                    noteId={id}
+                    isEditMode
+                  />
+                </React.Fragment>
               ))}
             </>
           ) : (
