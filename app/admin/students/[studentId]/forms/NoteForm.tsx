@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ToastMessage } from "primereact/toast";
 import { useStudentInfo } from "../studentInfoContext";
+import { useRole } from "@/app/hooks/useRole";
 import { handleInvalidClassName } from "@/app/clientUtils";
 import { FormikFieldError } from "@/app/components/commons/Form/FormikFieldError";
 import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper";
@@ -38,6 +39,7 @@ export function NoteForm({
   handleConfirm,
   showToast,
 }: NoteFormProps) {
+  const { isAdmin, isSuperAdmin } = useRole();
   const [isEditing, setIsEditing] = useState(false);
   const { studentId } = useParams();
   const { createNote, onClose, refreshPage, updateStudentNote } =
@@ -53,6 +55,7 @@ export function NoteForm({
     },
     resolver: yupResolver(NotesSchema),
   });
+  const hasPermissions = isAdmin || isSuperAdmin;
   const isDisabled: boolean = isEditMode && !isEditing;
   const buttonLabel = isEditMode ? "Update" : "Save";
 
@@ -119,23 +122,25 @@ export function NoteForm({
         )}
       />
 
-      <ModalButtonWrapper style={{ margin: "0.3rem 0 0" }}>
-        <SmallButton
-          type="submit"
-          label={buttonLabel}
-          loading={isSubmitting}
-          disabled={isDisabled}
-          outlined
-        />
-        <SmallButton
-          type="button"
-          label="Cancel"
-          severity="danger"
-          disabled={isSubmitting || isDisabled}
-          onClick={handleClose}
-          outlined
-        />
-      </ModalButtonWrapper>
+      {hasPermissions ? (
+        <ModalButtonWrapper style={{ margin: "0.3rem 0 0" }}>
+          <SmallButton
+            type="submit"
+            label={buttonLabel}
+            loading={isSubmitting}
+            disabled={isDisabled}
+            outlined
+          />
+          <SmallButton
+            type="button"
+            label="Cancel"
+            severity="danger"
+            disabled={isSubmitting || isDisabled}
+            onClick={handleClose}
+            outlined
+          />
+        </ModalButtonWrapper>
+      ) : null}
     </form>
   );
 }

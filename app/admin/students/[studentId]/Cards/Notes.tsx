@@ -4,9 +4,9 @@ import { Card } from "primereact/card";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Divider } from "primereact/divider";
 import { Toast, ToastMessage } from "primereact/toast";
-import { NoMessages } from "./NoMessages";
 import { useStudentInfo } from "../studentInfoContext";
 import { NoteForm } from "../forms/NoteForm";
+import { NoMessages } from "./NoMessages";
 import { NoteTitle } from "./NoteTitle";
 
 export function Notes() {

@@ -1,5 +1,6 @@
 import { Message } from "primereact/message";
 import styled from "styled-components";
+import { useRole } from "@/app/hooks/useRole";
 import { SmallButton } from "@/app/components/commons/SmallButton";
 
 type NoMessagesProps = {
@@ -7,13 +8,18 @@ type NoMessagesProps = {
 };
 
 export function NoMessages({ onClick }: NoMessagesProps) {
+  const { isAdmin, isSuperAdmin } = useRole();
+  const hasPermissions = isAdmin || isSuperAdmin;
+
   return (
     <StyledMessage
       severity="info"
       text={
         <>
           <span>No notes so far</span>
-          <SmallButton label="Add note" onClick={onClick} rounded outlined />
+          {hasPermissions ? (
+            <SmallButton label="Add note" onClick={onClick} rounded outlined />
+          ) : null}
         </>
       }
     />

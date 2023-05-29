@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useRole } from "@/app/hooks/useRole";
 import { SmallButton } from "@/app/components/commons/SmallButton";
 
 type NoteTitleProps = {
@@ -6,10 +7,15 @@ type NoteTitleProps = {
 };
 
 export function NoteTitle({ onClick }: NoteTitleProps) {
+  const { isAdmin, isSuperAdmin } = useRole();
+  const hasPermissions = isAdmin || isSuperAdmin;
+
   return (
     <Container>
       Notes
-      <SmallButton label="Add New" onClick={onClick} />
+      {hasPermissions ? (
+        <SmallButton label="Add New" onClick={onClick} />
+      ) : null}
     </Container>
   );
 }

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { PrimeIcons } from "primereact/api";
 import { Button } from "primereact/button";
+import { useRole } from "@/app/hooks/useRole";
 
 type NoteFormControlsProps = {
   date?: string;
@@ -13,6 +14,13 @@ export function NoteFormControls({
   onEdit,
   onRemove,
 }: NoteFormControlsProps) {
+  const { isAdmin, isSuperAdmin } = useRole();
+  const hasPermissions = isAdmin || isSuperAdmin;
+
+  if (!hasPermissions) {
+    return null;
+  }
+
   return (
     <Controls>
       <small>{date}</small>
