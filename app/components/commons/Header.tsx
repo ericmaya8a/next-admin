@@ -23,6 +23,7 @@ export function Header({
   );
 }
 
+//#region STYLES
 const HeaderContainer = styled.span<{ bold: boolean }>`
   align-items: center;
   color: var(--text-color);
@@ -30,3 +31,4 @@ const HeaderContainer = styled.span<{ bold: boolean }>`
   font-weight: ${({ bold }) => (bold ? 700 : undefined)};
   gap: 5px;
 `;
+//#endregion

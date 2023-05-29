@@ -15,6 +15,7 @@ export function InputWrapper({ id, label, children }: InputWrapperProps) {
   );
 }
 
+//#region STYLES
 const Wrapper = styled.div`
   align-items: flex-start;
   display: flex;
@@ -22,3 +23,4 @@ const Wrapper = styled.div`
   gap: 5px;
   margin-bottom: 1rem;
 `;
+//#endregion

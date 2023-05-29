@@ -14,8 +14,11 @@ import { useStudentInfo } from "../studentInfoContext";
 import { COLOR } from "../StudentInfo";
 
 export function ContactInfo() {
+  //#region HOOKS
   const { studentInfo } = useStudentInfo();
+  //#endregion
 
+  //#region JSX
   if (studentInfo) {
     const { address, communication } = studentInfo;
     const completeAddress = `${address?.lineOne} ${address?.lineTwo ?? ""} ${
@@ -66,4 +69,5 @@ export function ContactInfo() {
     );
   }
   return null;
+  //#endregion
 }

@@ -17,6 +17,7 @@ export function FullPageFormWrapper({
   );
 }
 
+//#region STYLES
 const Container = styled.div`
   background-color: var(--highlight-bg);
   display: grid;
@@ -45,3 +46,4 @@ const Container = styled.div`
     }
   }
 `;
+//#endregion

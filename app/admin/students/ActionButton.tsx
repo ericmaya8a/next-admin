@@ -10,6 +10,7 @@ type ActionButtonProps = {
 
 export function ActionButton({ refreshPage }: ActionButtonProps) {
   const { setIsOpenStudentModal } = useStudent();
+
   return (
     <ActionButtonWrapper>
       <Tooltip target=".p-speeddial-action" position="left" />
@@ -37,6 +38,7 @@ export function ActionButton({ refreshPage }: ActionButtonProps) {
   );
 }
 
+//#region STYLES
 const ActionButtonWrapper = styled.div`
   position: relative;
   height: 3rem;
@@ -47,3 +49,4 @@ const ActionButtonWrapper = styled.div`
     width: 3rem !important;
   }
 `;
+//#endregion

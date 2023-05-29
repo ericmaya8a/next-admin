@@ -10,11 +10,14 @@ import { NoMessages } from "./NoMessages";
 import { NoteTitle } from "./NoteTitle";
 
 export function Notes() {
+  //#region HOOKS
   const [isNewNote, setIsNewNote] = useState(false);
   const { isFormOpen, studentInfo, deleteNote, setIsFormOpen, refreshPage } =
     useStudentInfo();
   const toast = useRef<Toast>(null);
+  //#endregion
 
+  //#region LOGIC
   const handleConfirm = (id: string) => {
     confirmDialog({
       message: "Do you want to delete this note?",
@@ -44,7 +47,9 @@ export function Notes() {
   const showToast = (message: ToastMessage | ToastMessage[]) => {
     toast.current?.show(message);
   };
+  //#endregion
 
+  //#region JSX
   if (studentInfo) {
     const { note } = studentInfo;
     const hasNotes: boolean = note.length > 0;
@@ -100,4 +105,5 @@ export function Notes() {
   }
 
   return null;
+  //#endregion
 }

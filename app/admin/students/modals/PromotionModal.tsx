@@ -9,8 +9,11 @@ type PromotionModalProps = {
 };
 
 export function PromotionModal({ showToast }: PromotionModalProps) {
+  //#region HOOKS
   const { currentStudent, isOpenPromotionModal, onClose } = useStudent();
+  //#endregion
 
+  //#region JSX
   return (
     <Dialog
       header={`${currentStudent?.firstName} ${currentStudent?.lastName}'s promotion`}
@@ -22,4 +25,5 @@ export function PromotionModal({ showToast }: PromotionModalProps) {
       {isOpenPromotionModal ? <PromotionForm handleToast={showToast} /> : null}
     </Dialog>
   );
+  //#endregion
 }

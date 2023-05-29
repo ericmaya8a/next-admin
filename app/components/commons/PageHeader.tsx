@@ -16,6 +16,7 @@ export function PageHeader({ title, actions }: PageHeaderProps) {
   );
 }
 
+//#region STYLES
 const PageHeaderContainer = styled.div`
   align-items: center;
   display: flex;
@@ -27,3 +28,4 @@ const PageHeaderContainer = styled.div`
     margin: 0;
   }
 `;
+//#endregion

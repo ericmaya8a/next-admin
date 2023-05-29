@@ -5,8 +5,11 @@ import { RowInfo } from "@/app/components/commons/RowInfo";
 import { useStudentInfo } from "../studentInfoContext";
 
 export function PromotionInfo() {
+  //#region HOOKS
   const { studentInfo } = useStudentInfo();
+  //#endregion
 
+  //#region JSX
   if (studentInfo) {
     const { promotion } = studentInfo;
     const promotions =
@@ -32,8 +35,10 @@ export function PromotionInfo() {
     return <Card title="Promotions">{promotions}</Card>;
   }
   return null;
+  //#endregion
 }
 
+//#region STYLES
 const Wrapper = styled.div`
   align-items: center;
   display: flex;
@@ -44,3 +49,4 @@ const Wrapper = styled.div`
     min-width: 110px;
   }
 `;
+//#endregion

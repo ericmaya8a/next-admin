@@ -30,10 +30,14 @@ type IncativeStudentsTableProps<T> = {
 export function IncativeStudentsTable<T>({
   students,
 }: IncativeStudentsTableProps<T>) {
+  //#region HOOKS
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [filters, setFilters] = useState<DataTableFilterMeta | null>(null);
   const [globalFilterValue, setGlobalFilterValue] = useState<string>("");
   const { isAdmin, isSuperAdmin } = useRole();
+  //#endregion
+
+  //#region LOGIC
   const hasUpdatePermission = isAdmin || isSuperAdmin;
 
   const initFilters = () => {
@@ -58,7 +62,9 @@ export function IncativeStudentsTable<T>({
   useEffect(() => {
     initFilters();
   }, []);
+  //#endregion
 
+  //#region JSX
   return (
     <Card
       title={
@@ -127,4 +133,5 @@ export function IncativeStudentsTable<T>({
       </DataTable>
     </Card>
   );
+  //#endregion
 }

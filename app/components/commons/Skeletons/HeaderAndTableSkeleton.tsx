@@ -12,6 +12,8 @@ export function HeaderAndTableSkeleton() {
   );
 }
 
+//#region STYLES
 const HeaderSkeleton = styled(Skeleton)`
   margin-bottom: 0.67em;
 `;
+//#endregion

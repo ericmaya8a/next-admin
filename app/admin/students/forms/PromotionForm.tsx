@@ -32,6 +32,7 @@ type PromotionFormProps = {
 };
 
 export function PromotionForm({ handleToast }: PromotionFormProps) {
+  //#region HOOKS
   const {
     control,
     formState: { errors, isSubmitting },
@@ -46,7 +47,9 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
     resolver: yupResolver(PromotionFormSchema),
   });
   const { currentStudent, createPromotion, onClose } = useStudent();
+  //#endregion
 
+  //#region LOGIC
   const onSubmit = async ({
     date,
     rank,
@@ -80,7 +83,9 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
     });
     onClose();
   };
+  //#endregion
 
+  //#region JSX
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Row>
@@ -163,4 +168,5 @@ export function PromotionForm({ handleToast }: PromotionFormProps) {
       </ModalButtonWrapper>
     </form>
   );
+  //#endregion
 }

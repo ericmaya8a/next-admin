@@ -31,10 +31,13 @@ const initialValues: PaymentForm = {
 };
 
 export function PaymentModal({ handleToast }: PaymentModalProps) {
+  //#region HOOKS
   const { isOpenPaymentModal, selectedStudent, createTuition, onClose } =
     useAdmin();
   const [loading, setLoading] = useState(false);
+  //#endregion
 
+  //#region LOGIC
   const handleSubmit = async ({ amount, date, paymentType }: PaymentForm) => {
     setLoading(true);
     const payment = {
@@ -62,7 +65,9 @@ export function PaymentModal({ handleToast }: PaymentModalProps) {
     setLoading(false);
     onClose();
   };
+  //#endregion
 
+  //#region JSX
   if (!selectedStudent) {
     return null;
   }
@@ -115,4 +120,5 @@ export function PaymentModal({ handleToast }: PaymentModalProps) {
       </FormikForm>
     </Dialog>
   );
+  //#endregion
 }

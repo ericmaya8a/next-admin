@@ -9,8 +9,11 @@ type BuyGearModalProps = {
 };
 
 export function BuyGearModal({ showToast }: BuyGearModalProps) {
+  //#region HOOKS
   const { currentStudent, isOpenBuyGearModal, onClose } = useStudent();
+  //#endregion
 
+  //#region JSX
   return (
     <Dialog
       header={`Gear for: ${currentStudent?.firstName} ${currentStudent?.lastName}`}
@@ -22,4 +25,5 @@ export function BuyGearModal({ showToast }: BuyGearModalProps) {
       <BuyGearForm showToast={showToast} />
     </Dialog>
   );
+  //#endregion
 }

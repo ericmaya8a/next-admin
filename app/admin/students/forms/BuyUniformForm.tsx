@@ -35,9 +35,12 @@ const initialValues: BuyUniformFormT = {
 };
 
 export function BuyUniformForm({ showToast }: BuyUniformFormProps) {
+  //#region HOOKS
   const [loading, setLoading] = useState(false);
   const { currentStudent, createUniform, onClose } = useStudent();
+  //#endregion
 
+  //#region LOGIC
   const handleSubmit = async ({
     type,
     brand,
@@ -89,7 +92,9 @@ export function BuyUniformForm({ showToast }: BuyUniformFormProps) {
       setLoading(false);
     }
   };
+  //#endregion
 
+  //#region JSX
   return (
     <FormikForm<BuyUniformFormT>
       initialValues={initialValues}
@@ -142,4 +147,5 @@ export function BuyUniformForm({ showToast }: BuyUniformFormProps) {
       </ModalButtonWrapper>
     </FormikForm>
   );
+  //#endregion
 }

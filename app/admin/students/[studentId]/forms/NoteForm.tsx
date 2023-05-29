@@ -39,6 +39,7 @@ export function NoteForm({
   handleConfirm,
   showToast,
 }: NoteFormProps) {
+  //#region HOOKS
   const { isAdmin, isSuperAdmin } = useRole();
   const [isEditing, setIsEditing] = useState(false);
   const { studentId } = useParams();
@@ -55,6 +56,9 @@ export function NoteForm({
     },
     resolver: yupResolver(NotesSchema),
   });
+  //#endregion
+
+  //#region LOGIC
   const hasPermissions = isAdmin || isSuperAdmin;
   const isDisabled: boolean = isEditMode && !isEditing;
   const buttonLabel = isEditMode ? "Update" : "Save";
@@ -89,7 +93,9 @@ export function NoteForm({
     });
     handleClose();
   };
+  //#endregion
 
+  //#region JSX
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={style} noValidate>
       {isEditMode ? (
@@ -143,4 +149,5 @@ export function NoteForm({
       ) : null}
     </form>
   );
+  //#endregion
 }

@@ -12,6 +12,8 @@ export function SkeletonWithMarginBottom({
   return <SkeletonWithMargin marginbottom={marginbottom} {...otherProps} />;
 }
 
+//#region STYLES
 const SkeletonWithMargin = styled(Skeleton)<SkeletonWithMarginBottomProps>`
   margin-bottom: ${({ marginbottom }) => marginbottom};
 `;
+//#endregion

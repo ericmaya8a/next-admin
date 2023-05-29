@@ -16,6 +16,7 @@ export function FormikFormInputSwitch({
   onChange,
   ...otherProps
 }: Omit<InputSwitchProps, "checked"> & { label: string; helper?: string }) {
+  //#region HOOKS
   const {
     errors,
     touched,
@@ -24,6 +25,9 @@ export function FormikFormInputSwitch({
     setFieldValue,
     validateField,
   } = useFormikContext();
+  //#endregion
+
+  //#region LOGIC
   // @ts-ignore
   const value = values[name];
   // @ts-ignore
@@ -46,6 +50,9 @@ export function FormikFormInputSwitch({
     setFieldTouched(name);
     validateField(name);
   };
+  //#endregion
+
+  //#region JSX
   return (
     <InputWrapper id={id} label={label}>
       <InputSwitch
@@ -64,4 +71,5 @@ export function FormikFormInputSwitch({
       <FormikFieldError error={errorMessage} />
     </InputWrapper>
   );
+  //#endregion
 }

@@ -17,6 +17,7 @@ import { Students } from "./Students";
 
 export type StudentT = Awaited<ReturnType<typeof getStudents>>;
 
+//#region SERVER ACTIONS
 async function createStudent(student: CreateStudentT) {
   "use server";
   const { ok } = await addStudent(student);
@@ -42,6 +43,7 @@ async function createGear(gear: GearT) {
   const { ok } = await addGear(gear);
   return { ok };
 }
+//#endregion
 
 export default async function StudentsPage() {
   const students = await getStudents();

@@ -21,10 +21,14 @@ type NextPaymentsProps = {
 };
 
 export function NextPayments({ data }: NextPaymentsProps) {
+  //#region HOOKS
   const toast = useRef<Toast>(null);
   const router = useRouter();
   const { setIsOpenPaymentModal, setSelectedStudent } = useAdmin();
   const { isAdmin, isSuperAdmin } = useRole();
+  //#endregion
+
+  //#region LOGIC
   const hasActionsPermission = isAdmin || isSuperAdmin;
 
   const refreshPage = () => router.refresh();
@@ -33,7 +37,9 @@ export function NextPayments({ data }: NextPaymentsProps) {
     toast.current?.show(message);
     refreshPage();
   };
+  //#endregion
 
+  //#region JSX
   return (
     <Card title="Next Payments">
       {data.length > 0 ? (
@@ -71,8 +77,10 @@ export function NextPayments({ data }: NextPaymentsProps) {
       <Toast position="top-center" ref={toast} />
     </Card>
   );
+  //#endregion
 }
 
+//#region STYLES
 const Wrapper = styled.div`
   align-items: center;
   display: flex;
@@ -96,3 +104,4 @@ const StudentContainer = styled.div`
     }
   }
 `;
+//#endregion

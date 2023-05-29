@@ -8,6 +8,7 @@ export function Row({ children }: RowProps) {
   return <StyledRow>{children}</StyledRow>;
 }
 
+//#region STYLES
 const StyledRow = styled.div`
   display: block;
 
@@ -21,3 +22,4 @@ const StyledRow = styled.div`
     justify-content: space-between;
   }
 `;
+//#endregion

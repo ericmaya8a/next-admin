@@ -10,8 +10,11 @@ import { COLOR } from "../StudentInfo";
 import { useStudentInfo } from "../studentInfoContext";
 
 export function GeneralInfo() {
+  //#region HOOKS
   const { studentInfo } = useStudentInfo();
+  //#endregion
 
+  //#region JSX
   if (studentInfo) {
     const {
       gender,
@@ -79,4 +82,5 @@ export function GeneralInfo() {
     );
   }
   return null;
+  //#endregion
 }

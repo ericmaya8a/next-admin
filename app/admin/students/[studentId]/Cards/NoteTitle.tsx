@@ -7,9 +7,15 @@ type NoteTitleProps = {
 };
 
 export function NoteTitle({ onClick }: NoteTitleProps) {
+  //#region HOOKS
   const { isAdmin, isSuperAdmin } = useRole();
-  const hasPermissions = isAdmin || isSuperAdmin;
+  //#endregion
 
+  //#region LOGIC
+  const hasPermissions = isAdmin || isSuperAdmin;
+  //#endregion
+
+  //#region JSX
   return (
     <Container>
       Notes
@@ -18,10 +24,13 @@ export function NoteTitle({ onClick }: NoteTitleProps) {
       ) : null}
     </Container>
   );
+  //#endregion
 }
 
+//#region STYLES
 const Container = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
 `;
+//#endregion

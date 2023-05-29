@@ -5,12 +5,12 @@ export const metadata = {
   title: "Sign in",
 };
 
-export default function SigninPage() {
-  const addUser = async ({ name, email, password }: FormProps) => {
-    "use server";
-    const { ok } = await createUser({ name, email, password });
-    return { ok };
-  };
+const addUser = async ({ name, email, password }: FormProps) => {
+  "use server";
+  const { ok } = await createUser({ name, email, password });
+  return { ok };
+};
 
+export default function SigninPage() {
   return <SigninForm createUser={addUser} />;
 }

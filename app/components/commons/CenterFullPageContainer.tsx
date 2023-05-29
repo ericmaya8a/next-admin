@@ -19,6 +19,7 @@ export function CenterFullPageContainer({
   );
 }
 
+//#region STYLES
 const Container = styled.div`
   display: grid;
   min-height: 100vh;
@@ -27,3 +28,4 @@ const Container = styled.div`
 const ChildrenWrapper = styled.div`
   place-self: center;
 `;
+//#endregion

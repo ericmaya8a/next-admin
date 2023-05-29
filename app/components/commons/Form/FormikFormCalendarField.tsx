@@ -17,6 +17,7 @@ export function FormikFormCalendarField({
   onChange,
   ...otherProps
 }: CalendarProps & { label: string; width?: string; helper?: string }) {
+  //#region HOOKS
   const {
     errors,
     touched,
@@ -25,7 +26,9 @@ export function FormikFormCalendarField({
     setFieldValue,
     validateField,
   } = useFormikContext();
+  //#endregion
 
+  //#region LOGIC
   // @ts-ignore
   const value = values[name];
   // @ts-ignore
@@ -50,7 +53,9 @@ export function FormikFormCalendarField({
     setFieldTouched(name);
     validateField(name);
   };
+  //#endregion
 
+  //#region JSX
   return (
     <InputWrapper id={id} label={label}>
       <Calendar
@@ -70,4 +75,5 @@ export function FormikFormCalendarField({
       <FormikFieldError error={errorMessage} />
     </InputWrapper>
   );
+  //#endregion
 }

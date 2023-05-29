@@ -47,9 +47,11 @@ export function AppBreadCrumb({
   );
 }
 
+//#region STYLES
 const StyledBreadCrumb = styled(BreadCrumb)`
   background-color: transparent;
   border: none;
   margin-bottom: 1rem;
   padding: 0;
 `;
+//#endregion

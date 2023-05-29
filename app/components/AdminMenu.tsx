@@ -13,11 +13,16 @@ import { CONSTANTS } from "../constatnts";
 import SignUser from "./SignUser";
 
 export function AdminMenu() {
+  //#region HOOKS
   const path = usePathname();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+  //#endregion
 
+  //#region LOGIC
   const handleClose = () => setIsOpenSidebar(false);
+  //#endregion
 
+  //#region JSX
   return (
     <>
       <Menu className="p-menubar p-component">
@@ -70,8 +75,10 @@ export function AdminMenu() {
       </Sidebar>
     </>
   );
+  //#endregion
 }
 
+//#region STYLES
 const Menu = styled.div`
   border-radius: 0;
   justify-content: space-between;
@@ -83,3 +90,4 @@ const ButtonContainer = styled.div`
     width: 100%;
   }
 `;
+//#endregion

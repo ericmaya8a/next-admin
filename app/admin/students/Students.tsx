@@ -35,9 +35,13 @@ type StudentsProps = {
 };
 
 export function Students(props: StudentsProps) {
+  //#region HOOKS
   const router = useRouter();
   const toast = useRef<Toast>(null);
   const { isAdmin, isSuperAdmin } = useRole();
+  //#endregion
+
+  //#region LOGIC
   const hasActionsPermission = isAdmin || isSuperAdmin;
 
   const refreshPage = () => router.refresh();
@@ -46,7 +50,9 @@ export function Students(props: StudentsProps) {
     toast.current?.show(message);
     refreshPage();
   };
+  //#endregion
 
+  //#region JSX
   return (
     <StudentProvider
       createPromotion={props.createPromotion}
@@ -81,4 +87,5 @@ export function Students(props: StudentsProps) {
       <BuyGearModal showToast={showToast} />
     </StudentProvider>
   );
+  //#endregion
 }

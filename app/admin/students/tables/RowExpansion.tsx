@@ -27,8 +27,11 @@ export function RowExpansion({
   address,
   promotion,
 }: StudentT[0]) {
+  //#region CONSTANTS
   const color = "var(--primary-color)";
+  //#endregion
 
+  //#region JSX
   return (
     <StyledTabView>
       <TabPanel
@@ -84,8 +87,10 @@ export function RowExpansion({
       </TabPanel>
     </StyledTabView>
   );
+  //#endregion
 }
 
+//#region JSX
 const StyledTabView = styled(TabView)`
   .p-tabview-panels {
     background-color: var(--highlight-bg);
@@ -97,3 +102,4 @@ const PromotionWrapper = styled.div`
   align-items: center;
   gap: 5px;
 `;
+//#endregion

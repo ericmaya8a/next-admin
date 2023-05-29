@@ -14,9 +14,15 @@ type WelcomeProps = {
 };
 
 export function Welcome({ session }: WelcomeProps) {
+  //#region HOOKS
   const router = useRouter();
-  const hasSession = Boolean(session);
+  //#endregion
 
+  //#region LOGIC
+  const hasSession = Boolean(session);
+  //#endregion
+
+  //#region JSX
   return (
     <>
       <Tooltip target=".logo" />
@@ -37,8 +43,10 @@ export function Welcome({ session }: WelcomeProps) {
       </CenterFullPageContainer>
     </>
   );
+  //#endregion
 }
 
+//#region STYLES
 const StyledButton = styled(Button)`
   font-size: 10rem;
   height: 14rem !important;
@@ -50,3 +58,4 @@ const StyledButton = styled(Button)`
     width: 26rem !important;
   }
 `;
+//#endregion

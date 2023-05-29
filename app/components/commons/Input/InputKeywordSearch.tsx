@@ -30,6 +30,7 @@ export function InputKeywordSearch({
   );
 }
 
+//#region STYLES
 const Container = styled.div`
   position: relative;
 `;
@@ -41,3 +42,4 @@ const CloseIcon = styled(IoCloseOutline)`
   top: 14px;
   z-index: 2;
 `;
+//#endregion

@@ -32,8 +32,10 @@ export function InputPassword({
   );
 }
 
+//#region STYLES
 const StyledPassword = styled(Password)`
   input {
     width: 100%;
   }
 `;
+//#endregion

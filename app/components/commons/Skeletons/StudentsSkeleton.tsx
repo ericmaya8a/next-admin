@@ -15,9 +15,11 @@ export function StudentsSkeleton() {
   );
 }
 
+//#region STYLES
 const Wrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 `;
+//#endregion

@@ -18,8 +18,11 @@ export function Belt({
   tooltipPosition = "top",
   width,
 }: BeltProps) {
+  //#region CONSTANTS
   const fill = CONSTANTS.belts[belt];
+  //#endregion
 
+  //#region JSX
   return (
     <>
       <Tooltip target=".belt" />
@@ -93,4 +96,5 @@ export function Belt({
       </svg>
     </>
   );
+  //#endregion
 }

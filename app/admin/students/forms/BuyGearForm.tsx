@@ -31,9 +31,12 @@ const initialValues: BuyGearFormT = {
 };
 
 export function BuyGearForm({ showToast }: BuyGearFormProps) {
+  //#region HOOKS
   const [loading, setLoading] = useState(false);
   const { currentStudent, createGear, onClose } = useStudent();
+  //#endregion
 
+  //#region LOGIC
   const handleSubmit = async ({
     description,
     price,
@@ -74,7 +77,9 @@ export function BuyGearForm({ showToast }: BuyGearFormProps) {
       onClose();
     } catch (error) {}
   };
+  //#endregion
 
+  //#region JSX
   return (
     <FormikForm<BuyGearFormT>
       initialValues={initialValues}
@@ -112,4 +117,5 @@ export function BuyGearForm({ showToast }: BuyGearFormProps) {
       </ModalButtonWrapper>
     </FormikForm>
   );
+  //#endregion
 }

@@ -7,6 +7,7 @@ export function SmallButton(props: SmallButtonProps) {
   return <Container {...props} />;
 }
 
+//#region STYLES
 const Container = styled(Button)`
   font-size: 0.8rem;
   padding: 0.5rem 1rem;
@@ -15,3 +16,4 @@ const Container = styled(Button)`
     font-weight: normal;
   }
 `;
+//#endregion

@@ -9,8 +9,11 @@ type BuyUniformModalProps = {
 };
 
 export function BuyUniformModal({ showToast }: BuyUniformModalProps) {
+  //#region HOOKS
   const { currentStudent, isOpenBuyUniformModal, onClose } = useStudent();
+  //#endregion
 
+  //#region JSX
   return (
     <Dialog
       header={`Uniform for: ${currentStudent?.firstName} ${currentStudent?.lastName}`}
@@ -22,4 +25,5 @@ export function BuyUniformModal({ showToast }: BuyUniformModalProps) {
       <BuyUniformForm showToast={showToast} />
     </Dialog>
   );
+  //#endregion
 }

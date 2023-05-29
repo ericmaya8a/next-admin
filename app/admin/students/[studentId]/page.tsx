@@ -4,6 +4,7 @@ import { getStudentInfo } from "@/app/server/students";
 import { StudentInfoProvider } from "./studentInfoContext";
 import { StudentInfo } from "./StudentInfo";
 
+//#region TYPES
 export type StudentInfoT = Awaited<ReturnType<typeof getStudentInfo>>;
 
 export type CreateNoteT = typeof createNote;
@@ -11,7 +12,9 @@ export type CreateNoteT = typeof createNote;
 export type UpdateStudentNoteT = typeof updateStudentNote;
 
 export type DeleteNoteT = typeof deleteNote;
+//#endregion
 
+//#region SERVER ACTIONS
 async function createNote(note: { studentId: string; content: string }) {
   "use server";
   const { ok } = await addNote(note);
@@ -29,6 +32,7 @@ async function deleteNote(id: string) {
   const { ok } = await removeNote(id);
   return { ok };
 }
+//#endregion
 
 export default async function StudentPage({
   params,

@@ -5,8 +5,11 @@ import { Button } from "primereact/button";
 import { PrimeIcons } from "primereact/api";
 
 export default function SignUser() {
+  //#region HOOKS
   const { data: session, status } = useSession();
+  //#endregion
 
+  //#region JSX
   if (status === "authenticated") {
     return <UserInfo session={session} />;
   }
@@ -22,4 +25,5 @@ export default function SignUser() {
       />
     </Link>
   );
+  //#endregion
 }

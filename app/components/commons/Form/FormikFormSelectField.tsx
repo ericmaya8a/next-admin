@@ -17,6 +17,7 @@ export function FormikFormSelectField({
   onChange,
   ...otherProps
 }: DropdownProps & { label: string; helper?: string }) {
+  //#region HOOKS
   const {
     errors,
     touched,
@@ -25,7 +26,9 @@ export function FormikFormSelectField({
     setFieldValue,
     validateField,
   } = useFormikContext();
+  //#endregion
 
+  //#region LOGIC
   const handleChange = (e: DropdownChangeEvent) => {
     setFieldValue(name, e.value);
     validateField(name);
@@ -48,7 +51,9 @@ export function FormikFormSelectField({
     ? { ...otherProps.style, width: otherProps.width }
     : { ...otherProps.style };
   const errorMessage = hasError ? error : undefined;
+  //#endregion
 
+  //#region JSX
   return (
     <InputWrapper id={id} label={label}>
       <Dropdown
@@ -67,4 +72,5 @@ export function FormikFormSelectField({
       <FormikFieldError error={errorMessage} />
     </InputWrapper>
   );
+  //#endregion
 }

@@ -11,8 +11,10 @@ export function ModalButtonWrapper({
   return <ButtonWrapper style={otherProps.style}>{children}</ButtonWrapper>;
 }
 
+//#region STYLES
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 5px;
   justify-content: flex-end;
 `;
+//#endregion

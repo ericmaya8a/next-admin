@@ -20,6 +20,7 @@ export function FormikFormField({
   rightIcon?: React.ReactNode;
   leftIcon?: React.ReactNode;
 }) {
+  //#region HOOKS
   const {
     errors,
     touched,
@@ -28,6 +29,9 @@ export function FormikFormField({
     setFieldValue,
     validateField,
   } = useFormikContext();
+  //#endregion
+
+  //#region LOGIC
   // @ts-ignore
   const value = values[name];
   // @ts-ignore
@@ -53,7 +57,9 @@ export function FormikFormField({
     setFieldTouched(name);
     validateField(name);
   };
+  //#endregion
 
+  //#region JSX
   if (type === "password") {
     return (
       <InputPassword
@@ -111,8 +117,11 @@ export function FormikFormField({
       )}
     </>
   );
+  //#endregion
 }
 
+//#region STYLES
 const StyledInput = styled(Input)<{ hasIcon?: boolean }>`
   ${({ hasIcon }) => (hasIcon ? "padding-left: 2.5rem" : "")}
 `;
+//#endregion

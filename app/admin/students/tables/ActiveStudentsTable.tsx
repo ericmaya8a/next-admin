@@ -30,10 +30,14 @@ type ActiveStudentsTableProps<T> = {
 export function ActiveStudentsTable<T>({
   students,
 }: ActiveStudentsTableProps<T>) {
+  //#region HOOKS
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>();
   const [filters, setFilters] = useState<DataTableFilterMeta | null>(null);
   const [globalFilterValue, setGlobalFilterValue] = useState<string>("");
   const { isAdmin, isSuperAdmin } = useRole();
+  //#endregion
+
+  //#region LOGIC
   const hasUpdatePermission = isAdmin || isSuperAdmin;
 
   const initFilters = () => {
@@ -58,7 +62,9 @@ export function ActiveStudentsTable<T>({
   useEffect(() => {
     initFilters();
   }, []);
+  //#endregion
 
+  //#region JSX
   return (
     <Card
       title={
@@ -132,4 +138,5 @@ export function ActiveStudentsTable<T>({
       </DataTable>
     </Card>
   );
+  //#endregion
 }

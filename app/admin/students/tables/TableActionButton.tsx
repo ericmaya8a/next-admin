@@ -15,6 +15,7 @@ type TableActionButtonProps = {
 const iconStyle: React.CSSProperties = { marginRight: "5px" };
 
 export function TableActionButton({ row }: TableActionButtonProps) {
+  //#region HOOKS
   const {
     setCurrentStudent,
     setIsOpenStudentModal,
@@ -23,7 +24,9 @@ export function TableActionButton({ row }: TableActionButtonProps) {
     setIsOpenBuyGearModal,
   } = useStudent();
   const menu = useRef<Menu>(null);
+  //#endregion
 
+  //#region LOGIC
   const studentRow: RowStudent = {
     id: row.id,
     firstName: row.firstName,
@@ -93,7 +96,9 @@ export function TableActionButton({ row }: TableActionButtonProps) {
       }
     );
   }
+  //#endregion
 
+  //#region JSX
   return (
     <>
       <Menu model={menuModel} popup ref={menu} />
@@ -107,4 +112,5 @@ export function TableActionButton({ row }: TableActionButtonProps) {
       />
     </>
   );
+  //#endregion
 }

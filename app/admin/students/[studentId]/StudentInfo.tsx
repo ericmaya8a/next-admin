@@ -15,9 +15,12 @@ import { Notes } from "./Cards/Notes";
 export const COLOR = "var(--primary-color)";
 
 export function StudentInfo() {
+  //#region HOOKS
   const { studentId } = useParams();
   const { studentInfo } = useStudentInfo();
+  //#endregion
 
+  //#region JSX
   if (studentInfo) {
     const { name, active } = studentInfo;
     const title = (
@@ -50,10 +53,13 @@ export function StudentInfo() {
   }
 
   return <p>Invalid Student ID: {studentId}</p>;
+  //#endregion
 }
 
+//#region STYLES
 const Grid = styled.div`
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 `;
+//#endregion

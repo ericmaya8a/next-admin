@@ -3,11 +3,11 @@ import { AiOutlineUser } from "react-icons/ai";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import { PrimeIcons } from "primereact/api";
 import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { ConfirmPopup } from "primereact/confirmpopup";
 import "./UserInfo.css";
-import { PrimeIcons } from "primereact/api";
 
 function handleSignOut() {
   signOut({
@@ -21,9 +21,12 @@ type UserInfoProps = {
 };
 
 export function UserInfo({ session }: UserInfoProps) {
+  //#region HOOKS
   const [visible, setVisible] = useState<boolean>(false);
   const divEl = useRef(null);
+  //#endregion
 
+  //#region JSX
   return (
     <>
       <ConfirmPopup
@@ -66,4 +69,5 @@ export function UserInfo({ session }: UserInfoProps) {
       </div>
     </>
   );
+  //#endregion
 }

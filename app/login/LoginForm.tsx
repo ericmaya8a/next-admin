@@ -26,10 +26,14 @@ const initialValues: FormProps = {
 };
 
 export function LoginForm() {
+  //#region HOOKS
   const searchParams = useSearchParams();
   const toast = useRef<Toast>(null);
   const [loading, setLoading] = useState(false);
   const [hideError, setHideError] = useState(false);
+  //#endregion
+
+  //#region LOGIC
   const hasError = searchParams.toString().includes("error");
 
   async function handleSignInWithGithub() {
@@ -70,7 +74,9 @@ export function LoginForm() {
       setHideError(true);
     }
   };
+  //#endregion
 
+  //#region JSX
   return (
     <>
       <Toast position="bottom-left" ref={toast} />
@@ -122,4 +128,5 @@ export function LoginForm() {
       </FullPageFormWrapper>
     </>
   );
+  //#endregion
 }

@@ -23,6 +23,7 @@ export function FormikFormInputNumberField({
   helper?: string;
   rightIcon?: React.ReactNode;
 }) {
+  //#region HOOKS
   const {
     errors,
     touched,
@@ -31,6 +32,9 @@ export function FormikFormInputNumberField({
     setFieldValue,
     validateField,
   } = useFormikContext();
+  //#endregion
+
+  //#region LOGIC
   // @ts-ignore
   const value = values[name];
   // @ts-ignore
@@ -69,7 +73,9 @@ export function FormikFormInputNumberField({
       {...otherProps}
     />
   );
+  //#endregion
 
+  //#region JSX
   return (
     <InputWrapper id={id} label={label}>
       {Boolean(rightIcon) ? (
@@ -84,4 +90,5 @@ export function FormikFormInputNumberField({
       <FormikFieldError error={errorMessage} />
     </InputWrapper>
   );
+  //#endregion
 }

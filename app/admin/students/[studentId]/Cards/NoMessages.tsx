@@ -26,6 +26,7 @@ export function NoMessages({ onClick }: NoMessagesProps) {
   );
 }
 
+//#region STYLES
 const StyledMessage = styled(Message)`
   justify-content: flex-start;
   width: 100%;
@@ -43,3 +44,4 @@ const StyledMessage = styled(Message)`
     }
   }
 `;
+//#endregion

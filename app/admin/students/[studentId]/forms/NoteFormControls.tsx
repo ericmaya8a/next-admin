@@ -14,9 +14,15 @@ export function NoteFormControls({
   onEdit,
   onRemove,
 }: NoteFormControlsProps) {
+  //#region HOOKS
   const { isAdmin, isSuperAdmin } = useRole();
-  const hasPermissions = isAdmin || isSuperAdmin;
+  //#endregion
 
+  //#region LOGIC
+  const hasPermissions = isAdmin || isSuperAdmin;
+  //#endregion
+
+  //#region JSX
   if (!hasPermissions) {
     return null;
   }
@@ -43,8 +49,10 @@ export function NoteFormControls({
       </ButtonWrapper>
     </Controls>
   );
+  //#endregion
 }
 
+//#region STYLES
 const Controls = styled.div`
   align-items: baseline;
   display: flex;
@@ -65,3 +73,4 @@ const RoundButton = styled(Button)`
   height: 2rem !important;
   width: 2rem !important;
 `;
+//#endregion

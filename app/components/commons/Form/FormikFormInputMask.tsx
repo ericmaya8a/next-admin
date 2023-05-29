@@ -17,6 +17,7 @@ export function FormikFormInputMask({
   onChange,
   ...otherProps
 }: InputMaskProps & { label: string; helper?: string }) {
+  //#region HOOKS
   const {
     errors,
     touched,
@@ -25,6 +26,9 @@ export function FormikFormInputMask({
     setFieldValue,
     validateField,
   } = useFormikContext();
+  //#endregion
+
+  //#region LOGIC
   // @ts-ignore
   const value = values[name];
   // @ts-ignore
@@ -49,7 +53,9 @@ export function FormikFormInputMask({
     setFieldTouched(name);
     validateField(name);
   };
+  //#endregion
 
+  //#region JSX
   return (
     <InputWrapper id={id} label={label}>
       <InputMask
@@ -67,4 +73,5 @@ export function FormikFormInputMask({
       <FormikFieldError error={errorMessage} />
     </InputWrapper>
   );
+  //#endregion
 }

@@ -6,6 +6,7 @@ export function MainContainer({ children }: { children: React.ReactNode }) {
   return <Wrapper>{children}</Wrapper>;
 }
 
+//#region STYLES
 const Wrapper = styled.div`
   max-width: 100%;
   margin: 0 auto;
@@ -44,3 +45,4 @@ const Wrapper = styled.div`
     padding-right: 0;
   }
 `;
+//#endregion

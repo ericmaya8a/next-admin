@@ -9,8 +9,11 @@ type StudentModalProps = {
 };
 
 export function StudentModal({ showToast }: StudentModalProps) {
+  //#region HOOKS
   const { currentStudent, isOpenStudentModal, onClose } = useStudent();
+  //#endregion
 
+  //#region JSX
   return (
     <Dialog
       header={`${Boolean(currentStudent) ? "Edit" : "Add"} Student`}
@@ -22,4 +25,5 @@ export function StudentModal({ showToast }: StudentModalProps) {
       <StudentForm handleToast={showToast} />
     </Dialog>
   );
+  //#endregion
 }

@@ -29,8 +29,10 @@ export function SearchTableHeader({
   );
 }
 
+//#region STYLES
 const HeaderContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
 `;
+//#endregion

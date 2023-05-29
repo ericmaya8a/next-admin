@@ -68,9 +68,13 @@ const initialValues: StudentFormT = {
 const options = createOptionsFromEnum(Gender);
 
 export function StudentForm({ handleToast }: StudentFormProps) {
+  //#region HOOKS
   const { currentStudent, createStudent, editStudent, onClose } = useStudent();
   const [message, setMessage] = useState<string>();
   const [loading, setLoading] = useState(false);
+  //#endregion
+
+  //#region LOGIC
   const isEditMode = Boolean(currentStudent);
 
   const errorMessage = message ? (
@@ -154,7 +158,9 @@ export function StudentForm({ handleToast }: StudentFormProps) {
     });
     onClose();
   };
+  //#endregion
 
+  //#region JSX
   return (
     <FormikForm<StudentFormT>
       initialValues={
@@ -343,4 +349,5 @@ export function StudentForm({ handleToast }: StudentFormProps) {
       </ModalButtonWrapper>
     </FormikForm>
   );
+  //#endregion
 }
