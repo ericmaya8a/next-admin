@@ -2,12 +2,18 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CreateNoteT, StudentInfoT, UpdateStudentNoteT } from "./page";
+import {
+  CreateNoteT,
+  DeleteNoteT,
+  StudentInfoT,
+  UpdateStudentNoteT,
+} from "./page";
 
 type StudentInfoContextT = {
   isFormOpen: boolean;
   studentInfo: StudentInfoT;
   createNote: CreateNoteT;
+  deleteNote: DeleteNoteT;
   updateStudentNote: UpdateStudentNoteT;
   onClose: VoidFunction;
   refreshPage: VoidFunction;
@@ -18,6 +24,7 @@ type StudentInfoProviderProps = {
   children: React.ReactNode;
   studentInfo: StudentInfoT;
   createNote: CreateNoteT;
+  deleteNote: DeleteNoteT;
   updateStudentNote: UpdateStudentNoteT;
 };
 
@@ -29,6 +36,7 @@ function StudentInfoProvider({
   children,
   studentInfo,
   createNote,
+  deleteNote,
   updateStudentNote,
 }: StudentInfoProviderProps) {
   const router = useRouter();
@@ -44,6 +52,7 @@ function StudentInfoProvider({
     isFormOpen,
     studentInfo,
     createNote,
+    deleteNote,
     onClose,
     refreshPage,
     setIsFormOpen,

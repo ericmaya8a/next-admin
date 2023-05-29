@@ -77,3 +77,28 @@ export async function updateNote({
     );
   }
 }
+
+export async function removeNote(id: string) {
+  try {
+    // validate note exists
+    const note = await prisma.note.findUnique({ where: { id } });
+
+    if (!note) {
+      return new NextResponse(JSON.stringify({ error: "Invalid data" }), {
+        status: 400,
+      });
+    }
+
+    // Remove note
+    await prisma.note.delete({ where: { id } });
+
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify({
+        error: "Internal Server Errror",
+      }),
+      { status: 500 }
+    );
+  }
+}

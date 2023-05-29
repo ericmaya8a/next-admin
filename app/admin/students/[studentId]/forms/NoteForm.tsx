@@ -24,6 +24,7 @@ type NoteFormProps = {
   date?: string;
   style?: React.CSSProperties;
   closeNew?: VoidFunction;
+  handleConfirm?: (id: string) => void;
   showToast: (message: ToastMessage | ToastMessage[]) => void;
 };
 
@@ -34,6 +35,7 @@ export function NoteForm({
   date,
   style,
   closeNew,
+  handleConfirm,
   showToast,
 }: NoteFormProps) {
   const [isEditing, setIsEditing] = useState(false);
@@ -91,7 +93,11 @@ export function NoteForm({
         <NoteFormControls
           date={date}
           onEdit={() => setIsEditing(true)}
-          onRemove={() => console.log("remove")}
+          onRemove={() => {
+            if (handleConfirm) {
+              handleConfirm(noteId!);
+            }
+          }}
         />
       ) : null}
       <Controller
