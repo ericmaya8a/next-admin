@@ -26,3 +26,10 @@ export function getFullName(firstName: string, lastName?: string) {
   if (!lastName) return firstName;
   return `${firstName} ${lastName}`;
 }
+
+export function formatNumberToCurrency(value: number) {
+  return value.toLocaleString("es-MX", {
+    style: "currency",
+    currency: "MXN",
+  });
+}

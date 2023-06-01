@@ -1,14 +1,4 @@
-import { Promotion } from "@prisma/client";
 import { dateToString } from ".";
-
-export function mapPromotion(promotion: Promotion[]) {
-  return promotion
-    .sort((a, b) => a.date.getTime() - b.date.getTime())
-    .map((prom) => ({
-      ...prom,
-      date: dateToString(prom.date),
-    }));
-}
 
 export function sortByUpdatedAt(list: any[], format = "DD MMM YYYY") {
   return list
@@ -17,5 +7,14 @@ export function sortByUpdatedAt(list: any[], format = "DD MMM YYYY") {
     .map((item) => ({
       ...item,
       updatedAt: dateToString(item.updatedAt, format),
+    }));
+}
+
+export function sortByDate(items: any[], format = "DD MMM YYYY") {
+  return items
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .map((item) => ({
+      ...item,
+      date: dateToString(item.date, format),
     }));
 }

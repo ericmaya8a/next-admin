@@ -13,7 +13,7 @@ import {
   getDateInNumbers,
   getDayNumber,
   getFullName,
-  mapPromotion,
+  sortByDate,
   sortByUpdatedAt,
 } from "../utils";
 import { addIncome, type IncomeItem } from "./income";
@@ -33,7 +33,7 @@ export async function getStudents() {
     name: `${st.firstName} ${st.lastName}`,
     birthDate: dateToString(st.birthDate),
     inscriptionDate: dateToString(st.inscriptionDate),
-    promotion: mapPromotion(st.promotion),
+    promotion: sortByDate(st.promotion),
   }));
 }
 
@@ -66,8 +66,10 @@ export async function getStudentInfo(studentId: string) {
         age: getAge(student.birthDate),
         inscriptionDate: dateToString(student.inscriptionDate),
         seniority: getAge(student.inscriptionDate),
-        promotion: mapPromotion(student.promotion),
+        promotion: sortByDate(student.promotion),
         note: sortByUpdatedAt(student.note, "DD MMM YYYY HH:mm"),
+        uniform: sortByDate(student.uniform, "DD/MMM/YY"),
+        gear: sortByDate(student.gear, "DD/MMM/YY"),
       };
     }
 

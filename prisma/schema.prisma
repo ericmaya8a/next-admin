@@ -97,6 +97,7 @@ model Tuition {
 
 model Uniform {
   id        String       @id @default(uuid())
+  date      DateTime     @default(now())
   type      UniformType  @default(KARATEGI)
   brand     UniformBrand
   price     Float
@@ -107,6 +108,7 @@ model Uniform {
 
 model Gear {
   id          String   @id @default(uuid())
+  date        DateTime @default(now())
   description String
   price       Float
   Student     Student? @relation(fields: [studentId], references: [id])

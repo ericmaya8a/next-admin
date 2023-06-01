@@ -1,4 +1,5 @@
 import { Card } from "primereact/card";
+import { Message } from "primereact/message";
 import styled from "styled-components";
 import { Belt } from "@/app/components/commons/Belt";
 import { RowInfo } from "@/app/components/commons/RowInfo";
@@ -29,7 +30,11 @@ export function PromotionInfo() {
           ))}
         </>
       ) : (
-        <p>No promotions here 😪</p>
+        <Message
+          severity="info"
+          text="No promotions so far"
+          style={{ width: "100%", justifyContent: "flex-start" }}
+        />
       );
 
     return <Card title="Promotions">{promotions}</Card>;

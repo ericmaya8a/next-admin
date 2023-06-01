@@ -7,10 +7,12 @@ import { CONSTANTS } from "@/app/constatnts";
 import { AppBreadCrumb } from "@/app/components/commons/AppBreadCrumb";
 import { PageHeader } from "@/app/components/commons/PageHeader";
 import { useStudentInfo } from "./studentInfoContext";
-import { GeneralInfo } from "./Cards/GeneralInfo";
 import { ContactInfo } from "./Cards/ContactInfo";
-import { PromotionInfo } from "./Cards/PromotionInfo";
+import { Gear } from "./Cards/Gear";
+import { GeneralInfo } from "./Cards/GeneralInfo";
 import { Notes } from "./Cards/Notes";
+import { PromotionInfo } from "./Cards/PromotionInfo";
+import { Uniforms } from "./Cards/Uniforms";
 
 export const COLOR = "var(--primary-color)";
 
@@ -46,6 +48,8 @@ export function StudentInfo() {
           <GeneralInfo />
           <ContactInfo />
           <PromotionInfo />
+          <Uniforms />
+          <Gear />
           <Notes />
         </Grid>
       </>
