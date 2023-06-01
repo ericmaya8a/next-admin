@@ -10,7 +10,7 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Toast, ToastMessage } from "primereact/toast";
 import { SiAmazonpay } from "react-icons/si";
-import { getInitialsFromFullName } from "@/app/clientUtils";
+import { getInitialsFromFullName } from "../utils";
 import { useRole } from "../hooks/useRole";
 import { NextPaymentsT } from "./page";
 import { useAdmin } from "./adminContext";

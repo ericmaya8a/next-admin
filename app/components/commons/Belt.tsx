@@ -1,6 +1,6 @@
 import { Tooltip } from "primereact/tooltip";
 import { Rank } from "@prisma/client";
-import { capitalizeEnum } from "@/app/clientUtils";
+import { capitalizeEnum } from "@/app/utils";
 import { CONSTANTS } from "@/app/constatnts";
 
 type BeltProps = {

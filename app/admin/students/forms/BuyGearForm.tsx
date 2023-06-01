@@ -2,7 +2,7 @@ import { PaymentType } from "@prisma/client";
 import { useState } from "react";
 import { ToastMessage } from "primereact/toast";
 import { BuyGearSchema } from "@/app/server/validationSchemas";
-import { createOptionsFromEnum } from "@/app/clientUtils";
+import { createOptionsFromEnum } from "@/app/utils";
 import { FormikForm } from "@/app/components/commons/Form/FormikForm";
 import { FormikFormField } from "@/app/components/commons/Form/FormikFormField";
 import { FormikFormInputNumberField } from "@/app/components/commons/Form/FormikFormInputNumberField";

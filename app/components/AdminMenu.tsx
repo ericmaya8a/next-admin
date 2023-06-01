@@ -8,7 +8,7 @@ import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { PrimeIcons } from "primereact/api";
-import { setSeverity } from "../clientUtils";
+import { setSeverity } from "../utils";
 import { CONSTANTS } from "../constatnts";
 import SignUser from "./SignUser";
 

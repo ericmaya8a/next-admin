@@ -8,7 +8,7 @@ import {
   createAvailableRanks,
   createOptionsFromEnum,
   handleInvalidClassName,
-} from "@/app/clientUtils";
+} from "@/app/utils";
 import { ModalButtonWrapper } from "@/app/components/commons/ModalButtonWrapper";
 import { Row } from "@/app/components/commons/Row";
 import { PromotionT, useStudent } from "../student-context";

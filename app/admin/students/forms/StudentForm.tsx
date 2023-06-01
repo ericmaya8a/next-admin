@@ -4,7 +4,7 @@ import { TfiRuler } from "react-icons/tfi";
 import { GiWeight } from "react-icons/gi";
 import { Message } from "primereact/message";
 import { ToastMessage } from "primereact/toast";
-import { createOptionsFromEnum } from "@/app/clientUtils";
+import { createOptionsFromEnum } from "@/app/utils";
 import { CONSTANTS } from "@/app/constatnts";
 import { FormikForm } from "@/app/components/commons/Form/FormikForm";
 import { FormikFormField } from "@/app/components/commons/Form/FormikFormField";
