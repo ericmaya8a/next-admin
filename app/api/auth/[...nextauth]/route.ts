@@ -1,8 +1,8 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { comparePassword } from "@/app/utils";
 import { getUserByEmail } from "@/app/server/users";
-import { comparePassword } from "@/app/server/utils";
 
 export const authOptions: NextAuthOptions = {
   session: {

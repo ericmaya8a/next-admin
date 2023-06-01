@@ -1,8 +1,8 @@
 import { prisma } from "@/server/db/client";
 import { User } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { hashPassword } from "../utils";
 import { CONSTANTS } from "../constatnts";
-import { hashPassword } from "./utils";
 
 export async function getUserByEmail(email: string) {
   const user = await prisma.user.findUnique({ where: { email } });
