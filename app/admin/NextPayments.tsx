@@ -58,15 +58,17 @@ export function NextPayments({ data }: NextPaymentsProps) {
                   <span>{inscriptionDate}</span>
                 </div>
               </StudentContainer>
-              <Button
-                icon={<SiAmazonpay size={24} />}
-                rounded
-                aria-label="Payment"
-                onClick={() => {
-                  setSelectedStudent({ id, name, inscriptionDate });
-                  setIsOpenPaymentModal(true);
-                }}
-              />
+              {hasActionsPermission ? (
+                <Button
+                  icon={<SiAmazonpay size={24} />}
+                  rounded
+                  aria-label="Payment"
+                  onClick={() => {
+                    setSelectedStudent({ id, name, inscriptionDate });
+                    setIsOpenPaymentModal(true);
+                  }}
+                />
+              ) : null}
             </Wrapper>
           </React.Fragment>
         ))
