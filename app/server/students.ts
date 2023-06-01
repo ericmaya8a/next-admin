@@ -16,6 +16,7 @@ import {
   mapPromotion,
   sortByUpdatedAt,
 } from "../utils";
+import { addIncome, type IncomeItem } from "./income";
 
 export async function getStudents() {
   const students = await prisma.student.findMany({
@@ -277,17 +278,16 @@ export async function addPromotion({
 
     // Create Income record
     const student = await getStudentNameById(studentId);
-    await prisma.income.create({
-      data: {
-        date,
-        amount: price,
-        paymentType,
-        description: `${getFullName(
-          student!.firstName,
-          student?.lastName
-        )} - ${rank} - promotion. (${dateToString(date, "DD/MMM/YYYY")})`,
-      },
-    });
+    const incomeData: IncomeItem = {
+      date,
+      amount: price,
+      paymentType,
+      description: `${getFullName(
+        student!.firstName,
+        student?.lastName
+      )} - ${rank} - promotion. (${dateToString(date, "DD/MMM/YYYY")})`,
+    };
+    await addIncome(incomeData);
 
     return NextResponse.json({
       ok: true,

@@ -2,6 +2,7 @@ import { prisma } from "@/server/db/client";
 import { Gear, PaymentType } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { getFullName } from "../utils";
+import { addIncome, type IncomeItem } from "./income";
 import { getStudentNameById } from "./students";
 
 export async function addGear({
@@ -22,17 +23,15 @@ export async function addGear({
 
     // Create Income
     const student = await getStudentNameById(studentId!);
-    await prisma.income.create({
-      data: {
-        date: new Date(),
-        amount: price,
-        paymentType,
-        description: `${getFullName(
-          student!.firstName,
-          student?.lastName
-        )} - ${description}`,
-      },
-    });
+    const incomeData: IncomeItem = {
+      amount: price,
+      paymentType,
+      description: `${getFullName(
+        student!.firstName,
+        student?.lastName
+      )} - ${description}`,
+    };
+    await addIncome(incomeData);
 
     return NextResponse.json({
       ok: true,

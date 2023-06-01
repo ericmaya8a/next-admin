@@ -2,6 +2,7 @@ import { PaymentType, Uniform } from "@prisma/client";
 import { prisma } from "@/server/db/client";
 import { NextResponse } from "next/server";
 import { getFullName } from "../utils";
+import { addIncome, type IncomeItem } from "./income";
 import { getStudentNameById } from "./students";
 
 export async function addUniform({
@@ -26,17 +27,15 @@ export async function addUniform({
 
     // Create Income record
     const student = await getStudentNameById(studentId!);
-    await prisma.income.create({
-      data: {
-        date: new Date(),
-        amount: price,
-        paymentType,
-        description: `${getFullName(
-          student!.firstName,
-          student?.lastName
-        )} - Uniform /  ${type} - ${brand} (${size})`,
-      },
-    });
+    const incomeData: IncomeItem = {
+      amount: price,
+      description: `${getFullName(
+        student!.firstName,
+        student?.lastName
+      )} - Uniform /  ${type} - ${brand} (${size})`,
+      paymentType,
+    };
+    await addIncome(incomeData);
 
     return NextResponse.json({
       ok: true,

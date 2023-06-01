@@ -2,6 +2,7 @@ import { prisma } from "@/server/db/client";
 import { Tuition } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { dateToString, getDateInNumbers, getFullName } from "../utils";
+import { addIncome, type IncomeItem } from "./income";
 import { getStudentNameById } from "./students";
 
 export async function addTuition({
@@ -26,17 +27,16 @@ export async function addTuition({
 
     // Create Income record
     const student = await getStudentNameById(studentId);
-    await prisma.income.create({
-      data: {
-        date,
-        amount,
-        paymentType,
-        description: `${getFullName(
-          student!.firstName,
-          student?.lastName
-        )} - ${dateToString(date, "MMM - YYYY")}`,
-      },
-    });
+    const incomeData: IncomeItem = {
+      date,
+      amount,
+      paymentType,
+      description: `${getFullName(
+        student!.firstName,
+        student?.lastName
+      )} - ${dateToString(date, "MMM - YYYY")}`,
+    };
+    await addIncome(incomeData);
 
     return NextResponse.json({
       ok: true,
