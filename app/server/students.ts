@@ -7,15 +7,8 @@ import {
   Student,
 } from "@prisma/client";
 import { NextResponse } from "next/server";
-import {
-  dateToString,
-  getAge,
-  getDateInNumbers,
-  getDayNumber,
-  getFullName,
-  mapPromotion,
-  sortByUpdatedAt,
-} from "./utils";
+import { dateToString, getAge, getDateInNumbers, getDayNumber } from "../utils";
+import { getFullName, mapPromotion, sortByUpdatedAt } from "./utils";
 
 export async function getStudents() {
   const students = await prisma.student.findMany({

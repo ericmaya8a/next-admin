@@ -1,7 +1,8 @@
 import { prisma } from "@/server/db/client";
 import { Tuition } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { dateToString, getDateInNumbers, getFullName } from "./utils";
+import { dateToString, getDateInNumbers } from "../utils";
+import { getFullName } from "./utils";
 import { getStudentNameById } from "./students";
 
 export async function addTuition({
