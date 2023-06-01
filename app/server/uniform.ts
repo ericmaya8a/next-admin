@@ -1,7 +1,7 @@
 import { PaymentType, Uniform } from "@prisma/client";
 import { prisma } from "@/server/db/client";
 import { NextResponse } from "next/server";
-import { getFullName } from "./utils";
+import { getFullName } from "../utils";
 import { getStudentNameById } from "./students";
 
 export async function addUniform({

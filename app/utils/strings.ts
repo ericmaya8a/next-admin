@@ -21,3 +21,8 @@ export function getInitialsFromFullName(name: string) {
   const words = name.split(" ");
   return getInitials(words[0], words[1]);
 }
+
+export function getFullName(firstName: string, lastName?: string) {
+  if (!lastName) return firstName;
+  return `${firstName} ${lastName}`;
+}

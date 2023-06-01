@@ -1,7 +1,7 @@
 import { prisma } from "@/server/db/client";
 import { Gear, PaymentType } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { getFullName } from "./utils";
+import { getFullName } from "../utils";
 import { getStudentNameById } from "./students";
 
 export async function addGear({

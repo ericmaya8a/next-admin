@@ -12,10 +12,10 @@ import {
   getAge,
   getDateInNumbers,
   getDayNumber,
+  getFullName,
   mapPromotion,
   sortByUpdatedAt,
 } from "../utils";
-import { getFullName } from "./utils";
 
 export async function getStudents() {
   const students = await prisma.student.findMany({
